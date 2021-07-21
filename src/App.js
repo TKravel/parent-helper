@@ -1,7 +1,25 @@
-import React from "react";
+import React, {useState} from "react";
 
 
 function App() {
+  const [foods, setFoods] = useState(["pancakes", "ice cream"]);
+  const [foodInput, setFoodInput] = useState("");
+
+  function handleChange(e){
+    const inputData = e.target.value;
+
+    setFoodInput(inputData);
+  }
+
+  function handleClick(e){
+    setFoods(prevValue => {
+      return [...prevValue, foodInput]
+    })
+    setFoodInput("");
+
+    e.preventDefault();
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -9,23 +27,31 @@ function App() {
       </header>
       <form>
         <div>
-          <input type="text" placeholder="Enter food here..."></input>
-          <button>Add</button>
+          <label htmlFor="foodInput">Enter food</label>
+          <input type="text" name="foodInput" onChange={handleChange} value={foodInput} placeholder="Enter food here..." />
+          <button onClick={handleClick}>Add</button>
+          <ul>
+            {foods.map((food, index) => {
+              return (
+                  <li key={index} index={index}>{food}</li>
+              )
+            })}
+          </ul>
         </div>
         <div>
-          <label for="firstNapStart">Start of nap:</label>
+          <label htmlFor="firstNapStart">Start of nap:</label>
           <input type="time" id="firstNapStart" name="firstNapStart" />
-          <label for="firstNapEnd">End of nap:</label>
+          <label htmlFor="firstNapEnd">End of nap:</label>
           <input type="time" id="firstNapEnd" name="firstNapEnd" />
           <br />
-          <label for="secondNapStart">Start of nap:</label>
+          <label htmlFor="secondNapStart">Start of nap:</label>
           <input type="time" id="secondNapStart" name="secondNapStart" />
-          <label for="secondNapEnd">End of nap:</label>
+          <label htmlFor="secondNapEnd">End of nap:</label>
           <input type="time" id="secondNapEnd" name="secondNapEnd" />
           <br />
-          <label for="bedTime">Bed time:</label>
+          <label htmlFor="bedTime">Bed time:</label>
           <input type="time" id="bedTime" name="bedTime" />
-          <label for="wakeTime">Wake up:</label>
+          <label htmlFor="wakeTime">Wake up:</label>
           <input type="time" id="wakeTime" name="wakeTime" />
           <button>Submit</button>
         </div>
@@ -34,7 +60,7 @@ function App() {
           <button>-</button><button>+</button>
         </div>
         <div>
-          <label for="notes">Notes</label>
+          <label htmlFor="notes">Notes</label>
           <input type="text" placeholder="Quick notes..." name="notes"/>
           <button>Add Note</button>
         </div>
