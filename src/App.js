@@ -1,7 +1,7 @@
 import React, {useState} from "react";
-import FoodInput from "./components/FoodInput";
+import FoodSection from "./components/FoodSection";
 import SleepSection from "./components/SleepSection";
-
+import PottySection from "./components/PottySection";
 
 function App() {
 
@@ -10,12 +10,9 @@ function App() {
       <header className="App-header">
         <p>Hello world!</p>
       </header>
-      <FoodInput />
+      <FoodSection />
       <SleepSection />
-      <div>
-        <p>0</p>
-        <button>-</button><button>+</button>
-      </div>
+      <PottySection />
       <div>
         <label htmlFor="notes">Notes</label>
         <input type="text" placeholder="Quick notes..." name="notes"/>
