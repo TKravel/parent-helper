@@ -1,4 +1,4 @@
-// TODO: Break food data into breakfast, lunch, dinner, snacks.
+// TODO: Break data into breakfast, lunch, dinner, snacks.
 import React, {useState} from "react";
 
 function FoodInput(){
