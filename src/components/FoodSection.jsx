@@ -1,5 +1,6 @@
 // TODO: Break data into breakfast, lunch, dinner, snacks.
 import React, {useState} from "react";
+import TextInput from "./TextInput";
 
 function FoodInput(){
     const [foods, setFoods] = useState(["pancakes", "ice cream"]);
@@ -20,11 +21,13 @@ function FoodInput(){
 
     return (
         <div>
-          <form>
-            <label htmlFor="foodInput">Enter food</label>
-            <input type="text" name="foodInput" onChange={handleChange} value={foodInput} placeholder="Enter food here..." />
-            <button onClick={handleClick}>Add</button>
-          </form>
+          <TextInput 
+            name="foodInput"
+            placeholder="Enter food here..."
+            updateChange={handleChange}
+            updateState={handleClick}
+            stateData={foodInput}
+          />
           <ul>
             {foods.map((food, index) => {
               return (

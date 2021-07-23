@@ -1,7 +1,8 @@
-import React, {useState} from "react";
+import React from "react";
 import FoodSection from "./components/FoodSection";
 import SleepSection from "./components/SleepSection";
 import PottySection from "./components/PottySection";
+import NotesSection from "./components/NotesSection";
 
 function App() {
 
@@ -13,11 +14,7 @@ function App() {
       <FoodSection />
       <SleepSection />
       <PottySection />
-      <div>
-        <label htmlFor="notes">Notes</label>
-        <input type="text" placeholder="Quick notes..." name="notes"/>
-        <button>Add Note</button>
-      </div>
+      <NotesSection />
       <div>
         <button>Food</button>
         <button>Sleep</button>
