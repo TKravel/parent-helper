@@ -3,8 +3,14 @@ import React, {useState} from "react";
 function SleepInput(props){
     const [display, setDisplay] = useState(true);
 
-    function handleBlur(e){
-    setDisplay(false);
+    function handleBlur(){
+        if(props.data !== ""){
+            setDisplay(false);
+        }
+    }
+
+    function editTime(){
+        setDisplay(true);
     }
 
     return(
@@ -15,7 +21,7 @@ function SleepInput(props){
             <input type="time" id={props.name} name={props.name} onChange={props.change} onBlur={handleBlur} value={props.data}/></> :
             <>
             <p>{props.label}</p> 
-            <p>{props.data}</p>
+            <p onClick={editTime}>{props.data}</p>
             </>
             }
         </div>

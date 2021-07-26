@@ -2,8 +2,8 @@
 import React, {useState} from "react";
 import TextInput from "./TextInput";
 
-function FoodInput(){
-    const [foods, setFoods] = useState(["pancakes", "ice cream"]);
+function FoodInput(props){
+    const [foods, setFoods] = useState([]);
     const [foodInput, setFoodInput] = useState("");
 
     function handleChange(e){
@@ -20,8 +20,9 @@ function FoodInput(){
     }
 
     return (
-        <div>
+        <div id="foodSection" className={props.currentDisplay}>
           <TextInput 
+            label="Enter food"
             name="foodInput"
             placeholder="Enter food here..."
             updateChange={handleChange}

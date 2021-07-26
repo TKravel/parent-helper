@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import TextInput from "./TextInput";
 
-function NotesSection(){
+function NotesSection(props){
     const [notes, setNotes] = useState([]);
     const [notesInput, setNotesInput] = useState("");
 
@@ -19,8 +19,9 @@ function NotesSection(){
     }
 
     return(
-        <div>
+        <div id="notesSection" className={props.currentDisplay}>
         <TextInput 
+            label="Enter notes"
             name="notes"
             placeholder="Quick notes..."
             updateChange={handleChange}

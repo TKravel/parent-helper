@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import SleepInput from "./SleepInput";
 
-function SleepSection(){
+function SleepSection(props){
 
     const [naps, setNaps] = useState({
         wakeUp: '',
@@ -97,7 +97,7 @@ function SleepSection(){
     }
 
     return(
-    <div>
+    <div id="sleepSection" className={props.currentDisplay}>
         <SleepInput 
             key="0" 
             change={handleChange}
@@ -122,21 +122,21 @@ function SleepSection(){
         <SleepInput
             key="3"
             change={handleChange}
-            data={naps.firstNapEnd}
+            data={naps.secondNapStart}
             name="secondNapStart"
             label="Start of nap:"
         />
         <SleepInput
             key="4"
             change={handleChange}
-            data={naps.firstNapEnd}
+            data={naps.secondNapEnd}
             name="secondNapEnd"
             label="End of nap:"
         />
         <SleepInput
             key="5"
             change={handleChange}
-            data={naps.firstNapEnd}
+            data={naps.bedTime}
             name="bedTime"
             label="Bed time:"
         />
