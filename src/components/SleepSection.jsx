@@ -15,17 +15,27 @@ function SleepSection(props){
     function handleChange(e){
     e.preventDefault();
     const userData = e.target.value;
+    let hours = userData.substring(0,2);
+    const minutes = userData.substring(3,5);
     const time = e.target.name;
 
+
+
+    const AmOrPm = hours >= 12 ? 'pm' : 'am';
+    hours = (hours % 12) || 12;
+    const time12hrFormat = hours + ":" + minutes + " " + AmOrPm;
+
+
+
     console.log(e);
-    console.log(time);
-    console.log(userData);
+    console.log(hours);
+    console.log(minutes);
 
     switch(time){
         case "wakeTime":
         setNaps(prevValue => { 
             return {
-            wakeUp: userData,
+            wakeUp: time12hrFormat,
             firstNapStart: prevValue.firstNapStart,
             firstNapEnd: prevValue.firstNapEnd,
             secondNapStart: prevValue.secondNapStart,
@@ -39,7 +49,7 @@ function SleepSection(props){
         setNaps(prevValue => { 
             return {
             wakeUp: prevValue.wakeUp,
-            firstNapStart: userData,
+            firstNapStart: time12hrFormat,
             firstNapEnd: prevValue.firstNapEnd,
             secondNapStart: prevValue.secondNapStart,
             secondNapEnd: prevValue.secondNapEnd,
@@ -51,7 +61,7 @@ function SleepSection(props){
             return {
             wakeUp: prevValue.wakeUp,
             firstNapStart: prevValue.firstNapStart,
-            firstNapEnd: userData,
+            firstNapEnd: time12hrFormat,
             secondNapStart: prevValue.secondNapStart,
             secondNapEnd: prevValue.secondNapEnd,
             bedTime: prevValue.bedTime}
@@ -63,7 +73,7 @@ function SleepSection(props){
             wakeUp: prevValue.wakeUp,
             firstNapStart: prevValue.firstNapStart,
             firstNapEnd: prevValue.firstNapEnd,
-            secondNapStart: userData,
+            secondNapStart: time12hrFormat,
             secondNapEnd: prevValue.secondNapEnd,
             bedTime: prevValue.bedTime}
         });
@@ -75,7 +85,7 @@ function SleepSection(props){
             firstNapStart: prevValue.firstNapStart,
             firstNapEnd: prevValue.firstNapEnd,
             secondNapStart: prevValue.secondNapStart,
-            secondNapEnd: userData,
+            secondNapEnd: time12hrFormat,
             bedTime: prevValue.bedTime}
         });
         break;
@@ -87,7 +97,7 @@ function SleepSection(props){
             firstNapEnd: prevValue.firstNapEnd,
             secondNapStart: prevValue.secondNapStart,
             secondNapEnd: prevValue.secondNapEnd,
-            bedTime: userData}
+            bedTime: time12hrFormat}
         });
         break;
         default: 
