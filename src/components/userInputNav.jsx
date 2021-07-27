@@ -1,46 +1,46 @@
 import React from "react";
 
 function UserInputNav(props){
-
     function handleClick(e){
         const selection = e.target.name;
         
         switch(selection){
             case "foodSection":
                 props.updateDisplay({
-                    foodSection: "sectionOpen",
-                    sleepSection: "sectionHidden",
-                    pottySection: "sectionHidden",
-                    notesSection: "sectionHidden"
+                    foodSection: true,
+                    sleepSection: false,
+                    pottySection: false,
+                    notesSection: false
                 })
                 break;
             case "sleepSection":
                 props.updateDisplay({
-                    foodSection: "sectionHidden",
-                    sleepSection: "sectionOpen",
-                    pottySection: "sectionHidden",
-                    notesSection: "sectionHidden"
+                    foodSection: false,
+                    sleepSection: true,
+                    pottySection: false,
+                    notesSection: false
                 })
                 break;
             case "pottySection":
                 props.updateDisplay({
-                    foodSection: "sectionHidden",
-                    sleepSection: "sectionHidden",
-                    pottySection: "sectionOpen",
-                    notesSection: "sectionHidden"
+                    foodSection: false,
+                    sleepSection: false,
+                    pottySection: true,
+                    notesSection: false
                 })
                 break;
             case "notesSection":
                 props.updateDisplay({
-                    foodSection: "sectionHidden",
-                    sleepSection: "sectionHidden",
-                    pottySection: "sectionHidden",
-                    notesSection: "sectionOpen"
+                    foodSection: false,
+                    sleepSection: false,
+                    pottySection: false,
+                    notesSection: true
                 })
                 break;
             default:
                 console.error();
-        }   
+        }
+        e.preventDefault();
     }
     return(
         <div>

@@ -13,11 +13,10 @@ function SleepSection(props){
     })
 
     function handleChange(e){
-    e.preventDefault();
     const userData = e.target.value;
     let hours = userData.substring(0,2);
     const minutes = userData.substring(3,5);
-    const time = e.target.name;
+    const sleepInputFocused = e.target.name;
 
 
 
@@ -25,13 +24,7 @@ function SleepSection(props){
     hours = (hours % 12) || 12;
     const time12hrFormat = hours + ":" + minutes + " " + AmOrPm;
 
-
-
-    console.log(e);
-    console.log(hours);
-    console.log(minutes);
-
-    switch(time){
+    switch(sleepInputFocused){
         case "wakeTime":
         setNaps(prevValue => { 
             return {

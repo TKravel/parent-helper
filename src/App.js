@@ -6,11 +6,11 @@ import NotesSection from "./components/NotesSection";
 import UserInputNav from "./components/userInputNav";
 
 function App() {
-  const [sectionDisplay, setSectionDisplay] = useState({
-    foodSection: "sectionOpen",
-    sleepSection: "sectionHidden",
-    pottySection: "sectionHidden",
-    notesSection: "sectionHidden"
+  const [display, setDisplay] = useState({
+    foodSection: true,
+    sleepSection: false,
+    pottySection: false,
+    notesSection: false 
   });
 
   return (
@@ -18,11 +18,17 @@ function App() {
       <header className="App-header">
         <p>Hello world!</p>
       </header>
-      <FoodSection currentDisplay={sectionDisplay.foodSection}/>
-      <SleepSection currentDisplay={sectionDisplay.sleepSection}/>
-      <PottySection currentDisplay={sectionDisplay.pottySection}/>
-      <NotesSection currentDisplay={sectionDisplay.notesSection}/>
-      <UserInputNav updateDisplay={setSectionDisplay}/>
+      { display.foodSection ? 
+      <FoodSection /> : null }
+      { display.sleepSection ? 
+      <SleepSection /> : null}
+      { display.pottySection ? 
+      <PottySection /> : null}
+      { display.notesSection ? 
+      <NotesSection /> : null}
+      <UserInputNav 
+        updateDisplay={setDisplay}
+      />
     </div>
   );
 }
