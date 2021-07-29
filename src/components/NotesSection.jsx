@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import TextInput from "./TextInput";
+import { globalData } from "../App";
 
 function NotesSection(props){
-    const [notes, setNotes] = useState([]);
+    const [notes, setNotes] = useState([])
     const [notesInput, setNotesInput] = useState("");
+
+    if(notes.length === 0 && globalData.notes.length > 0){
+        setNotes(globalData.notes);
+    }
 
     function handleChange(e){
         const inputData = e.target.value;
@@ -12,10 +17,11 @@ function NotesSection(props){
 
     function handleClick(e){
         setNotes(prevValue => {
-            return [...prevValue, notesInput]
-            })
-            setNotesInput("");
-            e.preventDefault();
+            return [...prevValue, notesInput];
+        })
+        globalData.notes.push(notesInput);
+        setNotesInput("");
+        e.preventDefault();
     }
 
     return(

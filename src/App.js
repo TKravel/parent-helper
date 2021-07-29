@@ -5,7 +5,41 @@ import PottySection from "./components/PottySection";
 import NotesSection from "./components/NotesSection";
 import UserInputNav from "./components/userInputNav";
 
+const globalData = {
+  food: [],
+  sleep: {
+    wakeUp: '',
+    firstNapStart: '',
+    firstNapEnd: '',
+    secondNapStart: '',
+    secondNapEnd: '',
+    bedTime: ''
+  },
+  poop: 0,
+  notes: []
+}
+
+function updateGlobalData(submitID, data){
+  
+  switch(submitID){
+    case "addFoodItem":
+      globalData.food.push(data);
+      break;
+    case "addNote":
+      globalData.notes.push(data);
+      break;
+    case "pottyCounter":
+      globalData.poop = data;
+      break;
+    default:
+      console.log("error");
+  }
+  
+  console.log(globalData);
+}
+
 function App() {
+
   const [display, setDisplay] = useState({
     foodSection: true,
     sleepSection: false,
@@ -19,13 +53,13 @@ function App() {
         <p>Hello world!</p>
       </header>
       { display.foodSection ? 
-      <FoodSection /> : null }
+        <FoodSection /> : null }
       { display.sleepSection ? 
-      <SleepSection /> : null}
+        <SleepSection /> : null}
       { display.pottySection ? 
-      <PottySection /> : null}
+        <PottySection /> : null}
       { display.notesSection ? 
-      <NotesSection /> : null}
+        <NotesSection /> : null}
       <UserInputNav 
         updateDisplay={setDisplay}
       />
@@ -34,3 +68,4 @@ function App() {
 }
 
 export default App;
+export { globalData } ;

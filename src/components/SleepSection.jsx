@@ -1,28 +1,37 @@
 import React, {useState} from "react";
 import SleepInput from "./SleepInput";
+import { globalData } from "../App";
 
-function SleepSection(props){
+function SleepSection(){
 
     const [naps, setNaps] = useState({
-        wakeUp: '',
-        firstNapStart: '',
-        firstNapEnd: '',
-        secondNapStart: '',
-        secondNapEnd: '',
-        bedTime: ''
+        wakeUp: "",
+        firstNapStart: "",
+        firstNapEnd: "",
+        secondNapStart: "",
+        secondNapEnd: "",
+        bedTime: ""
     })
 
+    Object.entries(naps).forEach(([key, value], index) => {
+        console.log(key, value, index);
+    })
+
+    if(naps.wakeUp === "" && globalData.sleep.wakeUp !== ""){
+        setNaps(globalData.sleep);
+    }
+
     function handleChange(e){
-    const userData = e.target.value;
-    let hours = userData.substring(0,2);
-    const minutes = userData.substring(3,5);
+    const time12hrFormat = e.target.value;
     const sleepInputFocused = e.target.name;
 
 
-
-    const AmOrPm = hours >= 12 ? 'pm' : 'am';
-    hours = (hours % 12) || 12;
-    const time12hrFormat = hours + ":" + minutes + " " + AmOrPm;
+    // let hours = userData.substring(0,2);
+    // const minutes = userData.substring(3,5);
+    
+    // const AmOrPm = hours >= 12 ? 'pm' : 'am';
+    // hours = (hours % 12) || 12;
+    // const time12hrFormat = hours + ":" + minutes + " " + AmOrPm;
 
     switch(sleepInputFocused){
         case "wakeTime":
@@ -36,7 +45,7 @@ function SleepSection(props){
             bedTime: prevValue.bedTime
             }
         });
-        
+        globalData.sleep.wakeUp = time12hrFormat;
         break;
         case "firstNapStart":
         setNaps(prevValue => { 
@@ -48,6 +57,7 @@ function SleepSection(props){
             secondNapEnd: prevValue.secondNapEnd,
             bedTime: prevValue.bedTime}
         });
+        globalData.sleep.firstNapStart = time12hrFormat;
         break;
         case "firstNapEnd":
         setNaps(prevValue => { 
@@ -59,6 +69,7 @@ function SleepSection(props){
             secondNapEnd: prevValue.secondNapEnd,
             bedTime: prevValue.bedTime}
         });
+        globalData.sleep.firstNapEnd = time12hrFormat;
         break;
         case "secondNapStart":
         setNaps(prevValue => { 
@@ -70,6 +81,7 @@ function SleepSection(props){
             secondNapEnd: prevValue.secondNapEnd,
             bedTime: prevValue.bedTime}
         });
+        globalData.sleep.secondNapStart = time12hrFormat;
         break;
         case "secondNapEnd":
         setNaps(prevValue => { 
@@ -81,6 +93,7 @@ function SleepSection(props){
             secondNapEnd: time12hrFormat,
             bedTime: prevValue.bedTime}
         });
+        globalData.sleep.secondNapEnd = time12hrFormat;
         break;
         case "bedTime":
         setNaps(prevValue => { 
@@ -92,15 +105,17 @@ function SleepSection(props){
             secondNapEnd: prevValue.secondNapEnd,
             bedTime: time12hrFormat}
         });
+        globalData.sleep.bedTime = time12hrFormat;
         break;
         default: 
         console.log(Error);
         break;
         }
+        e.preventDefault();
     }
 
     return(
-    <div id="sleepSection" className={props.currentDisplay}>
+    <div id="sleepSection">
         <SleepInput 
             key="0" 
             change={handleChange}

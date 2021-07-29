@@ -1,11 +1,15 @@
 import React, {useState} from "react";
+// import { globalData } from "../App";
 
 function SleepInput(props){
     const [display, setDisplay] = useState(true);
 
-    function handleBlur(){
+    
+
+    function handleBlur(e){
         if(props.data !== ""){
             setDisplay(false);
+            e.preventDefault();
         }
     }
 
