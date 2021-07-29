@@ -31,7 +31,8 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>Hello world!</p>
+        <p>Parent Helper</p>
+        <p>A daily log that is connected where ever you go</p>
       </header>
       { display.foodSection ? 
         <FoodSection /> : null }

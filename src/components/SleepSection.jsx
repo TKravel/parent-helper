@@ -159,6 +159,9 @@ function SleepSection(){
 
     return(
     <div id="sleepSection">
+        <header>
+            <h1>Sleep tracker</h1>
+        </header>
         <SleepInput
             change={handleChange}
             data={naps.wakeUp}
@@ -208,7 +211,7 @@ function SleepSection(){
             name="bedTime"
             label="Bed time:"
         />
-        <button>Submit</button>
+        <button>Save</button>
     </div>
     )
 }

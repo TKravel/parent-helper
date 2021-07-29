@@ -27,6 +27,9 @@ function FoodInput(props){
 
     return (
         <div id="foodSection" className={props.currentDisplay}>
+          <header>
+            <h1>Food tracker</h1>
+          </header>
           <TextInput 
             label="Enter food"
             name="foodInput"
@@ -43,6 +46,7 @@ function FoodInput(props){
               )
             })}
           </ul>
+          <button>Save</button>
         </div>
     )
 }

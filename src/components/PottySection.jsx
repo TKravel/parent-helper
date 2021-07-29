@@ -11,12 +11,17 @@ function PottySection(props){
 
     return (
         <div id="pottySection" className={props.currentDisplay}>
-        <p>Potty count</p>
-        <p>{count}</p>
-        <Counter
-            currentCount={count}
-            updateCount={setCount}
-        />
+            <header>
+                <h1>Poop tracker</h1>
+            </header>
+            <p>Potty count</p>
+            <p>{count}</p>
+            <Counter
+                currentCount={count}
+                updateCount={setCount}
+            />
+            <br />
+            <button>Save</button>
       </div>
     )
 }

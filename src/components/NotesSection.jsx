@@ -26,21 +26,25 @@ function NotesSection(props){
 
     return(
         <div id="notesSection" className={props.currentDisplay}>
-        <TextInput 
-            label="Enter notes"
-            name="notes"
-            placeholder="Quick notes..."
-            updateChange={handleChange}
-            updateState={handleClick}
-            stateData={notesInput}
-          />
-          <ul>
-              {notes.map((note, index) => {
-                  return(
-                      <li key={index}>{note}</li>
-                  )
-              })}
-          </ul>
+            <header>
+                <h1>Note tracker</h1>
+            </header>
+            <TextInput 
+                label="Enter notes"
+                name="notes"
+                placeholder="Quick notes..."
+                updateChange={handleChange}
+                updateState={handleClick}
+                stateData={notesInput}
+            />
+            <ul>
+                {notes.map((note, index) => {
+                    return(
+                        <li key={index}>{note}</li>
+                    )
+                })}
+            </ul>
+            <button>Save</button>
         </div>
 
     )
