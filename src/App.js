@@ -19,25 +19,6 @@ const globalData = {
   notes: []
 }
 
-function updateGlobalData(submitID, data){
-  
-  switch(submitID){
-    case "addFoodItem":
-      globalData.food.push(data);
-      break;
-    case "addNote":
-      globalData.notes.push(data);
-      break;
-    case "pottyCounter":
-      globalData.poop = data;
-      break;
-    default:
-      console.log("error");
-  }
-  
-  console.log(globalData);
-}
-
 function App() {
 
   const [display, setDisplay] = useState({

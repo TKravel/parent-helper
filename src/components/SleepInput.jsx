@@ -2,12 +2,12 @@ import React, {useState} from "react";
 // import { globalData } from "../App";
 
 function SleepInput(props){
-    const [display, setDisplay] = useState(true);
+    const [display, setDisplay] = useState(false);
 
     
 
     function handleBlur(e){
-        if(props.data !== ""){
+        if(props.data !== "--:--"){
             setDisplay(false);
             e.preventDefault();
         }
