@@ -1,19 +1,13 @@
 import React, {useState} from "react";
-// import { globalData } from "../App";
 
-function SleepInput(props){
+function SleepInput({ name, label, napData, onChange }){
     const [display, setDisplay] = useState(false);
 
-    
-    
-    
-
     function handleBlur(e){
-        if(props.data !== "--:--"){
+        if(napData !== "--:--"){
             setDisplay(false);
             e.preventDefault();
         }
-        console.log(e.target.name);
     }
 
     function editTime(){
@@ -32,16 +26,18 @@ function SleepInput(props){
         <div>
             {display === true ? 
             <>
-            <label htmlFor={props.name}>{props.label}</label>
-            <input type="time" id={props.name} name={props.name} onChange={props.change} onBlur={handleBlur} value={props.data}/></> :
+            <label htmlFor={name}>{label}</label>
+            <input type="time" id={name} name={name} onChange={onChange} onBlur={handleBlur} value={napData}/></> :
             <>
-            <p>{props.label}</p> 
-            <p onClick={editTime}>
-                { props.data === "00:00" ?
-                    props.data :
-                    convertTo12HR(props.data)
-                }
-            </p>
+            <p>
+                {label}
+                <span onClick={editTime}>
+                    { napData === "00:00" ?
+                        napData :
+                        convertTo12HR(napData)
+                    }
+                </span>
+            </p> 
             </>
             }
         </div>

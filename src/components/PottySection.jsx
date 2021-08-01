@@ -1,24 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import Counter from "./Counter";
-import { globalData } from "../App"
+import Header from "./Header";
 
-function PottySection(props){
-    const [count, setCount] = useState(0);
-
-    if(count === 0 && globalData.poop > 1){
-        setCount(globalData.poop);
-    }
-
+function PottySection({ pottyData, setPottyData }){
+    
     return (
-        <div id="pottySection" className={props.currentDisplay}>
-            <header>
-                <h1>Poop tracker</h1>
-            </header>
+        <div id="pottySection" >
+            <Header headerText="Poop tracker" />
             <p>Potty count</p>
-            <p>{count}</p>
+            <p>{pottyData}</p>
             <Counter
-                currentCount={count}
-                updateCount={setCount}
+                currentCount={pottyData}
+                updateCount={setPottyData}
             />
             <br />
             <button>Save</button>

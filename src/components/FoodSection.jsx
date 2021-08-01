@@ -1,15 +1,11 @@
 // TODO: Break data into breakfast, lunch, dinner, snacks.
 import React, {useState} from "react";
 import TextInput from "./TextInput";
-import { globalData } from "../App";
+import Header from "./Header";
 
-function FoodInput(props){
-    const [food, setFood] = useState([]);
+function FoodInput({ foodData, setFoodData }){ 
+    
     const [foodInput, setFoodInput] = useState("");
-
-    if(food.length === 0 && globalData.food.length > 0){
-      setFood(globalData.food);
-  }
 
     function handleChange(e){
         const inputData = e.target.value;
@@ -17,19 +13,16 @@ function FoodInput(props){
     }
 
     function handleClick(e){
-        setFood(prevValue => {
-          return [...prevValue, foodInput];
-        })
-        globalData.food.push(foodInput);
-        setFoodInput("");
-        e.preventDefault();
+      setFoodData(prevValue => {
+        return [...prevValue, foodInput];
+      })
+      setFoodInput("");
+      e.preventDefault();
     }
 
     return (
-        <div id="foodSection" className={props.currentDisplay}>
-          <header>
-            <h1>Food tracker</h1>
-          </header>
+        <div id="foodSection" >
+          <Header headerText="Food tracker" />
           <TextInput 
             label="Enter food"
             name="foodInput"
@@ -40,7 +33,7 @@ function FoodInput(props){
             stateData={foodInput}
           />
           <ul>
-            {food.map((food, index) => {
+            {foodData.map((food, index) => {
               return (
                   <li key={index} index={index}>{food}</li>
               )

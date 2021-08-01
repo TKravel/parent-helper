@@ -1,14 +1,10 @@
 import React, { useState } from "react";
 import TextInput from "./TextInput";
-import { globalData } from "../App";
+import Header from "./Header";
 
-function NotesSection(props){
-    const [notes, setNotes] = useState([])
+function NotesSection({ noteData, setNoteData }){
+    
     const [notesInput, setNotesInput] = useState("");
-
-    if(notes.length === 0 && globalData.notes.length > 0){
-        setNotes(globalData.notes);
-    }
 
     function handleChange(e){
         const inputData = e.target.value;
@@ -16,19 +12,16 @@ function NotesSection(props){
     }
 
     function handleClick(e){
-        setNotes(prevValue => {
+        setNoteData(prevValue => {
             return [...prevValue, notesInput];
         })
-        globalData.notes.push(notesInput);
         setNotesInput("");
         e.preventDefault();
     }
 
     return(
-        <div id="notesSection" className={props.currentDisplay}>
-            <header>
-                <h1>Note tracker</h1>
-            </header>
+        <div id="notesSection">
+            <Header headerText="Note tracker" />
             <TextInput 
                 label="Enter notes"
                 name="notes"
@@ -38,7 +31,7 @@ function NotesSection(props){
                 stateData={notesInput}
             />
             <ul>
-                {notes.map((note, index) => {
+                {noteData.map((note, index) => {
                     return(
                         <li key={index}>{note}</li>
                     )

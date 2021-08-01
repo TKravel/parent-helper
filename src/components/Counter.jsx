@@ -1,25 +1,20 @@
 import React from "react";
-import { globalData } from "../App";
 
-function Counter(props){
+function Counter({ currentCount, updateCount }){
     
     function increaseCount(){
-        props.updateCount(prevCount => {
+        updateCount(prevCount => {
             return prevCount + 1;
         })
-        globalData.poop += 1;
-        console.log(globalData.poop);
     }
 
     function decreaseCount(){
-        if(props.currentCount === 0){
+        if(currentCount === 0){
             return;
         } else {
-            props.updateCount(prevCount => {
+            updateCount(prevCount => {
                 return prevCount - 1;
             })
-            globalData.poop -= 1;
-            console.log(globalData.poop);
         }
     }
 

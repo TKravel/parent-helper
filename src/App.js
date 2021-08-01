@@ -21,12 +21,37 @@ const globalData = {
 
 function App() {
 
+  // Section display state
+
   const [display, setDisplay] = useState({
     foodSection: true,
     sleepSection: false,
     pottySection: false,
     notesSection: false 
   });
+
+  // Food tracker State
+
+  const [food, setFood] = useState([]);
+
+  // Sleep tracker State
+
+  const [naps, setNaps] = useState({
+    wakeUp: "00:00",
+    firstNapStart: "00:00",
+    firstNapEnd: "00:00",
+    secondNapStart: "00:00",
+    secondNapEnd: "00:00",
+    bedTime: "00:00"
+})
+
+  // Potty tracker state
+
+  const [count, setCount] = useState(0);
+
+  //  Note tracker state
+
+  const [notes, setNotes] = useState([])
 
   return (
     <div className="App">
@@ -35,13 +60,13 @@ function App() {
         <p>A daily log that is connected where ever you go</p>
       </header>
       { display.foodSection ? 
-        <FoodSection /> : null }
+        <FoodSection foodData={food} setFoodData={setFood}/> : null }
       { display.sleepSection ? 
-        <SleepSection /> : null}
+        <SleepSection napData={naps} setNapData={setNaps}/> : null}
       { display.pottySection ? 
-        <PottySection /> : null}
+        <PottySection pottyData={count} setPottyData={setCount}/> : null}
       { display.notesSection ? 
-        <NotesSection /> : null}
+        <NotesSection noteData={notes} setNoteData={setNotes}/> : null}
       <UserInputNav 
         updateDisplay={setDisplay}
       />
