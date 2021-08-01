@@ -1,160 +1,52 @@
 import React, {useState} from "react";
 import SleepInput from "./SleepInput";
 import { globalData } from "../App";
+import NapError from "./NapError";
+
 
 function SleepSection(){
-
+   
     const [naps, setNaps] = useState({
-        wakeUp: "--:--",
-        firstNapStart: "--:--",
-        firstNapEnd: "--:--",
-        secondNapStart: "--:--",
-        secondNapEnd: "--:--",
-        bedTime: "--:--"
+        wakeUp: "00:00",
+        firstNapStart: "00:00",
+        firstNapEnd: "00:00",
+        secondNapStart: "00:00",
+        secondNapEnd: "00:00",
+        bedTime: "00:00"
     })
-    const [napDisplay, setNapDisplay] = useState({
-        nap1: false,
-        nap2: false
-    })
+    const [openNap1, setOpenNap1] = useState(false);
+    const [openNap2, setOpenNap2] = useState(false);
+    
+    
 
-    Object.entries(naps).forEach(([key, value], index) => {
-        console.log(key, value, index);
-    })
+    // Object.entries(naps).forEach(([key, value], index) => {
+    //     console.log(key, value, index);
+    // })
 
     if(naps.wakeUp === "" && globalData.sleep.wakeUp !== ""){
         setNaps(globalData.sleep);
     }
 
+        //     const date = new Date();
+    // const hours = date.getHours();
+    // const minutes = date.getMinutes();
+
+    // const currentTime = hours + ":" + minutes;
     function handleChange(e){
-    const time12hrFormat = e.target.value;
-    const sleepInputFocused = e.target.name;
-
-
-    // let hours = userData.substring(0,2);
-    // const minutes = userData.substring(3,5);
-    
-    // const AmOrPm = hours >= 12 ? 'pm' : 'am';
-    // hours = (hours % 12) || 12;
-    // const time12hrFormat = hours + ":" + minutes + " " + AmOrPm;
-
-    switch(sleepInputFocused){
-        case "wakeTime":
-            setNaps(prevValue => { 
-                return {
-                wakeUp: time12hrFormat,
-                firstNapStart: prevValue.firstNapStart,
-                firstNapEnd: prevValue.firstNapEnd,
-                secondNapStart: prevValue.secondNapStart,
-                secondNapEnd: prevValue.secondNapEnd,
-                bedTime: prevValue.bedTime
-                }
-            });
-            globalData.sleep.wakeUp = time12hrFormat;
-            break;
-        case "firstNapStart":
-            setNaps(prevValue => { 
-                return {
-                wakeUp: prevValue.wakeUp,
-                firstNapStart: time12hrFormat,
-                firstNapEnd: prevValue.firstNapEnd,
-                secondNapStart: prevValue.secondNapStart,
-                secondNapEnd: prevValue.secondNapEnd,
-                bedTime: prevValue.bedTime}
-            });
-            globalData.sleep.firstNapStart = time12hrFormat;
-            break;
-        case "firstNapEnd":
-            setNaps(prevValue => { 
-                return {
-                wakeUp: prevValue.wakeUp,
-                firstNapStart: prevValue.firstNapStart,
-                firstNapEnd: time12hrFormat,
-                secondNapStart: prevValue.secondNapStart,
-                secondNapEnd: prevValue.secondNapEnd,
-                bedTime: prevValue.bedTime}
-            });
-            globalData.sleep.firstNapEnd = time12hrFormat;
-            break;
-        case "secondNapStart":
-            setNaps(prevValue => { 
-                return {
-                wakeUp: prevValue.wakeUp,
-                firstNapStart: prevValue.firstNapStart,
-                firstNapEnd: prevValue.firstNapEnd,
-                secondNapStart: time12hrFormat,
-                secondNapEnd: prevValue.secondNapEnd,
-                bedTime: prevValue.bedTime}
-            });
-            globalData.sleep.secondNapStart = time12hrFormat;
-            break;
-        case "secondNapEnd":
-            setNaps(prevValue => { 
-                return {
-                wakeUp: prevValue.wakeUp,
-                firstNapStart: prevValue.firstNapStart,
-                firstNapEnd: prevValue.firstNapEnd,
-                secondNapStart: prevValue.secondNapStart,
-                secondNapEnd: time12hrFormat,
-                bedTime: prevValue.bedTime}
-            });
-            globalData.sleep.secondNapEnd = time12hrFormat;
-            break;
-        case "bedTime":
-            setNaps(prevValue => { 
-                return {
-                wakeUp: prevValue.wakeUp,
-                firstNapStart: prevValue.firstNapStart,
-                firstNapEnd: prevValue.firstNapEnd,
-                secondNapStart: prevValue.secondNapStart,
-                secondNapEnd: prevValue.secondNapEnd,
-                bedTime: time12hrFormat}
-            });
-            globalData.sleep.bedTime = time12hrFormat;
-            break;
-        default: 
-            console.log(Error);
-            break;
-        }
+        const { name, value } = e.target;
+        setNaps( values => {
+            return {...values,
+            [name]: value }
+        })
         e.preventDefault();
     }
 
-    function toggleSectionDisplay(e){
-        const pressedButton = e.target.name;
-        if(pressedButton === "nap1"){
-            if(napDisplay.nap1 === false){
-                setNapDisplay(prevValue => {
-                    return {
-                        nap1: true,
-                        nap2: prevValue.nap2
-                    }
-                });
-            } else {
-                setNapDisplay(prevValue => {
-                    return {
-                        nap1: false,
-                        nap2: prevValue.nap2
-                    }
-                });
-            }
-        } else if(pressedButton === "nap2"){
-            if(napDisplay.nap2 === false){
-                setNapDisplay(prevValue => {
-                    return {
-                        nap1: prevValue.nap1,
-                        nap2: true
-                    }
-                });
-            } else {
-                setNapDisplay(prevValue => {
-                    return {
-                        nap1: prevValue.nap1,
-                        nap2: false
-                    }
-                });
-            }
-        }
+    function toggleNap1(){
+        setOpenNap1(!openNap1);
+    }
 
-
+    function toggleNap2(){
+        setOpenNap2(!openNap2);
     }
 
     return(
@@ -165,44 +57,48 @@ function SleepSection(){
         <SleepInput
             change={handleChange}
             data={naps.wakeUp}
-            name="wakeTime"
+            name="wakeUp"
             label="Wake up:"
         />
-        { napDisplay.nap1 === false ? 
-            <button onClick={toggleSectionDisplay} name="nap1">Add nap</button> : 
+        { openNap1 === false ? 
+            <button onClick={toggleNap1}>Add nap</button> : 
             <>
-            <button onClick={toggleSectionDisplay} name="nap1">-</button>
+            <button onClick={toggleNap1}>-</button>
             <SleepInput
                 change={handleChange}
                 data={naps.firstNapStart}
                 name="firstNapStart"
                 label="Start of nap:"
             />
+            <NapError napData={naps} selectedNap="firstNapStart"/>
             <SleepInput
                 change={handleChange}
                 data={naps.firstNapEnd}
                 name="firstNapEnd"
                 label="End of nap:"
             />
+            <NapError napData={naps} selectedNap="firstNapEnd"/>
             </>
         }
         <br />
-        { napDisplay.nap2 === false ? 
-            <button onClick={toggleSectionDisplay} name="nap2">Add nap</button> :
+        { openNap2 === false ? 
+            <button onClick={toggleNap2}>Add nap</button> :
             <>
-            <button onClick={toggleSectionDisplay} name="nap2">-</button>
+            <button onClick={toggleNap2}>-</button>
             <SleepInput
                 change={handleChange}
                 data={naps.secondNapStart}
                 name="secondNapStart"
                 label="Start of nap:"
             />
+            <NapError napData={naps} selectedNap="secondNapStart"/>
             <SleepInput
                 change={handleChange}
                 data={naps.secondNapEnd}
                 name="secondNapEnd"
                 label="End of nap:"
             />
+            <NapError napData={naps} selectedNap="secondNapEnd"/>
             </>
         }
         <SleepInput
@@ -211,6 +107,7 @@ function SleepSection(){
             name="bedTime"
             label="Bed time:"
         />
+        <NapError napData={naps} selectedNap="bedTime"/>
         <button>Save</button>
     </div>
     )
