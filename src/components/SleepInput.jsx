@@ -1,12 +1,14 @@
 import React, {useState} from "react";
+import NapError from "./NapError";
 
-function SleepInput({ name, label, napData, onChange }){
+function SleepInput({ name, label, napData, sectionData, onChange }){
     const [display, setDisplay] = useState(false);
 
     function handleBlur(e){
         if(napData !== "--:--"){
             setDisplay(false);
             e.preventDefault();
+            console.log(napData);
         }
     }
 
@@ -27,7 +29,8 @@ function SleepInput({ name, label, napData, onChange }){
             {display === true ? 
             <>
             <label htmlFor={name}>{label}</label>
-            <input type="time" id={name} name={name} onChange={onChange} onBlur={handleBlur} value={napData}/></> :
+            <input type="time" id={name} name={name} onChange={onChange} onBlur={handleBlur} value={napData}/>
+            </> :
             <>
             <p>
                 {label}
@@ -37,7 +40,8 @@ function SleepInput({ name, label, napData, onChange }){
                         convertTo12HR(napData)
                     }
                 </span>
-            </p> 
+            </p>
+            <NapError napData={napData} selectedNap={name} sectionData={sectionData}/>
             </>
             }
         </div>

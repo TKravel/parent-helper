@@ -1,8 +1,6 @@
 import React, {useState} from "react";
 import Header from "./Header";
 import SleepInput from "./SleepInput";
-import NapError from "./NapError";
-
 
 function SleepSection({ napData, setNapData }){
    
@@ -30,6 +28,7 @@ function SleepSection({ napData, setNapData }){
         })
         e.preventDefault();
     }
+    
 
     function toggleNap1(){
         setOpenNap1(!openNap1);
@@ -46,6 +45,7 @@ function SleepSection({ napData, setNapData }){
             name="wakeUp"
             label="Wake up:"
             napData={napData.wakeUp}
+            sectionData={napData}
             onChange={handleChange}
         />
         { openNap1 === false ? 
@@ -56,16 +56,16 @@ function SleepSection({ napData, setNapData }){
                 name="firstNapStart"
                 label="Start of nap:"
                 napData={napData.firstNapStart}
+                sectionData={napData}
                 onChange={handleChange}
             />
-            <NapError napData={napData} selectedNap="firstNapStart"/>
             <SleepInput 
                 name="firstNapEnd"
                 label="End of nap:"
                 napData={napData.firstNapEnd}
+                sectionData={napData}
                 onChange={handleChange}
             />
-            <NapError napData={napData} selectedNap="firstNapEnd"/>
             </>
         }
         <br />
@@ -77,25 +77,25 @@ function SleepSection({ napData, setNapData }){
                 name="secondNapStart"
                 label="Start of nap:"
                 napData={napData.secondNapStart}
+                sectionData={napData}
                 onChange={handleChange}
             />
-            <NapError napData={napData} selectedNap="secondNapStart"/>
             <SleepInput
                 name="secondNapEnd"
                 label="End of nap:"
                 napData={napData.secondNapEnd}
+                sectionData={napData}
                 onChange={handleChange}
             />
-            <NapError napData={napData} selectedNap="secondNapEnd"/>
             </>
         }
         <SleepInput
             name="bedTime"
             label="Bed time:"
             napData={napData.bedTime}
+            sectionData={napData}
             onChange={handleChange}
         />
-        <NapError napData={napData} selectedNap="bedTime"/>
         <button>Save</button>
     </div>
     )

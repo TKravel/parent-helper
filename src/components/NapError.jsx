@@ -1,41 +1,35 @@
 import React from "react";
 
-function NapError({ napData, selectedNap}){
-    const {
-        wakeUp,
-        firstNapStart,
-        firstNapEnd,
-        secondNapStart,
-        secondNapEnd,
-        bedTime
-    } = napData;
+function NapError({ selectedNap, sectionData}){
 
     const time = selectedNap;
     let errorMessage = "";
 
     switch (time) {
+        case "wakeUp":
+            break;
         case "firstNapStart":
-            if(firstNapStart !== "00:00" && firstNapStart < wakeUp){
+            if(sectionData.firstNapStart !== "00:00" && sectionData.firstNapStart < sectionData.wakeUp){
                 errorMessage = "Must be after wake up";
             }
             break;
         case "firstNapEnd":
-            if(firstNapEnd !== "00:00" && firstNapEnd < firstNapStart){
+            if(sectionData.firstNapEnd !== "00:00" && sectionData.firstNapEnd < sectionData.firstNapStart){
                 errorMessage = "Must be after nap start";
             }
             break;
         case "secondNapStart":
-            if(secondNapStart !== "00:00" && secondNapStart < firstNapEnd){
+            if(sectionData.secondNapStart !== "00:00" && sectionData.secondNapStart < sectionData.firstNapEnd){
                 errorMessage = "Must be after last nap ended";
             }
             break;
         case "secondNapEnd":
-            if(secondNapEnd !== "00:00" && secondNapEnd < secondNapStart){
+            if(sectionData.secondNapEnd !== "00:00" && sectionData.secondNapEnd < sectionData.secondNapStart){
                 errorMessage = "Must be after nap start";
             }
             break;
         case "bedTime":
-            if(bedTime !== "00:00" && bedTime < secondNapEnd){
+            if(sectionData.bedTime !== "00:00" && sectionData.bedTime < sectionData.secondNapEnd){
                 errorMessage = "Must be after last nap";
             }
             break;
