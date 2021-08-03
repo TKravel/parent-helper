@@ -1,0 +1,45 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+ol, ul {
+	list-style: none;
+}
+
+body {
+    font-family: Helvetica, Candara;
+}
+
+
+
+.container {
+    margin: auto;
+    width: 600px;
+    height: 300px;
+    text-align: center;
+    border: 1px solid black;
+    display: grid;
+    grid-template-columns: 400px 200px;
+}
+
+.userInputNav {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    grid-column-start: 2;
+    grid-column-end: 3;
+}
+
+.userInputNav button {
+    display: block;
+    width: 50%;
+    margin: auto;
+}
+
+.userInputNav {
+    max-height: 300px;
+}
+

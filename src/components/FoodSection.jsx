@@ -2,6 +2,7 @@
 import React, {useState} from "react";
 import TextInput from "./TextInput";
 import Header from "./Header";
+import SaveButton from "./SaveButton";
 
 function FoodInput({ foodData, setFoodData }){ 
     
@@ -39,7 +40,7 @@ function FoodInput({ foodData, setFoodData }){
               )
             })}
           </ul>
-          <button>Save</button>
+          <SaveButton />
         </div>
     )
 }

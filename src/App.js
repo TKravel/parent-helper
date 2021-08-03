@@ -4,6 +4,7 @@ import SleepSection from "./components/SleepSection";
 import PottySection from "./components/PottySection";
 import NotesSection from "./components/NotesSection";
 import UserInputNav from "./components/userInputNav";
+import "./index.css";
 
 const globalData = {
   food: [],
@@ -54,22 +55,23 @@ function App() {
   const [notes, setNotes] = useState([])
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>Parent Helper</p>
-        <p>A daily log that is connected where ever you go</p>
-      </header>
-      { display.foodSection ? 
-        <FoodSection foodData={food} setFoodData={setFood}/> : null }
-      { display.sleepSection ? 
-        <SleepSection napData={naps} setNapData={setNaps}/> : null}
-      { display.pottySection ? 
-        <PottySection pottyData={count} setPottyData={setCount}/> : null}
-      { display.notesSection ? 
-        <NotesSection noteData={notes} setNoteData={setNotes}/> : null}
-      <UserInputNav 
-        updateDisplay={setDisplay}
-      />
+    <div className="app">
+      <header className="App-header" />
+        <h1 style={{display: "inline-block"}}>Parent Helper</h1>
+        <h2>A daily log that is connected where ever you go</h2>
+      <div className="container">
+        { display.foodSection ? 
+          <FoodSection foodData={food} setFoodData={setFood}/> : null }
+        { display.sleepSection ? 
+          <SleepSection napData={naps} setNapData={setNaps}/> : null}
+        { display.pottySection ? 
+          <PottySection pottyData={count} setPottyData={setCount}/> : null}
+        { display.notesSection ? 
+          <NotesSection noteData={notes} setNoteData={setNotes}/> : null}
+        <UserInputNav 
+          updateDisplay={setDisplay}
+        />
+      </div>
     </div>
   );
 }

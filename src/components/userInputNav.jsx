@@ -43,7 +43,7 @@ function UserInputNav(props){
         e.preventDefault();
     }
     return(
-        <div>
+        <div className="userInputNav">
             <button name="foodSection" onClick={handleClick}>Food</button>
             <button name="sleepSection" onClick={handleClick}>Sleep</button>
             <button name="pottySection" onClick={handleClick}>Poop</button>

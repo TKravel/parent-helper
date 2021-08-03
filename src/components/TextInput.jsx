@@ -30,7 +30,7 @@ function TextInput(props){
 
     return(
         <form>
-            <label htmlFor={props.name}>{props.label}</label>
+            <label htmlFor={props.name}>{props.label}</label><br />
             <input type="text" name={props.name} onChange={props.updateChange} value={props.stateData} placeholder={props.placeholder} />
             <button onClick={validateInput}>Add</button>
             { error.error === !false ? <p>{error.message}</p> : null }

@@ -1,6 +1,7 @@
 import React from "react";
 import Counter from "./Counter";
 import Header from "./Header";
+import SaveButton from "./SaveButton";
 
 function PottySection({ pottyData, setPottyData }){
     
@@ -14,7 +15,7 @@ function PottySection({ pottyData, setPottyData }){
                 updateCount={setPottyData}
             />
             <br />
-            <button>Save</button>
+            <SaveButton />
       </div>
     )
 }

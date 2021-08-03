@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import Header from "./Header";
+import SaveButton from "./SaveButton";
 import SleepInput from "./SleepInput";
 
 function SleepSection({ napData, setNapData }){
@@ -39,7 +40,7 @@ function SleepSection({ napData, setNapData }){
     }
 
     return(
-    <div id="sleepSection">
+    <div id="sleepSection" className="userInputSection">
         <Header headerText="Sleep tracker" />
         <SleepInput
             name="wakeUp"
@@ -96,7 +97,7 @@ function SleepSection({ napData, setNapData }){
             sectionData={napData}
             onChange={handleChange}
         />
-        <button>Save</button>
+        <SaveButton />
     </div>
     )
 }
