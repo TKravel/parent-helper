@@ -22,25 +22,32 @@ function FoodInput({ foodData, setFoodData }){
     }
 
     return (
-        <div id="foodSection" >
+        <div id="foodSection">
           <Header headerText="Food tracker" />
-          <TextInput 
-            label="Enter food"
-            name="foodInput"
-            buttonID="addFoodItem"
-            placeholder="Enter food here..."
-            updateChange={handleChange}
-            updateState={handleClick}
-            stateData={foodInput}
-          />
-          <ul>
-            {foodData.map((food, index) => {
-              return (
-                  <li key={index} index={index}>{food}</li>
-              )
-            })}
-          </ul>
-          <SaveButton />
+          <div className="mainCardInput">
+          <div className="fSection">
+            <TextInput 
+              label="Enter food"
+              name="foodInput"
+              buttonID="addFoodItem"
+              placeholder="Enter food here..."
+              updateChange={handleChange}
+              updateState={handleClick}
+              stateData={foodInput}
+            />
+            <ul className="listTextField">
+              {foodData.length === 0 ? 
+                <li>No data to show</li> :
+                foodData.map((food, index) => {
+                return (
+                    <li key={index} index={index}>{food}</li>
+                )
+                })
+                }
+            </ul>
+            </div>
+            <SaveButton />
+          </div>
         </div>
     )
 }

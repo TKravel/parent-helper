@@ -38,7 +38,7 @@ function NapError({ selectedNap, sectionData}){
             break;
     }
     return(
-        <p>{errorMessage}</p>
+        <p className="errorMessage">{errorMessage}</p>
     )
 }
 

@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 
 function TextInput(props){
     const [error, setError] = useState({
@@ -29,11 +31,13 @@ function TextInput(props){
     }
 
     return(
-        <form>
+        <form className="textInputForm">
             <label htmlFor={props.name}>{props.label}</label><br />
-            <input type="text" name={props.name} onChange={props.updateChange} value={props.stateData} placeholder={props.placeholder} />
-            <button onClick={validateInput}>Add</button>
-            { error.error === !false ? <p>{error.message}</p> : null }
+            <input className="textInput" type="text" name={props.name} onChange={props.updateChange} value={props.stateData} placeholder={props.placeholder} />
+            <button className="addSubtractButtons" onClick={validateInput}>
+                <FontAwesomeIcon icon="plus" />
+            </button>
+            { error.error === !false ? <p className="errorMessage">{error.message}</p> : null }
         </form>
     )
 }

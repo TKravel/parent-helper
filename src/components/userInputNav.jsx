@@ -1,12 +1,12 @@
 import React from "react";
 
-function UserInputNav(props){
+function UserInputNav({ updateDisplay, currentDate }){
     function handleClick(e){
         const selection = e.target.name;
         
         switch(selection){
             case "foodSection":
-                props.updateDisplay({
+                updateDisplay({
                     foodSection: true,
                     sleepSection: false,
                     pottySection: false,
@@ -14,7 +14,7 @@ function UserInputNav(props){
                 })
                 break;
             case "sleepSection":
-                props.updateDisplay({
+                updateDisplay({
                     foodSection: false,
                     sleepSection: true,
                     pottySection: false,
@@ -22,7 +22,7 @@ function UserInputNav(props){
                 })
                 break;
             case "pottySection":
-                props.updateDisplay({
+                updateDisplay({
                     foodSection: false,
                     sleepSection: false,
                     pottySection: true,
@@ -30,7 +30,7 @@ function UserInputNav(props){
                 })
                 break;
             case "notesSection":
-                props.updateDisplay({
+                updateDisplay({
                     foodSection: false,
                     sleepSection: false,
                     pottySection: false,
@@ -44,6 +44,7 @@ function UserInputNav(props){
     }
     return(
         <div className="userInputNav">
+            <p id="currentDate">{currentDate}</p>
             <button name="foodSection" onClick={handleClick}>Food</button>
             <button name="sleepSection" onClick={handleClick}>Sleep</button>
             <button name="pottySection" onClick={handleClick}>Poop</button>

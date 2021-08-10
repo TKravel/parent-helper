@@ -1,4 +1,5 @@
 import React from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function Counter({ currentCount, updateCount }){
     
@@ -20,8 +21,13 @@ function Counter({ currentCount, updateCount }){
 
     return(
         <>
-        <button onClick={decreaseCount}>-</button>
-        <button onClick={increaseCount}>+</button>
+        <p>Change count</p>
+        <button className="addSubtractButtons" onClick={decreaseCount}>
+            <FontAwesomeIcon icon="minus" />
+        </button>
+        <button className="addSubtractButtons" onClick={increaseCount}>
+            <FontAwesomeIcon icon="plus" />
+        </button>
         </>
     )
 }
