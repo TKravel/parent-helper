@@ -3,7 +3,15 @@ const appData = [
         date: "8/4/21",
         food: ["pancakes", "nuts", "yogurt"],
         poop: 1,
-        notes: "Tylenol"
+        sleep: {
+          wakeUp: '07:00',
+          firstNapStart: '10:00',
+          firstNapEnd: '11:20',
+          secondNapStart: '14:30',
+          secondNapEnd: '15:40',
+          bedTime: '19:30'
+        },
+        notes: ["Tylenol"]
       },
       {
         date: "8/3/21",
@@ -17,12 +25,20 @@ const appData = [
           secondNapEnd: '15:40',
           bedTime: '19:30'
         },
-        notes: ""
+        notes: [""]
       },
       {
         date: "8/2/21",
         food: "oatmeal",
         poop: 3,
+        sleep: {
+          wakeUp: '07:00',
+          firstNapStart: '10:00',
+          firstNapEnd: '11:20',
+          secondNapStart: '14:30',
+          secondNapEnd: '15:40',
+          bedTime: '19:30'
+        },
         notes: ["Miralax", "tylenol"]
       }
 ]

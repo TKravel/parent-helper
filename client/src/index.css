@@ -10,6 +10,10 @@ ol, ul {
 	list-style: none;
 }
 
+html {
+    height: 100%;
+}
+
 body {
     font-family: Helvetica, Candara;
 }

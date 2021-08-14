@@ -16,8 +16,7 @@ function SleepInput({ name, label, napData, sectionData, onChange }){
         setDisplay(true);
     }
 
-    function convertTo12HR(time){
-        
+    function convertTo12HR(time){  
         let [ hours, minutes ] = time.split(":");
         const AmOrPm = hours >= 12 ? 'pm' : 'am';
         hours = (hours % 12) || 12;

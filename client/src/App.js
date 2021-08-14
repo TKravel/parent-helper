@@ -8,7 +8,6 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import "./index.css";
 import DataTable from "./components/DataTable";
-import appData from "./appData";
 
 library.add(faPlus, faMinus);
 
@@ -66,8 +65,9 @@ function App() {
 
   //  Note tracker state
 
-  const [notes, setNotes] = useState([])
+  const [notes, setNotes] = useState([]);
 
+  
   return (
     <div className="app">
       <div className="App-header">
@@ -88,7 +88,7 @@ function App() {
         />
       </div>
       <div id="tableContainer">
-        <DataTable appData={appData}/>
+        <DataTable />
       </div>
     </div>
   );

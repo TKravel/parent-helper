@@ -1,29 +1,45 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const flatData = []
+
 
 function flatenData(appData){
+    const flatData = []
     flatData.length = 0;
     
+    
     appData.map( item => {
-        let result = {}
+        let result = {
+            date: "",
+            food: "",
+            poop: 0,
+            "Wake up": "",
+            "Nap 1": "",
+            "Nap 2": "",
+            "Bed time": "",
+            notes: ""
+        }
         Object.entries(item).forEach( ([key, value]) => {
             
             if(Array.isArray(value)){
-                value = value.join(", ")
-                result[key] = value;
+                if(value.length === 0){
+                    value = "No data";
+                    result[key] = value;
+                } else {
+                    value = value.join(", ")
+                    result[key] = value;
+                }
             } else if(typeof item[key] === 'object' && item[key] !== null && !Array.isArray(item[key])){
-                console.log(item[key].firstNapStart)
-                console.log(item[key].firstNapEnd)
-                let test = item[key].firstNapStart
-                let test1 = item[key].firstNapEnd
-                
-                console.log(calcNapTime(test, test1))
-                
-                // Object.entries(item[key]).forEach(([napKey, napValue]) => {
-                //     result[napKey] = napValue;
-                // })
-                
+                const wUp = item[key].wakeUp;
+                const fNapStart = item[key].firstNapStart;
+                const fNapEnd = item[key].firstNapEnd;
+                const sNapStart = item[key].secondNapStart;
+                const sNapEnd = item[key].secondNapEnd;
+                const bTime = item[key].bedTime;
+
+                result["Wake up"] = convertTo12HR(wUp);
+                result["Nap 1"] = calcNapTime(fNapStart, fNapEnd);
+                result["Nap 2"] = calcNapTime(sNapStart, sNapEnd);
+                result["Bed time"] = convertTo12HR(bTime);
             } else {
                 result[key] = value;
             }
@@ -32,47 +48,73 @@ function flatenData(appData){
         flatData.push(result)
     })
     
-    console.log(flatData);
+    return flatData
 }
 
 function calcNapTime(t1, t2){
-    const time1 = t1.replace(":", "");
-    const time2 = t2.replace(":", "");
-    let napLength = time2 - time1;
-    let testString = napLength.toString();
-    console.log(testString.length)
-    if(testString.length === 2){
-        console.log(testString);
-    } else if(testString.length === 3){
-        const formattedTime = testString.slice(0, 1) + " hr " + testString.slice(1, 3) + " mins";
-        console.log(formattedTime);
-    } else if(testString.length === 4) {
-        const formattedTime = testString.slice(0, 2) + " hr " + testString.slice(2, 4) + " mins";
-        console.log(formattedTime);
+    const time1 = t1.split(":");
+    const time2 = t2.split(":");
+    const date1 = new Date(0,0,0, time1[0], time1[1])
+    const date2 = new Date(0,0,0, time2[0], time2[1])
+    const elapsed = (date2 - date1); 
+    const minutes = (elapsed / 1000) / 60;
+    const hours = Math.floor(minutes / 60);
+
+    if(hours === 0 && minutes === 0){
+        return "Refusal"
+    } else if(hours === 0){
+        return (minutes % 60) + " mins";
+    } else if (hours === 1){
+        return hours + " hr " + (minutes % 60) + " mins";
+    } else {
+        return hours + " hr " + (minutes % 60) + " mins";
     }
+}
+
+function convertTo12HR(time){  
+    let [ hours, minutes ] = time.split(":");
+    const AmOrPm = hours >= 12 ? 'pm' : 'am';
+    hours = (hours % 12) || 12;
+    return hours + ":" + minutes + " " + AmOrPm;
 }
     
 
-function DataTable({appData}){
-    flatenData(appData);
-    const [data, setData] = useState(flatData);
+function DataTable(){
+
+    
+
+  useEffect(()=> {
+    fetch("/api/loadData")
+      .then((res) => res.json())
+      .then((data) => {
+        const readyData = flatenData(data);
+
+        if(dataRecords.length === 0){
+            setData(readyData)
+        }
+      })
+      
+  })
+    
+    
+    const [dataRecords, setData] = useState([]);
 
     function GetHeadings(){
-        const headings = Object.keys(data[0]);
+        const headings = Object.keys(dataRecords[0]);
 
         return headings.map((item, index)=> {
             return <th key={index}>{item}</th>
         })
     } 
 
-    function CreateRows({data}){
-        return data.map((item, index) => {
+    function CreateRows(){
+        return dataRecords.map((item, index) => {
             return (<tr key={index}><CreateData key={index} item={item} /></tr>)
         })
     }
 
     function CreateData({item}){
-        const keys = Object.keys(data[0]);
+        const keys = Object.keys(dataRecords[0]);
         return keys.map(key=>{
                 return <td key={item[key]}>{item[key]}</td>
             })
@@ -82,16 +124,20 @@ function DataTable({appData}){
     
     
     return (
-        <>
+        
+    <>
+    {dataRecords.length === 0 ?
+        <p>Loading data...</p> :
         <table>
             <tbody>
                 <tr>
-                    <GetHeadings data={data} />
+                    <GetHeadings />
                 </tr>
-                <CreateRows data={data} />
+                <CreateRows />
             </tbody>
         </table>
-                </>
+    }
+            </>
             
     )
 }
