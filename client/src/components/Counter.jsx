@@ -2,10 +2,11 @@ import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function Counter({ currentCount, onPoopChange }){
+    const section = "poop";
     
     function increaseCount(){
         const newCount = (currentCount + 1);
-        onPoopChange(newCount);
+        onPoopChange(section, newCount);
     }
 
     function decreaseCount(){
@@ -13,7 +14,7 @@ function Counter({ currentCount, onPoopChange }){
             return;
         } else {
             const newCount = (currentCount - 1);
-            onPoopChange(newCount);
+            onPoopChange(section, newCount);
         }
     }
 

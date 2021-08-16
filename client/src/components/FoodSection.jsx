@@ -14,7 +14,8 @@ function FoodInput({ foodData, onFoodChange }){
     }
 
     function handleClick(e){
-      onFoodChange(foodInput);
+      const section = "food";
+      onFoodChange(section, foodInput);
       setFoodInput("");
       e.preventDefault();
     }

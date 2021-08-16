@@ -13,7 +13,8 @@ function NotesSection({ noteData, onNoteChange }){
     }
 
     function handleClick(e){
-        onNoteChange(notesInput);
+        const section = "notes";
+        onNoteChange(section, notesInput);
         setNotesInput("");
         e.preventDefault();
     }

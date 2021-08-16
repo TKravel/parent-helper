@@ -40,6 +40,11 @@ function flatenData(appData){
                 result["Nap 1"] = calcNapTime(fNapStart, fNapEnd);
                 result["Nap 2"] = calcNapTime(sNapStart, sNapEnd);
                 result["Bed time"] = convertTo12HR(bTime);
+            } else if(key === "date"){
+                const month = value.slice(0,2);
+                const day = value.slice(2,4);
+                const year = value.slice(4,6);
+                result[key] = month + "/" + day + "/" + year
             } else {
                 result[key] = value;
             }

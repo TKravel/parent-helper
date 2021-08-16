@@ -58,45 +58,90 @@ function App() {
     notes: []
   })
 
-  function handleFoodChange(foodInput){
-    setAppState(prevValue => {
-      return {
-        ...prevValue,
-        food: [...prevValue.food, foodInput]
-      }
-    })
+  function handleStateChange(sectionName, updatedState){
+    switch (sectionName) {
+      case "food":
+        setAppState(prevValue => {
+          return {
+            ...prevValue,
+            food: [...prevValue.food, updatedState]
+          }
+        })
+        break;
+      case "sleep":
+        const { name, value } = updatedState;
+        console.log(updatedState)
+        setAppState(prevValue => {
+          return {
+            ...prevValue,
+            sleep: {
+              ...prevValue.sleep,
+              [name]: value
+            }
+          }
+        })
+        break;
+      case "poop":
+        setAppState(prevValue => {
+          return {
+            ...prevValue,
+            poop: updatedState
+          }
+        })
+        break;
+      case "notes":
+        setAppState(prevValue => {
+          return {
+            ...prevValue,
+            notes: [...prevValue.notes, updatedState]
+          }
+        })
+        break;
+      default:
+        console.log("error")
+        break;
+    }
   }
 
-  function handleNapChange(name, value){
-    console.log(name, value)
-    setAppState(prevValue => {
-      return {
-        ...prevValue,
-        sleep: {
-          ...prevValue.sleep,
-          [name]: value
-        }
-      }
-    })
-  }
+  // function handleFoodChange(foodInput){
+  //   setAppState(prevValue => {
+  //     return {
+  //       ...prevValue,
+  //       food: [...prevValue.food, foodInput]
+  //     }
+  //   })
+  // }
 
-  function handlePoopChange(newCount){
-    setAppState(prevValue => {
-      return {
-        ...prevValue,
-        poop: newCount
-      }
-    })
-  }
+  // function handleNapChange(name, value){
+  //   console.log(name, value)
+  //   setAppState(prevValue => {
+  //     return {
+  //       ...prevValue,
+  //       sleep: {
+  //         ...prevValue.sleep,
+  //         [name]: value
+  //       }
+  //     }
+  //   })
+  // }
 
-  function handleNoteChange(notesInput){
-    setAppState(prevValue => {
-      return {
-        ...prevValue,
-        notes: [...prevValue.notes, notesInput]
-      }
-    })
-  }
+  // function handlePoopChange(newCount){
+  //   setAppState(prevValue => {
+  //     return {
+  //       ...prevValue,
+  //       poop: newCount
+  //     }
+  //   })
+  // }
+
+  // function handleNoteChange(notesInput){
+  //   setAppState(prevValue => {
+  //     return {
+  //       ...prevValue,
+  //       notes: [...prevValue.notes, notesInput]
+  //     }
+  //   })
+  // }
 
   useEffect(()=> {
     fetch("/api/loadLog")
@@ -121,13 +166,13 @@ function App() {
       </div>
       <div className="container">
         { display.foodSection ? 
-          <FoodSection foodData={appState.food} onFoodChange={handleFoodChange}/> : null }
+          <FoodSection foodData={appState.food} onFoodChange={handleStateChange}/> : null }
         { display.sleepSection ? 
-          <SleepSection napData={appState.sleep} onNapChange={handleNapChange}/> : null}
+          <SleepSection napData={appState.sleep} onNapChange={handleStateChange}/> : null}
         { display.pottySection ? 
-          <PottySection poopData={appState.poop} onPoopChange={handlePoopChange}/> : null}
+          <PottySection poopData={appState.poop} onPoopChange={handleStateChange}/> : null}
         { display.notesSection ? 
-          <NotesSection noteData={appState.notes} onNoteChange={handleNoteChange}/> : null}
+          <NotesSection noteData={appState.notes} onNoteChange={handleStateChange}/> : null}
         <UserInputNav 
           updateDisplay={setDisplay}
           currentDate={currentDate}

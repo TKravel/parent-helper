@@ -13,7 +13,7 @@ router.get('/loadTable', (req, res) => {
             res.json(arr)
         }
         
-    })
+    }).sort({ date: 'desc' });
     
 })
 
@@ -34,7 +34,6 @@ router.get('/loadLog', (req, res) => {
     } else {
         dateQuery = month + day + year.substring(2,4)
     }
-    console.log(dateQuery)
 
     const query = {date: dateQuery},
         update = {date: dateQuery},
@@ -44,7 +43,6 @@ router.get('/loadLog', (req, res) => {
         if(err){
             console.log(err)
         } else {
-            console.log(result)
             res.json(result);
         }
     })
@@ -67,14 +65,13 @@ router.post('/userInput', (req, res) => {
         dateQuery = month + day + year.substring(2,4)
     }
 
-    console.log(req.body.name, req.body.data);
     const key = req.body.name;
     const data = req.body.data;
     DayTracker.findOneAndUpdate({ date: dateQuery }, { [key]: data}, function(err, update){
         if(err){
             console.log(err);
         } else {
-            console.log(update);
+            console.log("Document updated");
         }
     })
 })

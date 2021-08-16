@@ -24,8 +24,9 @@ function SleepSection({ napData, onNapChange }){
 
     // const currentTime = hours + ":" + minutes;
     function handleChange(e){
-        const { name, value } = e.target;
-        onNapChange(name, value);
+        const section = "sleep";
+        const target = e.target;
+        onNapChange(section, target);
         e.preventDefault();
     }
     
