@@ -1,21 +1,19 @@
 import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-function Counter({ currentCount, updateCount }){
+function Counter({ currentCount, onPoopChange }){
     
     function increaseCount(){
-        updateCount(prevCount => {
-            return prevCount + 1;
-        })
+        const newCount = (currentCount + 1);
+        onPoopChange(newCount);
     }
 
     function decreaseCount(){
         if(currentCount === 0){
             return;
         } else {
-            updateCount(prevCount => {
-                return prevCount - 1;
-            })
+            const newCount = (currentCount - 1);
+            onPoopChange(newCount);
         }
     }
 

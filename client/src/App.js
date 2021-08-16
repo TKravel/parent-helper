@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FoodSection from "./components/FoodSection";
 import SleepSection from "./components/SleepSection";
 import PottySection from "./components/PottySection";
@@ -44,28 +44,74 @@ function App() {
     notesSection: false 
   });
 
-  // Food tracker State
+  const [appState, setAppState] = useState({
+    food: [],
+    sleep: {
+      wakeUp: '00:00',
+      firstNapStart: '00:00',
+      firstNapEnd: '00:00',
+      secondNapStart: '00:00',
+      secondNapEnd: '00:00',
+      bedTime: '00:00'
+    },
+    poop: 0,
+    notes: []
+  })
 
-  const [food, setFood] = useState([]);
+  function handleFoodChange(foodInput){
+    setAppState(prevValue => {
+      return {
+        ...prevValue,
+        food: [...prevValue.food, foodInput]
+      }
+    })
+  }
 
-  // Sleep tracker State
+  function handleNapChange(name, value){
+    console.log(name, value)
+    setAppState(prevValue => {
+      return {
+        ...prevValue,
+        sleep: {
+          ...prevValue.sleep,
+          [name]: value
+        }
+      }
+    })
+  }
 
-  const [naps, setNaps] = useState({
-    wakeUp: "00:00",
-    firstNapStart: "00:00",
-    firstNapEnd: "00:00",
-    secondNapStart: "00:00",
-    secondNapEnd: "00:00",
-    bedTime: "00:00"
-})
+  function handlePoopChange(newCount){
+    setAppState(prevValue => {
+      return {
+        ...prevValue,
+        poop: newCount
+      }
+    })
+  }
 
-  // Potty tracker state
+  function handleNoteChange(notesInput){
+    setAppState(prevValue => {
+      return {
+        ...prevValue,
+        notes: [...prevValue.notes, notesInput]
+      }
+    })
+  }
 
-  const [count, setCount] = useState(0);
-
-  //  Note tracker state
-
-  const [notes, setNotes] = useState([]);
+  useEffect(()=> {
+    fetch("/api/loadLog")
+      .then((res) => res.json())
+      .then((data) => {
+        setAppState({
+          food: data.food,
+          sleep: data.sleep,
+          poop: data.poop,
+          notes: data.notes
+        })
+        
+      })
+      
+  }, [])
 
   
   return (
@@ -75,13 +121,13 @@ function App() {
       </div>
       <div className="container">
         { display.foodSection ? 
-          <FoodSection foodData={food} setFoodData={setFood}/> : null }
+          <FoodSection foodData={appState.food} onFoodChange={handleFoodChange}/> : null }
         { display.sleepSection ? 
-          <SleepSection napData={naps} setNapData={setNaps}/> : null}
+          <SleepSection napData={appState.sleep} onNapChange={handleNapChange}/> : null}
         { display.pottySection ? 
-          <PottySection pottyData={count} setPottyData={setCount}/> : null}
+          <PottySection poopData={appState.poop} onPoopChange={handlePoopChange}/> : null}
         { display.notesSection ? 
-          <NotesSection noteData={notes} setNoteData={setNotes}/> : null}
+          <NotesSection noteData={appState.notes} onNoteChange={handleNoteChange}/> : null}
         <UserInputNav 
           updateDisplay={setDisplay}
           currentDate={currentDate}

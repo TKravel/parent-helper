@@ -4,7 +4,7 @@ import TextInput from "./TextInput";
 import Header from "./Header";
 import SaveButton from "./SaveButton";
 
-function FoodInput({ foodData, setFoodData }){ 
+function FoodInput({ foodData, onFoodChange }){ 
     
     const [foodInput, setFoodInput] = useState("");
 
@@ -14,9 +14,7 @@ function FoodInput({ foodData, setFoodData }){
     }
 
     function handleClick(e){
-      setFoodData(prevValue => {
-        return [...prevValue, foodInput];
-      })
+      onFoodChange(foodInput);
       setFoodInput("");
       e.preventDefault();
     }
@@ -46,7 +44,7 @@ function FoodInput({ foodData, setFoodData }){
                 }
             </ul>
             </div>
-            <SaveButton />
+            <SaveButton name="food" stateData={foodData}/>
           </div>
         </div>
     )

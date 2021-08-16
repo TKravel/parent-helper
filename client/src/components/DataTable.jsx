@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 
-
-
 function flatenData(appData){
     const flatData = []
     flatData.length = 0;
@@ -19,7 +17,9 @@ function flatenData(appData){
             notes: ""
         }
         Object.entries(item).forEach( ([key, value]) => {
-            
+            if(key === "_id" || key === "__v"){
+                return null;
+            }
             if(Array.isArray(value)){
                 if(value.length === 0){
                     value = "No data";
@@ -84,7 +84,7 @@ function DataTable(){
     
 
   useEffect(()=> {
-    fetch("/api/loadData")
+    fetch("/api/loadTable")
       .then((res) => res.json())
       .then((data) => {
         const readyData = flatenData(data);
@@ -101,9 +101,13 @@ function DataTable(){
 
     function GetHeadings(){
         const headings = Object.keys(dataRecords[0]);
-
+        
         return headings.map((item, index)=> {
-            return <th key={index}>{item}</th>
+            if(item === "_id" || item === "__v"){
+                return null;
+            } else {
+                return <th key={index}>{item}</th>
+            }
         })
     } 
 
@@ -115,8 +119,8 @@ function DataTable(){
 
     function CreateData({item}){
         const keys = Object.keys(dataRecords[0]);
-        return keys.map(key=>{
-                return <td key={item[key]}>{item[key]}</td>
+        return keys.map((key, index)=>{
+                return <td key={item[key] + index}>{item[key]}</td>
             })
         
     }

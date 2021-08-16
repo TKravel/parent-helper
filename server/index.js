@@ -3,6 +3,7 @@ dotenv.config();
 const express = require('express');
 const PORT = 3001;
 const DayTracker = require('./models/dayTracker');
+const bodyParser = require('body-parser');
 
 const dayTrackerRouter = require('./routes/dayTracker');
 
@@ -11,7 +12,7 @@ const app = express();
 
 // Connect to DB
 const mongoose = require('mongoose');
-mongoose.connect(`mongodb+srv://appuser:${process.env.DBPASS}@cluster0.quq1t.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(`mongodb+srv://appuser:${process.env.DBPASS}@cluster0.quq1t.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
 // mongoose.connect('mongodb://localhost:27017/test', {useNewUrlParser: true, useUnifiedTopology: true});
 
 const db = mongoose.connection;
@@ -20,15 +21,12 @@ db.once('open', function() {
   console.log("Connected to DB")
 });
 
-// app.use('/api', dayTrackerRouter);
+app.use(express.urlencoded({extended: true}));
 
-app.get('/api/loadData', (req, res) => {
-  // res.send("hello")
-  DayTracker.find({}, function(err, arr){
-      res.json(arr)
-  })
-  
-})
+app.use(express.json());
+app.use('/api', dayTrackerRouter);
+
+
 
 app.get("/api/data", (req, res) => {
     res.json(appData)

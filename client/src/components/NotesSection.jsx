@@ -3,7 +3,7 @@ import TextInput from "./TextInput";
 import Header from "./Header";
 import SaveButton from "./SaveButton";
 
-function NotesSection({ noteData, setNoteData }){
+function NotesSection({ noteData, onNoteChange }){
     
     const [notesInput, setNotesInput] = useState("");
 
@@ -13,9 +13,7 @@ function NotesSection({ noteData, setNoteData }){
     }
 
     function handleClick(e){
-        setNoteData(prevValue => {
-            return [...prevValue, notesInput];
-        })
+        onNoteChange(notesInput);
         setNotesInput("");
         e.preventDefault();
     }
@@ -23,7 +21,7 @@ function NotesSection({ noteData, setNoteData }){
     return(
         <div id="notesSection">
             <Header headerText="Note tracker" />
-            <div class="mainCardInput">
+            <div className="mainCardInput">
                 <div className="textInputContainer">
                     <TextInput 
                         label="Enter notes"
@@ -44,7 +42,7 @@ function NotesSection({ noteData, setNoteData }){
                         }
                     </ul>
                 </div>
-                <SaveButton />
+                <SaveButton name="notes" stateData={noteData}/>
             </div>
         </div>
 

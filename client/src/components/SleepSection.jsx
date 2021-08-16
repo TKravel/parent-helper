@@ -5,7 +5,7 @@ import SleepInput from "./SleepInput";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
-function SleepSection({ napData, setNapData }){
+function SleepSection({ napData, onNapChange }){
    
     
     const [openNap1, setOpenNap1] = useState(false);
@@ -25,10 +25,7 @@ function SleepSection({ napData, setNapData }){
     // const currentTime = hours + ":" + minutes;
     function handleChange(e){
         const { name, value } = e.target;
-        setNapData( values => {
-            return {...values,
-            [name]: value }
-        })
+        onNapChange(name, value);
         e.preventDefault();
     }
     
@@ -106,7 +103,7 @@ function SleepSection({ napData, setNapData }){
                     onChange={handleChange}
                 />
             </div>
-            <SaveButton />
+            <SaveButton name="sleep" stateData={napData}/>
         </div>
     </div>
     )

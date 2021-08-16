@@ -1,10 +1,28 @@
 import React from "react";
 
-function handleSave(){
-    console.log("test");
-}
+function SaveButton({ name, stateData }){
+    function handleSave(){
+        const data = {
+            name: [name],
+            data: stateData
+        }
 
-function SaveButton(){
+        fetch("/api/userInput", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+        })
+        .then(response => response.json())
+        .then(data => {
+        console.log('Success:', data);
+        })
+        .catch((error) => {
+        console.error('Error:', error);
+        });
+    }
+    
     return(
         <button 
             type="submit"
