@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import NapError from "./NapError";
+import NapError from "../NapError";
 
 function SleepInput({ name, label, napData, sectionData, onChange }){
     const [display, setDisplay] = useState(false);

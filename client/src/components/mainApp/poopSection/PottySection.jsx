@@ -1,7 +1,7 @@
 import React from "react";
 import Counter from "./Counter";
-import Header from "./Header";
-import SaveButton from "./SaveButton";
+import Header from "../../Header";
+import SaveButton from "../SaveButton";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPoo } from '@fortawesome/free-solid-svg-icons';
 

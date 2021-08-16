@@ -1,8 +1,8 @@
 // TODO: Break data into breakfast, lunch, dinner, snacks.
 import React, {useState} from "react";
-import TextInput from "./TextInput";
-import Header from "./Header";
-import SaveButton from "./SaveButton";
+import TextInput from "../TextInput";
+import Header from "../../Header";
+import SaveButton from "../SaveButton";
 
 function FoodInput({ foodData, onFoodChange }){ 
     

@@ -1,6 +1,6 @@
 import React, {useState} from "react";
-import Header from "./Header";
-import SaveButton from "./SaveButton";
+import Header from "../../Header";
+import SaveButton from "../SaveButton";
 import SleepInput from "./SleepInput";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
