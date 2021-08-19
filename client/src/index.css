@@ -28,17 +28,6 @@ dark blue: 1D3557
 
 /* Reusable CSS */
 
-.App-header {
-    color: #F1FAEE;
-    background-color: #1d3557;
-    position: relative;
-}
-
-.App-header h1 {
-    display: inline;
-    text-align: left;
-}
-
 .container {
     margin:  16px auto;
     width: 600px;
@@ -89,6 +78,125 @@ dark blue: 1D3557
 #sleepInputContainer {
     grid-row-start: 1;
     grid-row-end: 2;
+}
+
+/* Nav Bar */
+
+
+.App-header {
+    color: #F1FAEE;
+    background-color: #1d3557;
+}
+
+.App-header h1 {
+    display: inline;
+    text-align: left;
+}
+
+.App-header a {
+    color: #F1FAEE;
+    text-decoration: none;
+}
+
+.App-header ul {
+    display: inline;
+    text-align: right;
+}
+
+.App-header li {
+    display: inline;
+    padding: 0px 10px;
+}
+
+/* Login form */
+
+/* color scheme
+red: E63946
+white: F1FAEE
+light blue: A8DADC
+med blue: 457B9D
+dark blue: 1D3557
+*/
+
+.loginContainer {
+    color: #1D3557;
+    width: 400px;
+    margin:  16px auto;
+    width: 325px;
+    height: 500px;
+    font-size: 18px;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: 4px 4px 2px 1px rgba(29, 53, 87, .2);
+    background-color: #F1FAEE;
+}
+
+.loginMessage {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.registerForm .loginMessage {
+    margin: 35px 0px 15px 0px;
+}
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 10px;
+    width: 250px;
+}
+
+.loginForm input {
+    background-color: #F1FAEE;
+    border: 2px solid #1D3557;
+    border-top: 0px;
+    border-right: 0px;
+    border-left: 0px;
+    color: #1D3557;
+    font-size: 17px;
+    text-align: center;
+    outline: none;
+}
+
+.loginForm input:focus {
+    font-size: 18px;
+}
+
+
+.submitBtn {
+    font-size: large;
+    font-weight: 700;
+    color: #F1FAEE;
+    background-color: #1D3557;
+    border-radius: 17px;
+    height: 35px;
+    margin: auto;
+    margin-top: 37px;
+    margin-bottom: 37px;
+    width: 250px;
+}
+
+.linkBtn {
+    border: none;
+    background-color: #F1FAEE;
+    color: #457B9D;
+    font-size: 1em;
+    font-weight: 700;
+}
+
+.formError {
+    color: #E63946;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+#signInIcon {
+    font-size: 150px;
+    margin: 15px;
 }
 
 /* Food and Notes inputs */
