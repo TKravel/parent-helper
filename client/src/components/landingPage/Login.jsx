@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import useForm from './useForm';
 import validate from './loginValidation';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChartLine } from '@fortawesome/free-solid-svg-icons';
 
@@ -10,11 +11,34 @@ function Login({ toggleForm }){
         errors,
         handleChange,
         handleSubmit
-    } = useForm(test, validate);
+    } = useForm(loginUser, validate);
 
-    function test(){
-        console.log(values)
-        console.log("Youre logged in!")
+    const [loginStatus, setLoginStatus] = useState({});
+
+    function loginUser(){
+        const data = { 
+            username: values.userName,
+            password: values.password
+        };
+
+        fetch('/users/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+        })
+        .then(responce => responce.json())
+        .then(data => {
+            if(data.message){
+                setLoginStatus(data)
+            } else {
+                setLoginStatus(data)
+            }
+        })
+        .catch((error) => {
+        console.error('Error:', error);
+        });
     }
 
     return (
@@ -27,6 +51,7 @@ function Login({ toggleForm }){
                     name="userName" 
                     placeholder="Username"
                     style={errors.userNameMargin || {marginBottom: "25px"}}
+                    autoComplete="off"
                     value={values.userName || ''}
                     onChange={handleChange}
                 />
@@ -35,10 +60,11 @@ function Login({ toggleForm }){
                     type="password" 
                     name="password" 
                     placeholder="Password"
-                    style={errors.passwordMargin || {marginBottom: "25px"}}
+                    style={errors.passwordMargin || {marginBottom: "15px"}}
                     value={values.password || ''}
                     onChange={handleChange}
                 />
+                { loginStatus.message && <p className="formError">{loginStatus.message}</p>}
                 { errors.password && <p className="formError">{errors.password}</p>}
                 <button type="submit" className="submitBtn">Sign in</button>
                 <p>Dont have a account?</p>

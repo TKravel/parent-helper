@@ -5,7 +5,7 @@ import SaveButton from "../SaveButton";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPoo } from '@fortawesome/free-solid-svg-icons';
 
-function PottySection({ poopData, onPoopChange }){
+function PottySection({ poopData, onPoopChange, isEditing, tableRefresh, cachedData }){
     
     return (
         <div id="pottySection" >
@@ -28,7 +28,13 @@ function PottySection({ poopData, onPoopChange }){
                         />
                     </div>
                 </div>
-                <SaveButton name="poop" stateData={poopData}/>
+                <SaveButton 
+                    name="poop" 
+                    stateData={poopData} 
+                    isEditing={isEditing} 
+                    tableRefresh={tableRefresh}
+                    cachedData={cachedData}
+                />
             </div>
       </div>
     )

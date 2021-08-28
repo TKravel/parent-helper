@@ -5,7 +5,7 @@ import SleepInput from "./SleepInput";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
-function SleepSection({ napData, onNapChange }){
+function SleepSection({ napData, onNapChange, isEditing, tableRefresh, cachedData }){
    
     
     const [openNap1, setOpenNap1] = useState(false);
@@ -104,7 +104,13 @@ function SleepSection({ napData, onNapChange }){
                     onChange={handleChange}
                 />
             </div>
-            <SaveButton name="sleep" stateData={napData}/>
+            <SaveButton 
+                name="sleep" 
+                stateData={napData} 
+                isEditing={isEditing} 
+                tableRefresh={tableRefresh}
+                cachedData={cachedData}
+            />
         </div>
     </div>
     )

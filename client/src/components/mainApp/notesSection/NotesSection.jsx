@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import TextInput from "../TextInput";
 import Header from "../../Header";
 import SaveButton from "../SaveButton";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-function NotesSection({ noteData, onNoteChange }){
+function NotesSection({ noteData, onNoteChange, isEditing, tableRefresh, cachedData }){
     
     const [notesInput, setNotesInput] = useState("");
 
@@ -17,6 +18,15 @@ function NotesSection({ noteData, onNoteChange }){
         onNoteChange(section, notesInput);
         setNotesInput("");
         e.preventDefault();
+    }
+
+    function handleDelete(e){
+        const index = e.currentTarget.getAttribute("index");
+        const section = 'noteItemDelete'
+        const state = noteData
+        const delItem = state.splice(index, 1);
+        console.log("Item deleted: ", delItem)
+        onNoteChange(section, state);
     }
 
     return(
@@ -37,13 +47,27 @@ function NotesSection({ noteData, onNoteChange }){
                             <li>No data to show</li> :
                             noteData.map((note, index) => {
                                 return(
-                                    <li key={index}>{note}</li>
+                                    <li key={index}>
+                                        {note}
+                                        <button 
+                                            className="deleteListItem" 
+                                            index={index} 
+                                            onClick={handleDelete}>
+                                            <FontAwesomeIcon icon="times" />
+                                        </button>
+                                    </li>
                                 )
                             })
                         }
                     </ul>
                 </div>
-                <SaveButton name="notes" stateData={noteData}/>
+                <SaveButton 
+                    name="notes" 
+                    stateData={noteData} 
+                    isEditing={isEditing} 
+                    tableRefresh={tableRefresh}
+                    cachedData={cachedData}
+                />
             </div>
         </div>
 

@@ -5,16 +5,28 @@ const DayTracker = require('../models/dayTracker');
 // GET data
 
 router.get('/loadTable', (req, res) => {
-    // res.send("hello")
     DayTracker.find({}, function(err, arr){
         if(err){
             console.log(err)
         } else {
+            console.log("Table Loaded")
             res.json(arr)
         }
         
     }).sort({ date: 'desc' });
     
+})
+
+router.post('/loadEdit', (req, res) => {
+    const dayID = req.body.id;
+
+    DayTracker.findById(dayID, function(err, day){
+        if(err){
+            console.log(err)
+        } else {
+            res.json(day);
+        }
+    })
 })
 
 // User input routes
@@ -44,13 +56,14 @@ router.get('/loadLog', (req, res) => {
             console.log(err)
         } else {
             res.json(result);
+            console.log("Log returned")
         }
     })
 })
 
 // POST data
 
-router.post('/userInput', (req, res) => {
+router.post('/userInputSave', (req, res) => {
     const currentDate = new Date();
     const [ month, day , year ] = [
         (currentDate.getMonth() + 1).toString(),
@@ -71,13 +84,51 @@ router.post('/userInput', (req, res) => {
         if(err){
             console.log(err);
         } else {
-            console.log("Document updated");
+            res.send(update)
+            console.log("Item saved");
         }
     })
 })
 
 // UPDATE data
 
+router.post('/userInputEdit', (req, res) => {
+    const key = req.body.name;
+    const data = req.body.data;
+    const dayID = req.body.id;
+
+    DayTracker.findByIdAndUpdate(dayID, { [key]: data}, function(err, update){
+        if(err){
+            console.log(err);
+        } else {
+            console.log("Document updated:");
+            res.json(update)
+        }
+    })
+})
+
 // DELETE data
+
+router.delete('/userInputDelete', (req, res) => {
+    const id = req.body.id;
+    const arr = req.body.arr;
+    const index = req.body.itemIndex;
+    console.log(id, arr, index)
+    DayTracker.findById(id, function(err, result){
+        if(err){
+            console.log(err)
+        } else if(result){
+            const removedItem = result[arr].splice(index, 1);
+            result.save(function(err){
+                if(err){
+                    console.log(err)
+                } else {
+                    console.log("item removed")
+                    res.send(result)
+                }
+            })
+        }
+    })
+})
 
 module.exports = router;

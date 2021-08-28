@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
 
-function useForm(test, validate){
+function useForm(callback, validate){
     const [values, setValues] = useState({});
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(() => {
         if (Object.keys(errors).length === 0 && isSubmitting) {
-          test();
+          callback();
         }
-      }, [errors]);
+      }, [errors, isSubmitting, callback]);
 
     function handleChange(e){
         const { name, value } = e.target;

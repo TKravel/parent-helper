@@ -2,10 +2,9 @@ const dotenv = require('dotenv');
 dotenv.config();
 const express = require('express');
 const PORT = 3001;
-const DayTracker = require('./models/dayTracker');
-const bodyParser = require('body-parser');
-
 const dayTrackerRouter = require('./routes/dayTracker');
+const userRouter = require('./routes/user')
+
 
 const app = express();
 
@@ -25,6 +24,7 @@ app.use(express.urlencoded({extended: true}));
 
 app.use(express.json());
 app.use('/api', dayTrackerRouter);
+app.use('/users', userRouter);
 
 
 
@@ -35,54 +35,3 @@ app.get("/api/data", (req, res) => {
 app.listen(PORT, () => {
     console.log("Server running on port 3001");
 })
-
-const appData = [
-    {
-        date: "8/4/21",
-        food: ["pancakes", "nuts", "yogurt"],
-        poop: 1,
-        sleep: {
-          wakeUp: '06:20',
-          firstNapStart: '10:00',
-          firstNapEnd: '11:20',
-          secondNapStart: '14:30',
-          secondNapEnd: '15:40',
-          bedTime: '21:30'
-        },
-        notes: ["Tylenol"]
-      },
-      {
-        date: "8/3/21",
-        food: ["apples", "hot dog"],
-        poop: 0,
-        sleep: {
-          wakeUp: '07:00',
-          firstNapStart: '09:40',
-          firstNapEnd: '11:45',
-          secondNapStart: '00:00',
-          secondNapEnd: '00:00',
-          bedTime: '19:45'
-        },
-        notes: []
-      },
-      {
-        date: "8/2/21",
-        food: ["oatmeal"],
-        poop: 3,
-        sleep: {
-          wakeUp: '05:20',
-          firstNapStart: '09:50',
-          firstNapEnd: '11:10',
-          secondNapStart: '14:30',
-          secondNapEnd: '16:00',
-          bedTime: '19:00'
-        },
-        notes: ["Miralax", "tylenol"]
-      }
-]
-
-// DayTracker.insertMany(appData, function(err, docs){
-//   if(err){
-//     console.log(err)
-//   }
-// })

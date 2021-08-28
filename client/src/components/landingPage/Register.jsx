@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import useForm from './useForm';
 import validate from "./registerValidation";
 
@@ -10,8 +10,32 @@ function Register({ toggleForm }){
         handleSubmit
     } = useForm(createUser, validate)
 
+    const[regStatus, setRegStatus] = useState('');
+
     function createUser(){
-        console.log("User has been saved")
+        const data = { username: values.userName,
+                        email: values.email,
+                        email2: values.email2,
+                        password: values.password,
+                        password2: values.password2
+        };
+        
+        fetch('/users/createUser', {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+        })
+        .then(response => response.json())
+        .then(data => {
+        if(data.message){
+            setRegStatus(data);
+        }
+        })
+        .catch((error) => {
+        console.error('Error:', error);
+        });
     }
 
 
@@ -59,13 +83,14 @@ function Register({ toggleForm }){
                     type="password" 
                     name="password2" 
                     placeholder="Re-enter Password" 
-                    style={errors.password2Margin || {marginBottom: "25px"}}
+                    style={errors.password2Margin || {marginBottom: "15px"}}
                     onChange={handleChange}
                     value={values.password2 || ''}
                     />
+                { regStatus.message && <p className="formError">{regStatus.message}</p>}
                 { errors.password2  && <p className="formError">{errors.password2}</p>}
                 <button type="submit" className="submitBtn">Register</button>
-                <p>Already have a account?</p>
+                <p>Already have an account?</p>
                 <button 
                     className="linkBtn" 
                     onClick={toggleForm}>

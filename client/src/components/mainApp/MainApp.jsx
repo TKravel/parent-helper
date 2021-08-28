@@ -4,21 +4,13 @@ import SleepSection from "./sleepSection/SleepSection";
 import PottySection from "./poopSection/PottySection";
 import NotesSection from "./notesSection/NotesSection";
 import UserInputNav from "./userInputNav";
-import DataTable from "./DataTable";
+import DataTable from "./dataTable/DataTable";
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faMinus, faEdit, faTimes, faExpand } from '@fortawesome/free-solid-svg-icons';
+import { getCurrentDate } from '../../dateTimeHelpers';
 
+library.add(faPlus, faMinus, faEdit, faTimes, faExpand);
 
-
-library.add(faPlus, faMinus);
-
-const date = new Date()
-const month = date.getMonth() + 1;
-const day = date.getDate();
-const year = date.getFullYear().toString().substring(2,4);
-
-const currentDate = month + "/" + day + "/" + year;
-console.log(currentDate);
 
 function MainApp(){
       // Section display state
@@ -31,6 +23,7 @@ function MainApp(){
   });
 
   const [appState, setAppState] = useState({
+    date: "",
     food: [],
     sleep: {
       wakeUp: '00:00',
@@ -44,6 +37,57 @@ function MainApp(){
     notes: []
   })
 
+  const [dbData, setDbData] = useState([])
+
+  const [loading, setLoading] = useState({
+    todayData: true,
+    pastData: true
+  })
+
+  const [editingState, setEditingState] = useState({
+      status: false,
+      changes: false,
+      date: '',
+      id: '',
+      cacheDbDataIndex: 0,
+      reloadTable: 0
+  })
+
+  // if(dbData.length !== 0){
+  //   console.log(dbData[0].food)
+  // }
+ 
+  // if(loading.todayData === false && loading.pastData === false){
+  //   if(appState.food.length !== dbData[editingState.cacheDbDataIndex].food.length){
+  //     console.log("does not equal")
+  //   } else {
+  //     console.log("equals")
+  //   }
+  // }
+  
+  // if(appState.food !== dbData[editingState.cacheDbDataIndex].food){
+  //   console.log(editingState.cacheDbDataIndex);
+  // }
+
+
+  function refreshTableUpdates(){
+    setEditingState(prevValues => {
+      return {
+        ...prevValues,
+        reloadTable: (prevValues.reloadTable + 1)
+      }
+    })
+  }
+
+  function handleEditing(status, date, id){
+      setEditingState({
+          status: status,
+          date: date,
+          id: id
+      })
+  }
+
+
   function handleStateChange(sectionName, updatedState){
     switch (sectionName) {
       case "food":
@@ -54,9 +98,16 @@ function MainApp(){
           }
         })
         break;
+      case "foodItemDelete":
+        setAppState(prevValue => {
+          return {
+            ...prevValue,
+            food: updatedState
+          }
+        })
+        break;
       case "sleep":
         const { name, value } = updatedState;
-        console.log(updatedState)
         setAppState(prevValue => {
           return {
             ...prevValue,
@@ -83,6 +134,14 @@ function MainApp(){
           }
         })
         break;
+      case "noteItemDelete":
+        setAppState(prevValue => {
+          return {
+            ...prevValue,
+            notes: updatedState
+          }
+        })
+        break;
       default:
         console.log("error")
         break;
@@ -94,34 +153,152 @@ function MainApp(){
       .then((res) => res.json())
       .then((data) => {
         setAppState({
+          date: data.date,
           food: data.food,
           sleep: data.sleep,
           poop: data.poop,
           notes: data.notes
         })
-        
+        setLoading(prevValue => {
+          return {
+            ...prevValue,
+            todayData: false
+          }
+        })
       })
       
   }, [])
 
+  useEffect(()=> {
+     fetch("/api/loadTable")
+      .then((res) => res.json())
+      .then((data) => { 
+        setDbData(()=>{
+          return data
+        })
+        setLoading(prevValue => {
+          return {
+            ...prevValue,
+            pastData: false
+          }
+        })
+        
+      })
+      
+  }, [editingState.reloadTable])
+
+  function loadEdit(e){
+    
+    const currentDate = getCurrentDate().replace(/\//g, '');
+    if(e.target){
+      e.preventDefault();
+      const index = e.currentTarget.parentNode.parentNode.getAttribute("dataindex");
+      const clone = JSON.parse(JSON.stringify(dbData[index]));
+      setAppState({
+        date: clone.date,
+        food: clone.food,
+        sleep: clone.sleep,
+        poop: clone.poop,
+        notes: clone.notes
+      })
+      currentDate === clone.date ?
+        setEditingState(prevValue =>{
+          return {
+            status: false,
+            changes: false,
+            date: clone.date,
+            id: clone._id,
+            cacheDbDataIndex: index,
+            reloadTable: prevValue.reloadTable,
+          }
+        }) :
+        setEditingState(prevValue =>{
+          return {
+            status: true,
+            changes: false,
+            date: clone.date,
+            id: clone._id,
+            cacheDbDataIndex: index,
+            reloadTable: prevValue.reloadTable,
+          }
+      })
+    } else {
+      const clone = JSON.parse(JSON.stringify(dbData[0]));
+      setAppState({
+        date: clone.date,
+        food: clone.food,
+        sleep: clone.sleep,
+        poop: clone.poop,
+        notes: clone.notes
+      })
+      setEditingState(prevValue =>{
+        return {
+          status: false,
+          changes: false,
+          date: clone.date,
+          id: clone._id,
+          cacheDbDataIndex: 0,
+          reloadTable: prevValue.reloadTable,
+        }
+      })
+    }
+  }
+
+  function closeEditerButton(){
+    loadEdit(dbData[0]);
+  }
+
+  
     return(
         <>
         <div className="container">
-        { display.foodSection ? 
-          <FoodSection foodData={appState.food} onFoodChange={handleStateChange}/> : null }
+        { display.foodSection && !loading.todayData ? 
+          <FoodSection 
+            foodData={appState.food} 
+            onFoodChange={handleStateChange} 
+            isEditing={editingState} 
+            tableRefresh={refreshTableUpdates}
+            cachedData={dbData}
+            /> : null }
         { display.sleepSection ? 
-          <SleepSection napData={appState.sleep} onNapChange={handleStateChange}/> : null}
+          <SleepSection 
+            napData={appState.sleep} 
+            onNapChange={handleStateChange} 
+            isEditing={editingState} 
+            tableRefresh={refreshTableUpdates}
+            cachedData={dbData}
+            /> : null}
         { display.pottySection ? 
-          <PottySection poopData={appState.poop} onPoopChange={handleStateChange}/> : null}
+          <PottySection 
+            poopData={appState.poop} 
+            onPoopChange={handleStateChange} 
+            isEditing={editingState} 
+            tableRefresh={refreshTableUpdates}
+            cachedData={dbData}
+            /> : null}
         { display.notesSection ? 
-          <NotesSection noteData={appState.notes} onNoteChange={handleStateChange}/> : null}
+          <NotesSection 
+            noteData={appState.notes} 
+            onNoteChange={handleStateChange} 
+            isEditing={editingState} 
+            tableRefresh={refreshTableUpdates}
+            cachedData={dbData}
+            /> : null}
         <UserInputNav 
           updateDisplay={setDisplay}
-          currentDate={currentDate}
+          isEditing={editingState}
+          setEditingState={handleEditing}
+          closeEditer={closeEditerButton}
         />
       </div>
       <div id="tableContainer">
-        <DataTable />
+          {loading.pastData ? 
+            <p>Loading...</p> :
+            <DataTable 
+              fetchedData={dbData} 
+              edit={loadEdit} />
+          }
+        
       </div>
       </>
     )
