@@ -139,7 +139,7 @@ dark blue: 1D3557
 
 /* color scheme
 red: E63946
-white: F1FAEE
+white: F1FAEE    
 light blue: A8DADC
 med blue: 457B9D
 dark blue: 1D3557
@@ -147,10 +147,9 @@ dark blue: 1D3557
 
 .loginContainer {
 	color: #1d3557;
-	width: 400px;
 	margin: 16px auto;
 	width: 325px;
-	height: 500px;
+	min-height: 500px;
 	font-size: 18px;
 	text-align: center;
 	border: 1px solid black;
@@ -183,9 +182,14 @@ dark blue: 1D3557
 	border-right: 0px;
 	border-left: 0px;
 	color: #1d3557;
+	height: 25px;
 	font-size: 17px;
 	text-align: center;
 	outline: none;
+}
+
+p.formError {
+	height: 20px;
 }
 
 .loginForm input:focus {
@@ -389,7 +393,7 @@ table {
 	margin: auto;
 	border-collapse: collapse;
 	box-shadow: 4px 4px 2px 1px rgba(29, 53, 87, 0.2);
-	width: 70%;
+	width: 700px;
 }
 
 th {

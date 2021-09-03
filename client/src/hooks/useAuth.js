@@ -10,7 +10,7 @@ function useAuth() {
 
 	function createUser(values) {
 		const data = {
-			username: values.userName,
+			username: values.username,
 			email: values.email,
 			email2: values.email2,
 			password: values.password,
@@ -26,12 +26,14 @@ function useAuth() {
 		})
 			.then((response) => response.json())
 			.then((data) => {
-				if (data) {
+				if (data.token) {
 					localStorage.setItem('token', data.token);
 					setUser({
 						auth: data.token,
 					});
 					history.push('/');
+				} else if (data.message) {
+					setError(data);
 				}
 			})
 			.catch((error) => {
@@ -41,7 +43,7 @@ function useAuth() {
 
 	function loginUser(values) {
 		const data = {
-			username: values.userName,
+			username: values.username,
 			password: values.password,
 		};
 
@@ -54,14 +56,14 @@ function useAuth() {
 		})
 			.then((responce) => responce.json())
 			.then((data) => {
-				if (!data.error) {
+				if (!data.message) {
 					localStorage.setItem('token', data.token);
 					setUser({
 						auth: data.token,
 					});
 					history.push('/');
 				} else {
-					setError(data.error);
+					setError({ message: data.message });
 				}
 			})
 			.catch((error) => {

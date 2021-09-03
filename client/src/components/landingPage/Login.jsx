@@ -30,30 +30,39 @@ function Login({ toggleForm }) {
 			<form className='loginForm' onSubmit={handleSubmit}>
 				<input
 					type='text'
-					name='userName'
+					name='username'
 					placeholder='Username'
-					style={errors.userNameMargin || { marginBottom: '25px' }}
+					// style={errors.userNameMargin || { marginBottom: '25px' }}
 					autoComplete='off'
-					value={values.userName || ''}
+					value={values.username || ''}
 					onChange={handleChange}
 				/>
-				{errors.userName && (
+				<p id='usernameErr' className='formError'>
+					{errors.userName && errors.userName}
+				</p>
+				{/* {errors.userName && (
 					<p className='formError'>{errors.userName}</p>
-				)}
+				)} */}
 				<input
 					type='password'
 					name='password'
 					placeholder='Password'
-					style={errors.passwordMargin || { marginBottom: '15px' }}
+					// style={errors.passwordMargin || { marginBottom: '15px' }}
 					value={values.password || ''}
 					onChange={handleChange}
 				/>
-				{error.message && (
+				<p id='passwordErr' className='formError'>
+					{errors.password}
+					{!errors.password && !errors.userName
+						? error.message
+						: null}
+				</p>
+				{/* {error.message && (
 					<p className='formError'>{loginStatus.message}</p>
 				)}
 				{errors.password && (
 					<p className='formError'>{errors.password}</p>
-				)}
+				)} */}
 				<button type='submit' className='submitBtn'>
 					Sign in
 				</button>
