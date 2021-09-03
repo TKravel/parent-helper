@@ -12,15 +12,15 @@ router.post('/login', (req, res) => {
 			return console.log(err);
 		}
 		if (!result) {
-			return res.send({ error: 'User does not exist' });
+			return res.json({ message: 'User does not exist' });
 		} else {
 			bcrypt.compare(password, result.password, function (err, responce) {
 				if (err) {
 					res.send({ err: err });
 				}
 				if (!responce) {
-					res.send({
-						error: 'Username or password incorrect',
+					res.json({
+						message: 'Username or password incorrect',
 					});
 				} else {
 					const token = jwt.sign(
@@ -41,14 +41,14 @@ router.post('/createUser', async (req, res) => {
 
 	await User.findOne({ username: [username] }, function (err, result) {
 		if (err) {
-			res.send({ err: err });
+			res.json({ err: err });
 		} else if (result) {
-			res.send({ message: 'User already exists' });
+			res.json({ message: 'User already exists' });
 		} else if (!result) {
 			bcrypt.genSalt(10, function (err, salt) {
 				bcrypt.hash(password, salt, function (err, hash) {
 					if (err) {
-						res.send({ err: err });
+						res.json({ err: err });
 					} else {
 						const newUser = new User({
 							username: username,
