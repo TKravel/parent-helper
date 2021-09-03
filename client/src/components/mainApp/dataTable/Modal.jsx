@@ -15,7 +15,7 @@ function Modal({ toggleModal, isOpen, data }) {
 		return null;
 	}
 
-	console.log(data);
+	console.log(data.amount);
 	return reactDOM.createPortal(
 		<div id='modalWrapper'>
 			<div id='modal'>
@@ -27,7 +27,11 @@ function Modal({ toggleModal, isOpen, data }) {
 					<p id='modalHeader'>{data.selectedTd}</p>
 				</div>
 				<div id='modalBody'>
-					<p id='itemCount'>{data.amount} Items recorded.</p>
+					<p id='itemCount'>
+						{data.amount === '1'
+							? data.amount + ' item recored'
+							: data.amount + ' items recorded'}
+					</p>
 					<p id='itemList'>{data.data}</p>
 				</div>
 			</div>

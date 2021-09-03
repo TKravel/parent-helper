@@ -1,52 +1,77 @@
 const express = require('express');
 const router = express.Router();
 const DayTracker = require('../models/dayTracker');
+const jwt = require('jsonwebtoken');
 
-// GET data
+// Verify users JWT token
+function verify(req, res, next) {
+	if (req.headers['authorization'] === undefined) {
+		return res.send('No token');
+	} else {
+		const token = req.headers['authorization'];
+		jwt.verify(token, process.env.JWT_SECRET, function (err, decoded) {
+			if (err) {
+				console.log('bad Token');
+				console.log(err);
+				res.send({ error: 'Can not be verified' });
+			} else {
+				console.log('good token');
+				req.id = decoded.id;
+			}
+		});
+	}
+	return next();
+}
 
-router.get('/loadTable', (req, res) => {
-	DayTracker.find({}, function (err, arr) {
+// GET data for table
+
+router.get('/loadTable', verify, (req, res, next) => {
+	const user = req.id;
+	DayTracker.find({ userId: user }, function (err, arr) {
 		if (err) {
 			console.log(err);
 		} else {
 			console.log('Table Loaded');
-			res.json(arr);
+			res.json({ arr: arr });
 		}
 	}).sort({ date: 'desc' });
 });
 
-router.post('/loadEdit', (req, res) => {
-	const dayID = req.body.id;
+// router.post('/loadEdit', (req, res) => {
+// 	const dayID = req.body.id;
 
-	DayTracker.findById(dayID, function (err, day) {
-		if (err) {
-			console.log(err);
-		} else {
-			res.json(day);
-		}
-	});
-});
+// 	DayTracker.findById(dayID, function (err, day) {
+// 		if (err) {
+// 			console.log(err);
+// 		} else {
+// 			res.json(day);
+// 		}
+// 	});
+// });
 
-// User input routes
+// Load todays data, create if none
 
-router.get('/loadLog', (req, res) => {
-	// Get date format it for search
+router.get('/loadLog', verify, (req, res) => {
+	// Get/format date for search
 	const currentDate = new Date();
-	const [month, day, year] = [
-		(currentDate.getMonth() + 1).toString(),
-		currentDate.getDate().toString(),
-		currentDate.getFullYear().toString(),
-	];
 
-	let dateQuery = '';
+	let month = (currentDate.getMonth() + 1).toString();
+	let day = currentDate.getDate().toString();
+	let year = currentDate.getFullYear().toString();
+
 	if (month.length === 1) {
-		dateQuery = '0' + month + day + year.substring(2, 4);
-	} else {
-		dateQuery = month + day + year.substring(2, 4);
+		month = '0' + month;
+	}
+	if (day.length === 1) {
+		day = '0' + day;
 	}
 
-	const query = { date: dateQuery },
-		update = { date: dateQuery },
+	const dateQuery = month + day + year.substring(2, 4);
+
+	const Id = req.id;
+
+	const query = { date: dateQuery, userId: Id },
+		update = { date: dateQuery, userId: Id },
 		options = { upsert: true, new: true, setDefaultsOnInsert: true };
 
 	DayTracker.findOneAndUpdate(query, update, options, function (err, result) {
@@ -61,7 +86,9 @@ router.get('/loadLog', (req, res) => {
 
 // POST data
 
-router.post('/userInputSave', (req, res) => {
+// Save current days data
+
+router.post('/userInputSave', verify, (req, res, next) => {
 	const currentDate = new Date();
 	const [month, day, year] = [
 		(currentDate.getMonth() + 1).toString(),
@@ -78,12 +105,17 @@ router.post('/userInputSave', (req, res) => {
 
 	const key = req.body.name;
 	const data = req.body.data;
+	const id = req.id;
+
 	DayTracker.findOneAndUpdate(
-		{ date: dateQuery },
+		{ date: dateQuery, userId: id },
 		{ [key]: data },
 		function (err, update) {
 			if (err) {
 				console.log(err);
+			} else if (update === null) {
+				console.log('no document');
+				res.send('No document found');
 			} else {
 				res.send(update);
 				console.log('Item saved');
@@ -92,49 +124,55 @@ router.post('/userInputSave', (req, res) => {
 	);
 });
 
-// UPDATE data
+// EDIT past days
 
-router.post('/userInputEdit', (req, res) => {
+router.post('/userInputEdit', verify, (req, res, next) => {
 	const key = req.body.name;
 	const data = req.body.data;
 	const dayID = req.body.id;
+	const user = req.id;
 
-	DayTracker.findByIdAndUpdate(
-		dayID,
+	DayTracker.findOneAndUpdate(
+		{ _id: dayID, userId: user },
 		{ [key]: data },
 		function (err, update) {
 			if (err) {
 				console.log(err);
+			} else if (!update) {
+				console.log('No records found');
 			} else {
 				console.log('Document updated:');
-				res.json(update);
+				res.send(update);
 			}
 		}
 	);
 });
 
-// DELETE data
+// DELETE list data
 
-router.delete('/userInputDelete', (req, res) => {
-	const id = req.body.id;
+router.delete('/userInputDelete', verify, (req, res) => {
+	const DocId = req.body.id;
 	const arr = req.body.arr;
 	const index = req.body.itemIndex;
-	console.log(id, arr, index);
-	DayTracker.findById(id, function (err, result) {
-		if (err) {
-			console.log(err);
-		} else if (result) {
-			const removedItem = result[arr].splice(index, 1);
-			result.save(function (err) {
-				if (err) {
-					console.log(err);
-				} else {
-					console.log('item removed');
-					res.send(result);
-				}
-			});
+	const Id = req.id;
+	DayTracker.findOneAndUpdate(
+		{ id: DocId, userId: id },
+		function (err, result) {
+			if (err) {
+				console.log(err);
+			} else if (result) {
+				const removedItem = result[arr].splice(index, 1);
+				result.save(function (err) {
+					if (err) {
+						console.log(err);
+					} else {
+						console.log('item removed');
+						res.send(result);
+					}
+				});
+			}
 		}
-	});
+	);
 });
 
 module.exports = router;

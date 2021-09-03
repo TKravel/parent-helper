@@ -4,6 +4,7 @@ const express = require('express');
 const PORT = 3001;
 const dayTrackerRouter = require('./routes/dayTracker');
 const userRouter = require('./routes/user');
+const jwt = require('jsonwebtoken');
 
 const app = express();
 

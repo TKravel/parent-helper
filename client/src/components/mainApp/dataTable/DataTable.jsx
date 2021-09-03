@@ -24,7 +24,7 @@ function flatenData(fetchedData) {
 			Edit: '',
 		};
 		Object.entries(item).forEach(([key, value]) => {
-			if (key === '__v') {
+			if (key === '__v' || key === 'userId') {
 				return null;
 			}
 			if (Array.isArray(value)) {
@@ -36,7 +36,6 @@ function flatenData(fetchedData) {
 					const items = value.join(', ');
 					const output = [[length], [items]];
 					result[key] = output;
-					console.log(output);
 				}
 			} else if (
 				typeof item[key] === 'object' &&
@@ -115,10 +114,6 @@ function DataTable({ edit, fetchedData }) {
 		modalData.selectedTd = td;
 		modalData.date = date;
 		modalData.data = [data];
-		console.log(td);
-		console.log(data);
-		console.log(date);
-		console.log(modalData);
 
 		isModelOpen ? setIsModalOpen(false) : setIsModalOpen(true);
 	}

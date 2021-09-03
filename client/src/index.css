@@ -2,27 +2,26 @@
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
 }
-ol, ul {
+ol,
+ul {
 	list-style: none;
 }
 
-
-
 html {
-    height: 100%;
-    background-image: url(./img/background-img.jpg);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
+	height: 100%;
+	background-image: url(./img/background-img.jpg);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-attachment: fixed;
 }
 
 body {
-    font-family: Helvetica, Candara;
+	font-family: Helvetica, Candara;
 }
 
 /* color scheme
@@ -36,105 +35,104 @@ dark blue: 1D3557
 /* Reusable CSS */
 
 .container {
-    margin:  16px auto;
-    width: 600px;
-    height: 300px;
-    text-align: center;
-    border: 1px solid black;
-    border-radius: 10px;
-    box-shadow: 4px 4px 2px 1px rgba(29, 53, 87, .2);
-    display: grid;
-    grid-template-columns: 400px 200px;
+	margin: 16px auto;
+	width: 600px;
+	height: 300px;
+	text-align: center;
+	border: 1px solid black;
+	border-radius: 10px;
+	box-shadow: 4px 4px 2px 1px rgba(29, 53, 87, 0.2);
+	display: grid;
+	grid-template-columns: 400px 200px;
 }
 
 .sectionHeader {
-    color: #F1FAEE;
-    background-color: #457B9D;
-    border-top-left-radius: 10px;
+	color: #f1faee;
+	background-color: #457b9d;
+	border-top-left-radius: 10px;
 }
 
 .errorMessage {
-    font-weight: 700;
-    color: #E63946;
+	font-weight: 700;
+	color: #e63946;
 }
 
 .deleteListItem {
-    color: #E63946;
-    font-size: 18px;
-    margin-left: 16px;
-    border: none;
+	color: #e63946;
+	font-size: 18px;
+	margin-left: 16px;
+	border: none;
 }
 
 .deleteListItem:hover {
-    color: #e41526;
+	color: #e41526;
 }
 
 .saveButton {
-    align-content: center;
-    margin:auto;
-    font-size: 18px;
-    font-weight: 700;
-    color: #F1FAEE;
-    background-color: #1D3557;
-    border-radius: 15px;
-    height: 30px;
-    width: 35%;
-    grid-row-start: 2;
-    grid-row-end: 3;
-    transition-property: background-color #1D3557;
-    transition-duration: 0.4s;
+	align-content: center;
+	margin: auto;
+	font-size: 18px;
+	font-weight: 700;
+	color: #f1faee;
+	background-color: #1d3557;
+	border-radius: 15px;
+	height: 30px;
+	width: 35%;
+	grid-row-start: 2;
+	grid-row-end: 3;
+	transition-property: background-color #1d3557;
+	transition-duration: 0.25s;
 }
 
 .saveButton:hover {
-    font-size: 19px;
+	font-size: 19px;
 }
 
 .saveButton:disabled {
-    background-color: #457B9D;
-    cursor: not-allowed;
+	background-color: #457b9d;
+	cursor: not-allowed;
 }
 
 .mainCardInput {
-    background-color: #F1FAEE;
-    border-bottom-left-radius: 10px;
-    height: 261px;
-    display: grid;
-    grid-template-rows: 226px 35px;
+	background-color: #f1faee;
+	border-bottom-left-radius: 10px;
+	height: 261px;
+	display: grid;
+	grid-template-rows: 226px 35px;
 }
 
-.textInputContainer, 
-#poopInputContainer, 
+.textInputContainer,
+#poopInputContainer,
 #sleepInputContainer {
-    grid-row-start: 1;
-    grid-row-end: 2;
+	grid-row-start: 1;
+	grid-row-end: 2;
 }
 
 /* Nav Bar */
 
-
 .App-header {
-    color: #F1FAEE;
-    background-color: #1d3557;
+	color: #f1faee;
+	background-color: #1d3557;
 }
 
 .App-header h1 {
-    display: inline;
-    text-align: left;
+	display: inline;
+	text-align: left;
 }
 
 .App-header a {
-    color: #F1FAEE;
-    text-decoration: none;
+	color: #f1faee;
+	text-decoration: none;
 }
 
 .App-header ul {
-    display: inline;
-    text-align: right;
+	display: inline;
+	text-align: right;
 }
 
 .App-header li {
-    display: inline;
-    padding: 0px 10px;
+	display: inline;
+	padding: 0px 10px;
 }
 
 /* Login form */
@@ -148,231 +146,230 @@ dark blue: 1D3557
 */
 
 .loginContainer {
-    color: #1D3557;
-    width: 400px;
-    margin:  16px auto;
-    width: 325px;
-    height: 500px;
-    font-size: 18px;
-    text-align: center;
-    border: 1px solid black;
-    border-radius: 10px;
-    box-shadow: 4px 4px 2px 1px rgba(29, 53, 87, .2);
-    background-color: #F1FAEE;
+	color: #1d3557;
+	width: 400px;
+	margin: 16px auto;
+	width: 325px;
+	height: 500px;
+	font-size: 18px;
+	text-align: center;
+	border: 1px solid black;
+	border-radius: 10px;
+	box-shadow: 4px 4px 2px 1px rgba(29, 53, 87, 0.2);
+	background-color: #f1faee;
 }
 
 .loginMessage {
-    font-size: 20px;
-    font-weight: 700;
+	font-size: 20px;
+	font-weight: 700;
 }
 
 .registerForm .loginMessage {
-    margin: 35px 0px 15px 0px;
+	margin: 35px 0px 15px 0px;
 }
 
 .loginForm {
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-    margin-top: 10px;
-    width: 250px;
+	display: flex;
+	flex-direction: column;
+	margin: auto;
+	margin-top: 10px;
+	width: 250px;
 }
 
 .loginForm input {
-    background-color: #F1FAEE;
-    border: 2px solid #1D3557;
-    border-top: 0px;
-    border-right: 0px;
-    border-left: 0px;
-    color: #1D3557;
-    font-size: 17px;
-    text-align: center;
-    outline: none;
+	background-color: #f1faee;
+	border: 2px solid #1d3557;
+	border-top: 0px;
+	border-right: 0px;
+	border-left: 0px;
+	color: #1d3557;
+	font-size: 17px;
+	text-align: center;
+	outline: none;
 }
 
 .loginForm input:focus {
-    font-size: 18px;
+	font-size: 18px;
 }
 
 input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0px 1000px #F1FAEE inset;
-  }
+	-webkit-box-shadow: 0 0 0px 1000px #f1faee inset;
+}
 
 .submitBtn {
-    font-size: large;
-    font-weight: 700;
-    color: #F1FAEE;
-    background-color: #1D3557;
-    border-radius: 17px;
-    height: 35px;
-    margin: auto;
-    margin-top: 37px;
-    margin-bottom: 37px;
-    width: 250px;
+	font-size: large;
+	font-weight: 700;
+	color: #f1faee;
+	background-color: #1d3557;
+	border-radius: 17px;
+	height: 35px;
+	margin: auto;
+	margin-top: 37px;
+	margin-bottom: 37px;
+	width: 250px;
 }
 
 .linkBtn {
-    border: none;
-    background-color: #F1FAEE;
-    color: #457B9D;
-    font-size: 1em;
-    font-weight: 700;
+	border: none;
+	background-color: #f1faee;
+	color: #457b9d;
+	font-size: 1em;
+	font-weight: 700;
 }
 
 .formError {
-    color: #E63946;
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 4px;
+	color: #e63946;
+	font-size: 14px;
+	font-weight: 600;
+	margin-bottom: 4px;
 }
 
 #signInIcon {
-    font-size: 150px;
-    margin: 15px;
+	font-size: 150px;
+	margin: 15px;
 }
 
 /* Food and Notes inputs */
 
 .textInputForm {
-    height: 72px;
-    padding-top: 6px;
+	height: 72px;
+	padding-top: 6px;
 }
 
 .textInput {
-    border: 2px solid #1D3557;
-    border-radius: 5px;
-    height: 25px;
+	border: 2px solid #1d3557;
+	border-radius: 5px;
+	height: 25px;
 }
 
 .listTextField {
-    margin: auto;
-    height: 150px;
-    width: 360px;
-    overflow-y: scroll;
-    overflow-x: hidden;
+	margin: auto;
+	height: 150px;
+	width: 360px;
+	overflow-y: scroll;
+	overflow-x: hidden;
 }
 
 .addSubtractButtons {
-    font-size: large;
-    font-weight: 700;
-    color: #1D3557;
-    background-color: #F1FAEE;
-    border: none;
-    height: 25px;
-    width: 25px;
+	font-size: large;
+	font-weight: 700;
+	color: #1d3557;
+	background-color: #f1faee;
+	border: none;
+	height: 25px;
+	width: 25px;
 }
 
 /* Poop counter CSS */
 
 #poopInputContainer {
-    display: grid;
-    grid-template-rows: 150px 75px;
+	display: grid;
+	grid-template-rows: 150px 75px;
 }
 #poopDisplay {
-    text-align: center;
-    grid-row-start: 1;
-    grid-row-end: 2;
+	text-align: center;
+	grid-row-start: 1;
+	grid-row-end: 2;
 }
 
-#poopDisplay P{
-    /* display: block; */
-    margin: 10px;
+#poopDisplay P {
+	/* display: block; */
+	margin: 10px;
 }
 
 #poopIcon {
-    color: #1d3557;
-    font-size: 100px;
+	color: #1d3557;
+	font-size: 100px;
 }
 
 #countData {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 75px;
-    height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 75px;
+	height: 100%;
 }
 
-#poopCounterControls{
-    grid-row-start: 2;
-    grid-row-end: 3;
+#poopCounterControls {
+	grid-row-start: 2;
+	grid-row-end: 3;
 }
 
 #poopCounterControls button {
-    margin: 15px;
+	margin: 15px;
 }
 
 /* Sleep input section */
 
-#sleepInputContainer{
-    height: 226px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    text-align: center;
+#sleepInputContainer {
+	height: 226px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	text-align: center;
 }
 
 .addNapBtn {
-    /* align-content: center; */
-    font-size: large;
-    font-weight: 700;
-    color: #F1FAEE;
-    background-color: #1D3557;
-    border-radius: 15px;
-    margin: 0 auto;
-    height: 30px;
-    width: 35%;
+	/* align-content: center; */
+	font-size: large;
+	font-weight: 700;
+	color: #f1faee;
+	background-color: #1d3557;
+	border-radius: 15px;
+	margin: 0 auto;
+	height: 30px;
+	width: 35%;
 }
 
 .minNapBtn {
-    font-size: large;
-    font-weight: 700;
-    color: #F1FAEE;
-    background-color: #1D3557;
-    border-radius: 15px;
-    margin: 0 auto;
-    height: 30px;
-    width: 30%;
+	font-size: large;
+	font-weight: 700;
+	color: #f1faee;
+	background-color: #1d3557;
+	border-radius: 15px;
+	margin: 0 auto;
+	height: 30px;
+	width: 30%;
 }
-
 
 /* User input grid Section */
 
 .userInputNav {
-    background-color: #457B9D;
-    border-radius: 0px 10px 10px 0px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    grid-column-start: 2;
-    grid-column-end: 3;
+	background-color: #457b9d;
+	border-radius: 0px 10px 10px 0px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	grid-column-start: 2;
+	grid-column-end: 3;
 }
 
 #currentDate {
-    color: #F1FAEE;
-    font-weight: 800;
-    padding: 8px;
+	color: #f1faee;
+	font-weight: 800;
+	padding: 8px;
 }
 
 .userInputNav button {
-    font-size: 18px;
-    font-weight: 700;
-    color: #F1FAEE;
-    background-color: #1D3557;
-    border-radius: 27px;
-    display: block;
-    height: 50px;
-    width: 50%;
-    margin: auto;
+	font-size: 18px;
+	font-weight: 700;
+	color: #f1faee;
+	background-color: #1d3557;
+	border-radius: 27px;
+	display: block;
+	height: 50px;
+	width: 50%;
+	margin: auto;
 }
 
 .userInputNav button:hover {
-    font-size: 19px;
+	font-size: 19px;
 }
 
 #closeEditerButton {
-    width: 85%;
-    height:30px;
-    border-radius: 15px;
+	width: 85%;
+	height: 30px;
+	border-radius: 15px;
 }
 
 /* color scheme
@@ -389,123 +386,122 @@ dark blue: 1D3557
 }
 
 table {
-    margin: auto;
-    border-collapse: collapse;
-    box-shadow: 4px 4px 2px 1px rgba(29, 53, 87, .2);
-    width: 70%;
+	margin: auto;
+	border-collapse: collapse;
+	box-shadow: 4px 4px 2px 1px rgba(29, 53, 87, 0.2);
+	width: 70%;
 }
 
 th {
-    color: #F1FAEE;
-    background-color: #1D3557;
-
+	color: #f1faee;
+	background-color: #1d3557;
 }
-th, td {
-    text-align: left;
-    padding: 4px;
-    border: 1px solid #1D3557;
+th,
+td {
+	height: 35px;
+	text-align: left;
+	padding: 4px;
+	border: 1px solid #1d3557;
 }
 
-tr:nth-child(even){
-    background-color: #F1FAEE;
+tr:nth-child(even) {
+	background-color: #f1faee;
 }
 
 tr:nth-child(odd) {
-    background-color: #A8DADC;
+	background-color: #a8dadc;
 }
 
 .editTD {
-    text-align: center;
+	text-align: center;
 }
 
 .editButton {
-    border: none;
-    color: #1D3557;
-    background-color: inherit;
-    font-size: 20px;
+	border: none;
+	color: #1d3557;
+	background-color: inherit;
+	font-size: 20px;
 }
 
 .editButton:hover {
-    font-size: 21px;
+	font-size: 21px;
 }
 
 /* Modal */
 
 #modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    height: 300px;
-    width:400px;
-    text-align: center;
-    background-color: #F1FAEE;
-    border: 2px solid #1D3557;
-    border-radius: 10px;
-    box-shadow: 4px 4px 2px 1px rgba(0, 0, 0, .3);
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	height: 300px;
+	width: 400px;
+	text-align: center;
+	background-color: #f1faee;
+	border: 2px solid #1d3557;
+	border-radius: 10px;
+	box-shadow: 4px 4px 2px 1px rgba(0, 0, 0, 0.3);
 }
 
 #modalHeader {
-    background-color: #1D3557;
-    color: #F1FAEE;
-    font-size: 20px;
-    padding-top: 10px;
-    padding-left: 10px;
-    border-top-left-radius: 6px;
-    border-top-right-radius: 6px;
+	background-color: #1d3557;
+	color: #f1faee;
+	font-size: 20px;
+	padding-top: 10px;
+	padding-left: 10px;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
 }
 
 #modalDate {
-    text-align: start;
+	text-align: start;
 }
 
 #modalCloseBtn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    height: 22px;
-    width: 22px;
-    border: none;
-    border-radius: 12px;
-    background-color: #F1FAEE;
-    color: #E63946;
-    font-size: 18px;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	height: 22px;
+	width: 22px;
+	border: none;
+	border-radius: 12px;
+	background-color: #f1faee;
+	color: #e63946;
+	font-size: 18px;
 }
 
 #modalCloseBtn .svg-inline--fa {
-    vertical-align: middle;
+	vertical-align: middle;
 }
 
 #modalCloseBtn:hover {
-    color: #e41526;
-    font-size: 19px;
+	color: #e41526;
+	font-size: 19px;
 }
 
 #modalBody {
-    display: grid;
-    grid-template-rows: 60px 174px;
+	display: grid;
+	grid-template-rows: 60px 174px;
 }
 
 #itemCount {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 #itemList {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 #modalWrapper {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, .7);
-    z-index: 2;
-
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.7);
+	z-index: 2;
 }
-

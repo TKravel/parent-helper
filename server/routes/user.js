@@ -2,38 +2,44 @@ const express = require('express');
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
 
 router.post('/login', (req, res) => {
 	const { username, password } = req.body;
 	console.log(username, password);
 	User.findOne({ username: [username] }, function (err, result) {
 		if (err) {
-			console.log(err);
+			return console.log(err);
 		}
 		if (!result) {
-			res.send({ message: 'User does not exist' });
+			return res.send({ error: 'User does not exist' });
 		} else {
-			console.log(result.password);
-			console.log(password);
 			bcrypt.compare(password, result.password, function (err, responce) {
-				console.log(responce);
 				if (err) {
-					res.json({ err: err });
+					res.send({ err: err });
 				}
 				if (!responce) {
-					res.send({ message: 'Username or password incorrect' });
+					res.send({
+						error: 'Username or password incorrect',
+					});
 				} else {
-					res.send({ user: result.id });
+					const token = jwt.sign(
+						{ id: result._id },
+						process.env.JWT_SECRET
+					);
+					res.send({ token: token });
 				}
 			});
 		}
+
+		// console.log(token);
 	});
 });
 
-router.post('/createUser', (req, res) => {
+router.post('/createUser', async (req, res) => {
 	const { username, email, email2, password, password2 } = req.body;
 
-	User.findOne({ username: [username] }, function (err, result) {
+	await User.findOne({ username: [username] }, function (err, result) {
 		if (err) {
 			res.send({ err: err });
 		} else if (result) {
@@ -44,13 +50,17 @@ router.post('/createUser', (req, res) => {
 					if (err) {
 						res.send({ err: err });
 					} else {
-						const user = new User({
+						const newUser = new User({
 							username: username,
 							email: email,
 							password: hash,
 						});
-						user.save();
-						res.send('User created');
+						newUser.save();
+						const token = jwt.sign(
+							{ id: newUser._id },
+							process.env.JWT_SECRET
+						);
+						res.json({ token: token });
 					}
 				});
 			});

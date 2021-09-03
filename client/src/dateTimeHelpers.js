@@ -7,16 +7,19 @@ function displayDate(input) {
 
 function getCurrentDate() {
 	const date = new Date();
-	const month = (date.getMonth() + 1).toString();
-	const day = date.getDate().toString();
+	let month = (date.getMonth() + 1).toString();
+	let day = date.getDate().toString();
 	const year = date.getFullYear().toString().substring(2, 4);
 	let currentDate;
 
-	month.length === 1
-		? (currentDate = '0' + month + '/' + day + '/' + year)
-		: (currentDate = month + '/' + day + '/' + year);
+	if (month.length === 1) {
+		month = '0' + month;
+	}
+	if (day.length === 1) {
+		day = '0' + day;
+	}
 
-	return currentDate;
+	return month + '/' + day + '/' + year;
 }
 
 // Time helpers

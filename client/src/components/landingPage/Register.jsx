@@ -1,40 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import useForm from './useForm';
 import validate from './registerValidation';
+import useAuth from '../../hooks/useAuth';
 
 function Register({ toggleForm }) {
 	const { values, errors, handleChange, handleSubmit } = useForm(
-		createUser,
+		registerUser,
 		validate
 	);
 
-	const [regStatus, setRegStatus] = useState('');
+	const { createUser, error } = useAuth();
 
-	function createUser() {
-		const data = {
-			username: values.userName,
-			email: values.email,
-			email2: values.email2,
-			password: values.password,
-			password2: values.password2,
-		};
-
-		fetch('/users/createUser', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(data),
-		})
-			.then((response) => response.json())
-			.then((data) => {
-				if (data.message) {
-					setRegStatus(data);
-				}
-			})
-			.catch((error) => {
-				console.error('Error:', error);
-			});
+	function registerUser() {
+		createUser(values);
 	}
 
 	return (
@@ -92,9 +70,7 @@ function Register({ toggleForm }) {
 					onChange={handleChange}
 					value={values.password2 || ''}
 				/>
-				{regStatus.message && (
-					<p className='formError'>{regStatus.message}</p>
-				)}
+				{error.message && <p className='formError'>{error.message}</p>}
 				{errors.password2 && (
 					<p className='formError'>{errors.password2}</p>
 				)}

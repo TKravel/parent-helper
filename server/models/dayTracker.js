@@ -15,6 +15,7 @@ const DaysTrackerSchema = new Schema({
 		bedTime: { type: String, default: '00:00' },
 	},
 	notes: { type: [String], default: [] },
+	userId: { type: String, required: true },
 });
 
 const DayTracker = mongoose.model('DayTracker', DaysTrackerSchema);

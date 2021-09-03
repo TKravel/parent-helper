@@ -1,42 +1,23 @@
 import React, { useState } from 'react';
 import useForm from './useForm';
 import validate from './loginValidation';
+import useAuth from '../../hooks/useAuth';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChartLine } from '@fortawesome/free-solid-svg-icons';
 
 function Login({ toggleForm }) {
 	const { values, errors, handleChange, handleSubmit } = useForm(
-		loginUser,
+		login,
 		validate
 	);
 
-	const [loginStatus, setLoginStatus] = useState({});
+	const { loginUser, error } = useAuth(values);
 
-	function loginUser() {
-		const data = {
-			username: values.userName,
-			password: values.password,
-		};
+	const [loginStatus, setLoginStatus] = useState(false);
 
-		fetch('/users/login', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(data),
-		})
-			.then((responce) => responce.json())
-			.then((data) => {
-				if (data.message) {
-					setLoginStatus(data);
-				} else {
-					setLoginStatus(data);
-				}
-			})
-			.catch((error) => {
-				console.error('Error:', error);
-			});
+	function login() {
+		loginUser(values);
 	}
 
 	return (
@@ -67,7 +48,7 @@ function Login({ toggleForm }) {
 					value={values.password || ''}
 					onChange={handleChange}
 				/>
-				{loginStatus.message && (
+				{error.message && (
 					<p className='formError'>{loginStatus.message}</p>
 				)}
 				{errors.password && (

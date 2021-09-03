@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import FoodSection from './foodSection/FoodSection';
 import SleepSection from './sleepSection/SleepSection';
 import PottySection from './poopSection/PottySection';
 import NotesSection from './notesSection/NotesSection';
 import UserInputNav from './userInputNav';
 import DataTable from './dataTable/DataTable';
+import { UserContext } from '../../hooks/UserContext';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
 	faPlus,
@@ -18,6 +19,7 @@ import { getCurrentDate } from '../../dateTimeHelpers';
 library.add(faPlus, faMinus, faEdit, faTimes, faExpand);
 
 function MainApp() {
+	const { user } = useContext(UserContext);
 	// Section display state
 
 	const [display, setDisplay] = useState({
@@ -136,7 +138,12 @@ function MainApp() {
 	}
 
 	useEffect(() => {
-		fetch('/api/loadLog')
+		fetch('/api/loadLog', {
+			method: 'GET',
+			headers: {
+				authorization: user.auth,
+			},
+		})
 			.then((res) => res.json())
 			.then((data) => {
 				setAppState({
@@ -153,14 +160,19 @@ function MainApp() {
 					};
 				});
 			});
-	}, []);
+	}, [user.auth]);
 
 	useEffect(() => {
-		fetch('/api/loadTable')
+		fetch('/api/loadTable', {
+			method: 'GET',
+			headers: {
+				authorization: user.auth,
+			},
+		})
 			.then((res) => res.json())
 			.then((data) => {
 				setDbData(() => {
-					return data;
+					return data.arr;
 				});
 				setLoading((prevValue) => {
 					return {
@@ -169,7 +181,7 @@ function MainApp() {
 					};
 				});
 			});
-	}, [editingState.reloadTable]);
+	}, [editingState.reloadTable, user.auth]);
 
 	function loadEdit(e) {
 		const currentDate = getCurrentDate().replace(/\//g, '');

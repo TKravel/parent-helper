@@ -24,7 +24,10 @@ function CreateData({ item, edit, data, toggleModal }) {
 						data-date={item['date']}
 						data-amount={item[key][0]}
 					>
-						{item[key][0] + 'Items'}
+						{item[key][0] === '1'
+							? item[key][0] + ' item'
+							: item[key][0] + ' items'}
+
 						<button
 							className='editButton'
 							onClick={toggleModal}

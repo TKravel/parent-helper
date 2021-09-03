@@ -1,28 +1,58 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { UserContext } from '../../hooks/UserContext';
 
 function SaveButton({ name, stateData, isEditing, tableRefresh, cachedData }) {
-	function handleSave(e) {
+	const { user } = useContext(UserContext);
+	// const token = auth;
+
+	const [isDisabled, setIsDisabled] = useState(true);
+
+	useEffect(() => {
+		if (cachedData.length !== 0) {
+			const indexNum = parseInt(isEditing.cacheDbDataIndex);
+			let cachedState = cachedData.filter(
+				(item, index) => index === indexNum
+			);
+			let storedData = cachedState[0][name];
+			if (JSON.stringify(stateData) === JSON.stringify(storedData)) {
+				setIsDisabled(true);
+			} else {
+				setIsDisabled(false);
+			}
+		}
+	}, [[stateData], [cachedData]]);
+
+	const handleSave = (e) => {
 		e.preventDefault();
+		let userId;
+		let userToken;
+		if (user) {
+			userId = user.id;
+			userToken = user.auth;
+			console.log(userId);
+		}
 		const data = {
 			name: [name],
 			data: stateData,
+			user: userId,
 		};
 		fetch('api/userInputSave', {
 			method: 'POST',
 			headers: {
+				authorization: userToken,
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify(data),
 		})
 			.then((response) => response.json())
 			.then((data) => {
-				tableRefresh();
 				console.log('Success:', data);
+				tableRefresh();
 			})
 			.catch((error) => {
 				console.error('Error:', error);
 			});
-	}
+	};
 
 	function handleEdit(e) {
 		e.preventDefault();
@@ -47,22 +77,6 @@ function SaveButton({ name, stateData, isEditing, tableRefresh, cachedData }) {
 				console.error('Error:', error);
 			});
 	}
-	const [isDisabled, setIsDisabled] = useState(true);
-
-	useEffect(() => {
-		if (cachedData.length !== 0) {
-			const indexNum = parseInt(isEditing.cacheDbDataIndex);
-			let cachedState = cachedData.filter(
-				(item, index) => index === indexNum
-			);
-			let sectionData = cachedState[0][name];
-			if (JSON.stringify(stateData) === JSON.stringify(sectionData)) {
-				setIsDisabled(true);
-			} else {
-				setIsDisabled(false);
-			}
-		}
-	}, [cachedData][stateData]);
 
 	return (
 		<>
