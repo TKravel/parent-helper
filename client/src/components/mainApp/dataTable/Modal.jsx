@@ -15,7 +15,6 @@ function Modal({ toggleModal, isOpen, data }) {
 		return null;
 	}
 
-	console.log(data.amount);
 	return reactDOM.createPortal(
 		<div id='modalWrapper'>
 			<div id='modal'>

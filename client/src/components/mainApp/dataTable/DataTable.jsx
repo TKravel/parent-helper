@@ -43,10 +43,10 @@ function flatenData(fetchedData) {
 				!Array.isArray(item[key])
 			) {
 				let wUp = item[key].wakeUp;
-				let fNapStart = item[key].firstNapStart;
-				let fNapEnd = item[key].firstNapEnd;
-				let sNapStart = item[key].secondNapStart;
-				let sNapEnd = item[key].secondNapEnd;
+				let fNapStart = item[key].nap1Start;
+				let fNapEnd = item[key].nap1End;
+				let sNapStart = item[key].nap2Start;
+				let sNapEnd = item[key].nap2End;
 				let bTime = item[key].bedTime;
 
 				result['Wake up'] = convertTo12HR(wUp);
@@ -123,7 +123,7 @@ function DataTable({ edit, fetchedData }) {
 			{dataRecords.length === 0 ? (
 				<p>Loading data...</p>
 			) : (
-				<table>
+				<table className='dataTable'>
 					<tbody>
 						<tr>
 							<GetHeadings />

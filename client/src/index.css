@@ -46,6 +46,35 @@ dark blue: 1D3557
 	grid-template-columns: 400px 200px;
 }
 
+@media only screen and (max-width: 500px) {
+	.container {
+		width: 100vw;
+		height: auto;
+		display: grid;
+		grid-template-columns: 1fr !important;
+		grid-template-rows: auto auto;
+	}
+	#foodSection {
+		border-top-right-radius: 10px;
+		order: 2;
+		grid-row-start: 2;
+		grid-row-end: 3;
+		width: 100vw;
+	}
+	.mainCardInput {
+		border-bottom-right-radius: 10px;
+		width: 100vw;
+	}
+	.userInputNav {
+		float: left;
+		width: 100vw;
+		grid-column-start: 1;
+		grid-column-end: 2;
+		grid-row-start: 1;
+		grid-row-end: 2;
+	}
+}
+
 .sectionHeader {
 	color: #f1faee;
 	background-color: #457b9d;
@@ -431,6 +460,67 @@ tr:nth-child(odd) {
 	font-size: 21px;
 }
 
+@media screen and (max-width: 500px) {
+	.dataTable {
+		display: block;
+		width: 100%;
+		margin: 1em 0;
+		clear: both;
+	}
+
+	.dataTable thead,
+	.dataTable tbody,
+	.dataTable thead tr,
+	.dataTable th {
+		display: block;
+	}
+
+	.dataTable thead {
+		float: left;
+	}
+
+	.dataTable tbody {
+		width: auto;
+
+		position: relative;
+		overflow-x: auto;
+	}
+
+	.dataTable td,
+	.dataTable th {
+		display: flex;
+		width: auto;
+		height: auto;
+		padding: 0.625em;
+		line-height: 1.5em;
+		border-bottom: 1px solid #ccc;
+		box-sizing: border-box;
+		overflow-x: hidden;
+		overflow-y: hidden;
+	}
+
+	.dataTable th {
+		text-align: left;
+		background: #1d3557;
+		border-bottom: 1px solid #aaa;
+	}
+
+	.dataTable tbody tr {
+		display: table-cell;
+	}
+
+	.dataTable tbody td {
+		display: block;
+	}
+
+	.dataTable tr:nth-child(odd) {
+		background: #a8dadc;
+	}
+
+	.dataTable tr {
+		height: auto;
+	}
+}
 /* Modal */
 
 #modal {
@@ -502,6 +592,7 @@ tr:nth-child(odd) {
 
 #modalWrapper {
 	position: absolute;
+	height: 100%;
 	top: 0;
 	right: 0;
 	bottom: 0;

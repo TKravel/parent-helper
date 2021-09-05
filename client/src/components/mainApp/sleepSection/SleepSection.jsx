@@ -56,16 +56,16 @@ function SleepSection({
 								/>
 							</button>
 							<SleepInput
-								name='firstNapStart'
+								name='nap1Start'
 								label='Start of nap:'
-								napData={napData.firstNapStart}
+								napData={napData.nap1Start}
 								sectionData={napData}
 								onChange={handleChange}
 							/>
 							<SleepInput
-								name='firstNapEnd'
+								name='nap1End'
 								label='End of nap:'
-								napData={napData.firstNapEnd}
+								napData={napData.nap1End}
 								sectionData={napData}
 								onChange={handleChange}
 							/>
@@ -86,16 +86,16 @@ function SleepSection({
 								/>
 							</button>
 							<SleepInput
-								name='secondNapStart'
+								name='nap2Start'
 								label='Start of nap:'
-								napData={napData.secondNapStart}
+								napData={napData.nap2Start}
 								sectionData={napData}
 								onChange={handleChange}
 							/>
 							<SleepInput
-								name='secondNapEnd'
+								name='nap2End'
 								label='End of nap:'
-								napData={napData.secondNapEnd}
+								napData={napData.nap2End}
 								sectionData={napData}
 								onChange={handleChange}
 							/>

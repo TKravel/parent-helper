@@ -22,19 +22,15 @@ function SaveButton({ name, stateData, isEditing, tableRefresh, cachedData }) {
 		}
 	}, [[stateData], [cachedData]]);
 
-	const handleSave = (e) => {
+	function handleSave(e) {
 		e.preventDefault();
-		let userId;
 		let userToken;
 		if (user) {
-			userId = user.id;
 			userToken = user.auth;
-			console.log(userId);
 		}
 		const data = {
 			name: [name],
 			data: stateData,
-			user: userId,
 		};
 		fetch('api/userInputSave', {
 			method: 'POST',
@@ -46,32 +42,41 @@ function SaveButton({ name, stateData, isEditing, tableRefresh, cachedData }) {
 		})
 			.then((response) => response.json())
 			.then((data) => {
-				console.log('Success:', data);
+				console.log('Item saved:', data);
 				tableRefresh();
 			})
 			.catch((error) => {
 				console.error('Error:', error);
 			});
-	};
+	}
 
 	function handleEdit(e) {
 		e.preventDefault();
+		let userToken;
+		if (user) {
+			userToken = user.auth;
+		}
 		const data = {
 			name: [name],
 			data: stateData,
 			id: isEditing.id,
 		};
+
 		fetch('api/userInputEdit', {
 			method: 'POST',
 			headers: {
-				'Content-Type': 'application/json',
+				authorization: userToken,
+				'Content-Type': 'application/json; charset=utf-8',
 			},
 			body: JSON.stringify(data),
 		})
 			.then((response) => response.json())
 			.then((data) => {
-				console.log('Success:', data);
-				tableRefresh();
+				if (data) {
+					tableRefresh();
+				} else {
+					console.log('no data');
+				}
 			})
 			.catch((error) => {
 				console.error('Error:', error);

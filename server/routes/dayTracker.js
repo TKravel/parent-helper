@@ -13,7 +13,7 @@ function verify(req, res, next) {
 			if (err) {
 				console.log('bad Token');
 				console.log(err);
-				res.send({ error: 'Can not be verified' });
+				res.json({ error: 'Can not be verified' });
 			} else {
 				console.log('good token');
 				req.id = decoded.id;
@@ -90,18 +90,19 @@ router.get('/loadLog', verify, (req, res) => {
 
 router.post('/userInputSave', verify, (req, res, next) => {
 	const currentDate = new Date();
-	const [month, day, year] = [
-		(currentDate.getMonth() + 1).toString(),
-		currentDate.getDate().toString(),
-		currentDate.getFullYear().toString(),
-	];
 
-	let dateQuery = '';
+	let month = (currentDate.getMonth() + 1).toString();
+	let day = currentDate.getDate().toString();
+	let year = currentDate.getFullYear().toString();
+
 	if (month.length === 1) {
-		dateQuery = '0' + month + day + year.substring(2, 4);
-	} else {
-		dateQuery = month + day + year.substring(2, 4);
+		month = '0' + month;
 	}
+	if (day.length === 1) {
+		day = '0' + day;
+	}
+
+	let dateQuery = month + day + year.substring(2, 4);
 
 	const key = req.body.name;
 	const data = req.body.data;
@@ -137,12 +138,14 @@ router.post('/userInputEdit', verify, (req, res, next) => {
 		{ [key]: data },
 		function (err, update) {
 			if (err) {
+				console.log('error');
 				console.log(err);
 			} else if (!update) {
 				console.log('No records found');
 			} else {
+				console.log(update);
 				console.log('Document updated:');
-				res.send(update);
+				res.json({ update: update });
 			}
 		}
 	);

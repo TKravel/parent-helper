@@ -7,34 +7,34 @@ function NapError({ selectedNap, sectionData }) {
 	switch (time) {
 		case 'wakeUp':
 			break;
-		case 'firstNapStart':
+		case 'nap1Start':
 			if (
-				sectionData.firstNapStart !== '00:00' &&
-				sectionData.firstNapStart < sectionData.wakeUp
+				sectionData.nap1Start !== '00:00' &&
+				sectionData.nap1Start < sectionData.wakeUp
 			) {
 				errorMessage = 'Must be after wake up';
 			}
 			break;
-		case 'firstNapEnd':
+		case 'nap1End':
 			if (
-				sectionData.firstNapEnd !== '00:00' &&
-				sectionData.firstNapEnd < sectionData.firstNapStart
+				sectionData.nap1End !== '00:00' &&
+				sectionData.nap1End < sectionData.nap1Start
 			) {
 				errorMessage = 'Must be after nap start';
 			}
 			break;
-		case 'secondNapStart':
+		case 'nap2Start':
 			if (
-				sectionData.secondNapStart !== '00:00' &&
-				sectionData.secondNapStart < sectionData.firstNapEnd
+				sectionData.nap1Start !== '00:00' &&
+				sectionData.nap2Start < sectionData.nap1End
 			) {
 				errorMessage = 'Must be after last nap ended';
 			}
 			break;
-		case 'secondNapEnd':
+		case 'nap2End':
 			if (
-				sectionData.secondNapEnd !== '00:00' &&
-				sectionData.secondNapEnd < sectionData.secondNapStart
+				sectionData.nap2End !== '00:00' &&
+				sectionData.nap2End < sectionData.nap2Start
 			) {
 				errorMessage = 'Must be after nap start';
 			}
@@ -42,7 +42,7 @@ function NapError({ selectedNap, sectionData }) {
 		case 'bedTime':
 			if (
 				sectionData.bedTime !== '00:00' &&
-				sectionData.bedTime < sectionData.secondNapEnd
+				sectionData.bedTime < sectionData.nap2End
 			) {
 				errorMessage = 'Must be after last nap';
 			}
