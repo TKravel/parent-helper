@@ -10,7 +10,6 @@ function getCurrentDate() {
 	let month = (date.getMonth() + 1).toString();
 	let day = date.getDate().toString();
 	const year = date.getFullYear().toString().substring(2, 4);
-	let currentDate;
 
 	if (month.length === 1) {
 		month = '0' + month;

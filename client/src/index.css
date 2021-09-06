@@ -21,8 +21,9 @@ html {
 }
 
 @media only screen and (max-width: 500px) {
-	html body {
-		overflow-x: hidden;
+	button:focus,
+	input:focus {
+		outline: none !important;
 	}
 }
 
@@ -104,6 +105,7 @@ dark blue: 1D3557
 
 .deleteListItem {
 	color: #e63946;
+	background-color: #f1faee;
 	font-size: 18px;
 	margin-left: 16px;
 	border: none;
@@ -561,6 +563,10 @@ td {
 	border: 1px solid #1d3557;
 }
 
+th {
+	text-transform: capitalize;
+}
+
 tr:nth-child(even) {
 	background-color: #f1faee;
 }
@@ -732,12 +738,12 @@ tr:nth-child(odd) {
 }
 
 #modalWrapper {
-	position: absolute;
-	height: 100%;
+	position: fixed;
 	top: 0;
 	right: 0;
 	bottom: 0;
 	left: 0;
 	background-color: rgba(0, 0, 0, 0.7);
 	z-index: 2;
+	overflow: auto;
 }

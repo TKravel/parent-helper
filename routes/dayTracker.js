@@ -37,18 +37,6 @@ router.get('/loadTable', verify, (req, res, next) => {
 	}).sort({ date: 'desc' });
 });
 
-// router.post('/loadEdit', (req, res) => {
-// 	const dayID = req.body.id;
-
-// 	DayTracker.findById(dayID, function (err, day) {
-// 		if (err) {
-// 			console.log(err);
-// 		} else {
-// 			res.json(day);
-// 		}
-// 	});
-// });
-
 // Load todays data, create if none
 
 router.get('/loadLog', verify, (req, res) => {

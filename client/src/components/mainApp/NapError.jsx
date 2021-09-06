@@ -25,7 +25,7 @@ function NapError({ selectedNap, sectionData }) {
 			break;
 		case 'nap2Start':
 			if (
-				sectionData.nap1Start !== '00:00' &&
+				sectionData.nap2Start !== '00:00' &&
 				sectionData.nap2Start < sectionData.nap1End
 			) {
 				errorMessage = 'Must be after last nap ended';
