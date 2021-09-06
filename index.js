@@ -23,14 +23,14 @@ db.once('open', function () {
 
 app.use(express.urlencoded({ extended: true }));
 
-app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 app.use(express.json());
 app.use('/api', dayTrackerRouter);
 app.use('/users', userRouter);
 
 app.get('/*', (req, res) => {
-	res.sendFile(path.join(__dirname, 'build', 'index.html'));
+	res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
 
 app.get('/api/data', (req, res) => {
