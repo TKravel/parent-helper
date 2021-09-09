@@ -5,6 +5,7 @@ import PottySection from './poopSection/PottySection';
 import NotesSection from './notesSection/NotesSection';
 import UserInputNav from './userInputNav';
 import DataTable from './dataTable/DataTable';
+import Footer from '../Footer';
 import { UserContext } from '../../hooks/UserContext';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
@@ -297,6 +298,7 @@ function MainApp() {
 					<DataTable fetchedData={dbData} edit={loadEdit} />
 				)}
 			</div>
+			<Footer />
 		</>
 	);
 }

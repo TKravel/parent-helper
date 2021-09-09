@@ -692,6 +692,7 @@ tr:nth-child(odd) {
 	padding-left: 10px;
 	border-top-left-radius: 6px;
 	border-top-right-radius: 6px;
+	text-transform: capitalize;
 }
 
 #modalDate {
@@ -734,7 +735,8 @@ tr:nth-child(odd) {
 #itemList {
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	width: 70%;
+	margin: auto;
 }
 
 #modalWrapper {
@@ -746,4 +748,11 @@ tr:nth-child(odd) {
 	background-color: rgba(0, 0, 0, 0.7);
 	z-index: 2;
 	overflow: auto;
+}
+
+#footer {
+	color: #0c1624;
+	padding-top: 1em;
+	padding-bottom: 1em;
+	text-align: center;
 }

@@ -20,7 +20,7 @@ function NotesSection({
 
 	function handleClick(e) {
 		const section = 'notes';
-		onNoteChange(section, notesInput);
+		onNoteChange(section, notesInput.trim());
 		setNotesInput('');
 		e.preventDefault();
 	}

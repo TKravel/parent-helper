@@ -21,7 +21,7 @@ function FoodInput({
 
 	function handleClick(e) {
 		const section = 'food';
-		onFoodChange(section, foodInput);
+		onFoodChange(section, foodInput.trim());
 		setFoodInput('');
 		e.preventDefault();
 	}

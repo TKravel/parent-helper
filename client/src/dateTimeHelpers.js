@@ -31,6 +31,9 @@ function convertTo12HR(time) {
 }
 
 function calcNapTime(t1, t2) {
+	if (t1 === '00:00' || t2 === '00:00') {
+		return '-';
+	}
 	const time1 = t1.split(':');
 	const time2 = t2.split(':');
 	const date1 = new Date(0, 0, 0, time1[0], time1[1]);
