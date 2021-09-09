@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import useForm from './useForm';
 import validate from './loginValidation';
 import useAuth from '../../hooks/useAuth';
+import { UserContext } from '../../hooks/UserContext';
+import { Redirect, useHistory } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChartLine } from '@fortawesome/free-solid-svg-icons';
 
-function Login({ toggleForm }) {
+function Login() {
 	const { values, errors, handleChange, handleSubmit } = useForm(
 		login,
 		validate
@@ -14,14 +16,24 @@ function Login({ toggleForm }) {
 
 	const { loginUser, error } = useAuth(values);
 
-	const [loginStatus, setLoginStatus] = useState(false);
+	const { user } = useContext(UserContext);
+
+	const history = useHistory();
 
 	function login() {
 		loginUser(values);
 	}
 
+	function toggleForm() {
+		history.push('/register');
+	}
+
+	if (user) {
+		return <Redirect to='/app' />;
+	}
+
 	return (
-		<div>
+		<div className='loginContainer'>
 			<FontAwesomeIcon icon={faChartLine} id='signInIcon' />
 			<p className='loginMessage'>
 				Sign in
@@ -32,7 +44,6 @@ function Login({ toggleForm }) {
 					type='text'
 					name='username'
 					placeholder='Username'
-					// style={errors.userNameMargin || { marginBottom: '25px' }}
 					autoComplete='off'
 					value={values.username || ''}
 					onChange={handleChange}
@@ -40,14 +51,11 @@ function Login({ toggleForm }) {
 				<p id='usernameErr' className='formError'>
 					{errors.userName && errors.userName}
 				</p>
-				{/* {errors.userName && (
-					<p className='formError'>{errors.userName}</p>
-				)} */}
+
 				<input
 					type='password'
 					name='password'
 					placeholder='Password'
-					// style={errors.passwordMargin || { marginBottom: '15px' }}
 					value={values.password || ''}
 					onChange={handleChange}
 				/>
@@ -57,12 +65,7 @@ function Login({ toggleForm }) {
 						? error.message
 						: null}
 				</p>
-				{/* {error.message && (
-					<p className='formError'>{loginStatus.message}</p>
-				)}
-				{errors.password && (
-					<p className='formError'>{errors.password}</p>
-				)} */}
+
 				<button type='submit' className='submitBtn'>
 					Sign in
 				</button>

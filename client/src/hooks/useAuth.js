@@ -31,7 +31,7 @@ function useAuth() {
 					setUser({
 						auth: data.token,
 					});
-					history.push('/');
+					history.push('/app');
 				} else if (data.message) {
 					setError(data);
 				}
@@ -61,7 +61,7 @@ function useAuth() {
 					setUser({
 						auth: data.token,
 					});
-					history.push('/');
+					history.push('/app');
 				} else {
 					setError({ message: data.message });
 				}

@@ -18,6 +18,7 @@ html {
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-attachment: fixed;
+	line-height: 1.5em;
 }
 
 @media only screen and (max-width: 500px) {
@@ -178,7 +179,7 @@ dark blue: 1D3557
 .App-header {
 	color: #f1faee;
 	background-color: #1d3557;
-	width: 100vw;
+	width: auto;
 }
 
 .App-header h1 {
@@ -199,12 +200,109 @@ dark blue: 1D3557
 
 .App-header ul {
 	display: inline;
-	text-align: right;
+	float: right;
+	margin-right: 1em;
 }
 
 .App-header li {
 	display: inline;
 	padding: 0px 10px;
+}
+
+/* Landing page */
+
+.landingContainer h2 {
+	margin-bottom: 1em;
+}
+
+.landingContainer hr {
+	border: 0;
+	height: 0; /* Firefox... */
+	box-shadow: 0 0 10px 1px #1d3557;
+	width: 50%;
+	margin: auto;
+}
+
+#heroContainer {
+	height: 100vh;
+	width: auto;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	grid-template-rows: 1fr 1fr 1fr 1fr;
+	grid-template-areas:
+		'. . . . .'
+		'. hd hd . .'
+		'. . . . .'
+		'. . . btn btn';
+}
+
+#heroContainer h1 {
+	color: #1d3557;
+	text-shadow: 0.2em 0.2em 0.2em rgba(29, 53, 87, 0.4);
+	grid-area: hd;
+}
+
+#btnContainer {
+	grid-area: btn;
+}
+
+.heroBtns {
+	display: inline-block;
+	font-size: large;
+	font-weight: 700;
+	color: #1d3557;
+	background-color: #f1faee;
+	border-radius: 17px;
+	height: 2.7em;
+	margin: 0 1em 0 1em;
+	width: 35%;
+}
+
+.landingAbout {
+	background-color: #f1faee;
+	color: #1d3557;
+	text-align: center;
+	padding: 4em;
+	margin: 4em auto 4em auto;
+	width: 80%;
+	border: 1px solid #1d3557;
+	border-radius: 0.4em;
+	box-shadow: 0.2em 0.2em 0.2em 0.1em rgba(29, 53, 87, 0.4);
+}
+
+.landingList {
+	background-color: #f1faee;
+	color: #1d3557;
+	text-align: center;
+	padding: 4em;
+	margin: 4em auto 4em auto;
+	width: 80%;
+	border: 1px solid #1d3557;
+	border-radius: 0.4em;
+	box-shadow: 0.2em 0.2em 0.2em 0.1em rgba(29, 53, 87, 0.4);
+}
+
+.landingList ul {
+	list-style: disc;
+	list-style-position: inside;
+}
+
+.landingSignUp {
+	background-color: #f1faee;
+	color: #1d3557;
+	text-align: center;
+	padding: 4em;
+	margin: 4em auto 4em auto;
+	width: 50%;
+	border: 1px solid #1d3557;
+	border-radius: 0.4em;
+	box-shadow: 0.2em 0.2em 0.2em 0.1em rgba(29, 53, 87, 0.4);
+}
+
+.landingSignUp button {
+	background-color: #1d3557;
+	color: #f1faee;
+	margin-top: 3em;
 }
 
 /* Login form */
@@ -755,4 +853,5 @@ tr:nth-child(odd) {
 	padding-top: 1em;
 	padding-bottom: 1em;
 	text-align: center;
+	width: auto;
 }
