@@ -12,11 +12,11 @@ ul {
 }
 
 html {
-	height: 100%;
+	height: 100vh;
 	background-image: url(./img/background-img.jpg);
 	background-position: center;
 	background-repeat: no-repeat;
-	background-size: cover;
+	background-size: 100vh;
 	background-attachment: fixed;
 	line-height: 1.5em;
 }
