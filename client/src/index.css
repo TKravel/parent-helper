@@ -16,7 +16,7 @@ html {
 	background-image: url(./img/background-img.jpg);
 	background-position: center;
 	background-repeat: no-repeat;
-	background-size: 100vh;
+	background-size: cover;
 	background-attachment: fixed;
 	line-height: 1.5em;
 }
