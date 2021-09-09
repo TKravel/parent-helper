@@ -23,7 +23,8 @@ html {
 
 @media only screen and (max-width: 500px) {
 	html {
-		background-attachment: none;
+		background-image: none;
+		background-color: #4b6b7a;
 	}
 }
 
@@ -242,6 +243,23 @@ dark blue: 1D3557
 		'. . . btn btn';
 }
 
+@media only screen and (max-width: 500px) {
+	#heroContainer {
+		background-image: url(./img/background-img.jpg);
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+		grid-template-rows: 1fr 1fr 1fr 1fr;
+		grid-template-areas:
+			'. . . . .'
+			'. hd hd hd .'
+			'. . . . .'
+			'btn btn btn btn btn';
+	}
+}
+
 #heroContainer h1 {
 	color: #1d3557;
 	text-shadow: 0.2em 0.2em 0.2em rgba(29, 53, 87, 0.4);
@@ -249,7 +267,16 @@ dark blue: 1D3557
 }
 
 #btnContainer {
+	margin: auto;
 	grid-area: btn;
+}
+
+@media only screen and (max-width: 500px) {
+	#btnContainer {
+		text-align: center;
+		width: 90%;
+		grid-area: btn;
+	}
 }
 
 .heroBtns {
@@ -264,6 +291,13 @@ dark blue: 1D3557
 	width: 35%;
 }
 
+@media only screen and (max-width: 500px) {
+	.heroBtns {
+		margin: 0 0.5em 0 0.5em;
+		width: 40%;
+	}
+}
+
 .landingAbout {
 	background-color: #f1faee;
 	color: #1d3557;
@@ -276,6 +310,13 @@ dark blue: 1D3557
 	box-shadow: 0.2em 0.2em 0.2em 0.1em rgba(29, 53, 87, 0.4);
 }
 
+@media only screen and (max-width: 500px) {
+	.landingAbout {
+		width: 95%;
+		padding: 1em;
+	}
+}
+
 .landingList {
 	background-color: #f1faee;
 	color: #1d3557;
@@ -286,6 +327,13 @@ dark blue: 1D3557
 	border: 1px solid #1d3557;
 	border-radius: 0.4em;
 	box-shadow: 0.2em 0.2em 0.2em 0.1em rgba(29, 53, 87, 0.4);
+}
+
+@media only screen and (max-width: 500px) {
+	.landingList {
+		width: 95%;
+		padding: 1em;
+	}
 }
 
 .landingList ul {
@@ -305,10 +353,23 @@ dark blue: 1D3557
 	box-shadow: 0.2em 0.2em 0.2em 0.1em rgba(29, 53, 87, 0.4);
 }
 
+@media only screen and (max-width: 500px) {
+	.landingSignUp {
+		width: 80%;
+		padding: 2em;
+	}
+}
+
 .landingSignUp button {
 	background-color: #1d3557;
 	color: #f1faee;
 	margin-top: 3em;
+}
+
+@media only screen and (max-width: 500px) {
+	.landingSignUp button {
+		width: 55%;
+	}
 }
 
 /* Login form */
