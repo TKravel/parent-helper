@@ -266,6 +266,13 @@ dark blue: 1D3557
 	grid-area: hd;
 }
 
+@media only screen and (max-width: 500px) {
+	#heroHeader {
+		line-height: 1em;
+		grid-area: hd;
+	}
+}
+
 #btnContainer {
 	margin: auto;
 	grid-area: btn;
@@ -274,6 +281,7 @@ dark blue: 1D3557
 @media only screen and (max-width: 500px) {
 	#btnContainer {
 		text-align: center;
+		height: 100%;
 		width: 90%;
 		grid-area: btn;
 	}
