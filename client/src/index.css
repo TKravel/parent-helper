@@ -12,13 +12,19 @@ ul {
 }
 
 html {
-	height: 100%;
+	height: 100vh;
 	background-image: url(./img/background-img.jpg);
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-attachment: fixed;
 	line-height: 1.5em;
+}
+
+@media only screen and (max-width: 500px) {
+	html {
+		background-attachment: none;
+	}
 }
 
 @media only screen and (max-width: 500px) {
@@ -224,7 +230,7 @@ dark blue: 1D3557
 }
 
 #heroContainer {
-	height: 100%;
+	height: 100vh;
 	width: auto;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
