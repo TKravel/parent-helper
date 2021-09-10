@@ -3,7 +3,6 @@ import { UserContext } from '../../hooks/UserContext';
 
 function SaveButton({ name, stateData, isEditing, tableRefresh, cachedData }) {
 	const { user } = useContext(UserContext);
-	// const token = auth;
 
 	const [isDisabled, setIsDisabled] = useState(true);
 

@@ -16,6 +16,8 @@ import {
 	faExpand,
 } from '@fortawesome/free-solid-svg-icons';
 import { getCurrentDate } from '../../dateTimeHelpers';
+import Loader from 'react-loader-spinner';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 
 library.add(faPlus, faMinus, faEdit, faTimes, faExpand);
 
@@ -247,58 +249,69 @@ function MainApp() {
 
 	return (
 		<>
-			<div className='container'>
-				{display.foodSection && !loading.todayData ? (
-					<FoodSection
-						foodData={appState.food}
-						onFoodChange={handleStateChange}
-						isEditing={editingState}
-						tableRefresh={refreshTableUpdates}
-						cachedData={dbData}
+			{loading.pastData ? (
+				<div className='loaderContainer'>
+					<Loader
+						className='loader'
+						type='TailSpin'
+						color='#00BFFF'
+						height={100}
+						width={100}
+						// timeout={3000} //3 secs
 					/>
-				) : null}
-				{display.sleepSection ? (
-					<SleepSection
-						napData={appState.sleep}
-						onNapChange={handleStateChange}
-						isEditing={editingState}
-						tableRefresh={refreshTableUpdates}
-						cachedData={dbData}
-					/>
-				) : null}
-				{display.pottySection ? (
-					<PottySection
-						poopData={appState.poop}
-						onPoopChange={handleStateChange}
-						isEditing={editingState}
-						tableRefresh={refreshTableUpdates}
-						cachedData={dbData}
-					/>
-				) : null}
-				{display.notesSection ? (
-					<NotesSection
-						noteData={appState.notes}
-						onNoteChange={handleStateChange}
-						isEditing={editingState}
-						tableRefresh={refreshTableUpdates}
-						cachedData={dbData}
-					/>
-				) : null}
-				<UserInputNav
-					updateDisplay={setDisplay}
-					isEditing={editingState}
-					setEditingState={handleEditing}
-					closeEditer={closeEditerButton}
-				/>
-			</div>
-			<div id='tableContainer'>
-				{loading.pastData ? (
-					<p>Loading...</p>
-				) : (
-					<DataTable fetchedData={dbData} edit={loadEdit} />
-				)}
-			</div>
-			<Footer />
+				</div>
+			) : (
+				<>
+					<div className='container'>
+						{display.foodSection && !loading.todayData ? (
+							<FoodSection
+								foodData={appState.food}
+								onFoodChange={handleStateChange}
+								isEditing={editingState}
+								tableRefresh={refreshTableUpdates}
+								cachedData={dbData}
+							/>
+						) : null}
+						{display.sleepSection ? (
+							<SleepSection
+								napData={appState.sleep}
+								onNapChange={handleStateChange}
+								isEditing={editingState}
+								tableRefresh={refreshTableUpdates}
+								cachedData={dbData}
+							/>
+						) : null}
+						{display.pottySection ? (
+							<PottySection
+								poopData={appState.poop}
+								onPoopChange={handleStateChange}
+								isEditing={editingState}
+								tableRefresh={refreshTableUpdates}
+								cachedData={dbData}
+							/>
+						) : null}
+						{display.notesSection ? (
+							<NotesSection
+								noteData={appState.notes}
+								onNoteChange={handleStateChange}
+								isEditing={editingState}
+								tableRefresh={refreshTableUpdates}
+								cachedData={dbData}
+							/>
+						) : null}
+						<UserInputNav
+							updateDisplay={setDisplay}
+							isEditing={editingState}
+							setEditingState={handleEditing}
+							closeEditer={closeEditerButton}
+						/>
+					</div>
+					<div id='tableContainer'>
+						<DataTable fetchedData={dbData} edit={loadEdit} />
+					</div>
+					<Footer />)
+				</>
+			)}
 		</>
 	);
 }

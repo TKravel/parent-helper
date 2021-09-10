@@ -95,6 +95,8 @@ dark blue: 1D3557
 }
 
 .sectionHeader {
+	height: 37px;
+	line-height: 37px;
 	color: #f1faee;
 	background-color: #457b9d;
 	border-top-left-radius: 10px;
@@ -274,7 +276,7 @@ dark blue: 1D3557
 }
 
 #btnContainer {
-	margin: auto;
+	width: 100%;
 	grid-area: btn;
 }
 
@@ -389,10 +391,15 @@ light blue: A8DADC
 med blue: 457B9D
 dark blue: 1D3557
 */
-
+.loginWrapper {
+	height: 90vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
 .loginContainer {
 	color: #1d3557;
-	margin: 16px auto;
+	/* margin: 16px auto; */
 	width: 325px;
 	min-height: 500px;
 	font-size: 18px;
@@ -485,6 +492,15 @@ input:-webkit-autofill {
 #signInIcon {
 	font-size: 150px;
 	margin: 15px;
+}
+
+/* Loader */
+
+.loaderContainer {
+	display: flex;
+	height: 100vh;
+	align-items: center;
+	justify-content: center;
 }
 
 /* Food and Notes inputs */
@@ -632,6 +648,7 @@ input:-webkit-autofill {
 .userInputNav {
 	background-color: #457b9d;
 	border-radius: 0px 10px 10px 0px;
+	width: 200px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
