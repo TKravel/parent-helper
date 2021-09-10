@@ -71,7 +71,6 @@ function SleepSection({
 							/>
 						</>
 					)}
-					{/* <br /> */}
 					{openNap2 === false ? (
 						<button onClick={toggleNap2} className='addNapBtn'>
 							Add nap
@@ -86,7 +85,7 @@ function SleepSection({
 								/>
 							</button>
 							<SleepInput
-								name='nap2Start'
+								name='nap2 Start'
 								label='Start of nap:'
 								napData={napData.nap2Start}
 								sectionData={napData}

@@ -28,7 +28,7 @@ function LandingPage() {
 			</div>
 			<hr id='about' />
 			<div className='landingAbout'>
-				<h2>A Child care journal that's connected</h2>
+				<h2>A child care journal that's connected </h2>
 				<p>
 					Easily keep track of your child's needs throughout the day.
 					Whether with a sitter or on the go you'll always have access
@@ -45,17 +45,17 @@ function LandingPage() {
 					<li>Never forget your journal again.</li>
 					<li>Keep track of your child while you're at work.</li>
 					<li>
-						Use your log to get insights into chnages in your
+						Use your log to get insights into changes in your
 						child's eating, sleeping, and bathroom habits.
 					</li>
 					<li>
 						Build and maintain healthy schedules everyone in your
-						childs life can access.
+						child's life can access.
 					</li>
 					<li>
 						Never wonder when or how much again. Remove the doubt
-						with the ease of a digital journal right at your finger
-						tips.
+						with the ease of a digital journal right at your
+						fingertips.
 					</li>
 				</ul>
 			</div>
