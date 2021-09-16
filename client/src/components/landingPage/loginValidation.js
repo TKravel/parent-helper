@@ -9,7 +9,6 @@ export default function validate(values) {
 	// Password validation
 	if (!values.password) {
 		errors.password = 'Password required!';
-		errors.passwordMargin = { marginBottom: '2px' };
 	} else if (values.password.length < 6) {
 		errors.password = 'Passwords are at least 6 digits.';
 	}

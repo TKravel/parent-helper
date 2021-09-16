@@ -2,15 +2,25 @@ import React, { useState } from 'react';
 import TextInput from '../TextInput';
 import Header from '../../Header';
 import SaveButton from '../SaveButton';
+import useSave from '../../../hooks/useSave';
+import validate from './validateNotes';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function NotesSection({
-	noteData,
+	sectionData,
 	onNoteChange,
 	isEditing,
 	tableRefresh,
 	cachedData,
 }) {
+	const sectionName = 'notes';
+	const { errors, handleSubmit } = useSave(
+		sectionName,
+		sectionData,
+		isEditing,
+		tableRefresh,
+		validate
+	);
 	const [notesInput, setNotesInput] = useState('');
 
 	function handleChange(e) {
@@ -28,7 +38,7 @@ function NotesSection({
 	function handleDelete(e) {
 		const index = e.currentTarget.getAttribute('index');
 		const section = 'noteItemDelete';
-		const state = noteData;
+		const state = sectionData;
 		const delItem = state.splice(index, 1);
 		console.log('Item deleted: ', delItem);
 		onNoteChange(section, state);
@@ -48,10 +58,10 @@ function NotesSection({
 						stateData={notesInput}
 					/>
 					<ul className='listTextField'>
-						{noteData.length === 0 ? (
+						{sectionData.length === 0 ? (
 							<li>No data to show</li>
 						) : (
-							noteData.map((note, index) => {
+							sectionData.map((note, index) => {
 								return (
 									<li key={index}>
 										{note}
@@ -70,10 +80,11 @@ function NotesSection({
 				</div>
 				<SaveButton
 					name='notes'
-					stateData={noteData}
+					stateData={sectionData}
 					isEditing={isEditing}
 					tableRefresh={tableRefresh}
 					cachedData={cachedData}
+					handleSubmit={handleSubmit}
 				/>
 			</div>
 		</div>

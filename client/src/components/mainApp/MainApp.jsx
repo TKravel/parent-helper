@@ -265,7 +265,7 @@ function MainApp() {
 					<div className='container'>
 						{display.foodSection && !loading.todayData ? (
 							<FoodSection
-								foodData={appState.food}
+								sectionData={appState.food}
 								onFoodChange={handleStateChange}
 								isEditing={editingState}
 								tableRefresh={refreshTableUpdates}
@@ -274,7 +274,7 @@ function MainApp() {
 						) : null}
 						{display.sleepSection ? (
 							<SleepSection
-								napData={appState.sleep}
+								sectionData={appState.sleep}
 								onNapChange={handleStateChange}
 								isEditing={editingState}
 								tableRefresh={refreshTableUpdates}
@@ -283,7 +283,7 @@ function MainApp() {
 						) : null}
 						{display.pottySection ? (
 							<PottySection
-								poopData={appState.poop}
+								sectionData={appState.poop}
 								onPoopChange={handleStateChange}
 								isEditing={editingState}
 								tableRefresh={refreshTableUpdates}
@@ -292,7 +292,7 @@ function MainApp() {
 						) : null}
 						{display.notesSection ? (
 							<NotesSection
-								noteData={appState.notes}
+								sectionData={appState.notes}
 								onNoteChange={handleStateChange}
 								isEditing={editingState}
 								tableRefresh={refreshTableUpdates}

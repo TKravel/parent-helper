@@ -1,26 +1,41 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Footer from '../Footer';
 import { HashLink } from 'react-router-hash-link';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
+import { UserContext } from '../../hooks/UserContext';
+import useDemo from './useDemo.js';
 
 function LandingPage() {
 	const history = useHistory();
+	const { user } = useContext(UserContext);
+	const { createDemoUser } = useDemo();
 
 	function handleSignUp() {
 		history.push('/register');
 	}
+
+	if (user) {
+		return <Redirect to='/app' />;
+	}
+
 	return (
 		<div className='landingContainer'>
 			<div id='heroContainer'>
-				<h1 id='heroHeader'>
-					A digital log
-					<br /> you can't forget at home.
-				</h1>
-				{/* <button className='heroBtns'>Learn more</button> */}
-				<div id='btnContainer'>
+				<div id='heroHeaderContainer'>
+					<h1 id='heroHeader'>
+						A digital log
+						<br /> you can't forget at home.
+					</h1>
+
 					<HashLink smooth to='/#about'>
 						<button className='heroBtns'>Learn more</button>
 					</HashLink>
+				</div>
+
+				<div id='btnContainer'>
+					<button className='heroBtns' onClick={createDemoUser}>
+						Demo
+					</button>
 					<button className='heroBtns' onClick={handleSignUp}>
 						Sign up
 					</button>

@@ -92,6 +92,9 @@ router.post('/userInputSave', verify, (req, res, next) => {
 
 	let dateQuery = month + day + year.substring(2, 4);
 
+	console.log(req.body);
+	console.log(req.id);
+
 	const key = req.body.name;
 	const data = req.body.data;
 	const id = req.id;

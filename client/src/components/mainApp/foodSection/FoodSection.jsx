@@ -1,17 +1,26 @@
-// TODO: Break data into breakfast, lunch, dinner, snacks.
 import React, { useState } from 'react';
 import TextInput from '../TextInput';
 import Header from '../../Header';
 import SaveButton from '../SaveButton';
+import useSave from '../../../hooks/useSave';
+import validate from '../foodSection/validateFood';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function FoodInput({
-	foodData,
+	sectionData,
 	onFoodChange,
 	isEditing,
 	tableRefresh,
 	cachedData,
 }) {
+	const sectionName = 'food';
+	const { errors, handleSubmit } = useSave(
+		sectionName,
+		sectionData,
+		isEditing,
+		tableRefresh,
+		validate
+	);
 	const [foodInput, setFoodInput] = useState('');
 
 	function handleChange(e) {
@@ -30,7 +39,7 @@ function FoodInput({
 		e.preventDefault();
 		const index = e.currentTarget.getAttribute('index');
 		const section = 'foodItemDelete';
-		const state = foodData;
+		const state = sectionData;
 		const delItem = state.splice(index, 1);
 		console.log('Item deleted: ', delItem);
 		onFoodChange(section, state);
@@ -51,10 +60,10 @@ function FoodInput({
 						stateData={foodInput}
 					/>
 					<ul className='listTextField'>
-						{foodData.length === 0 ? (
+						{sectionData.length === 0 ? (
 							<li>No data to show</li>
 						) : (
-							foodData.map((food, index) => {
+							sectionData.map((food, index) => {
 								return (
 									<li key={index} index={index}>
 										{food}
@@ -73,10 +82,11 @@ function FoodInput({
 				</div>
 				<SaveButton
 					name='food'
-					stateData={foodData}
+					stateData={sectionData}
 					isEditing={isEditing}
 					tableRefresh={tableRefresh}
 					cachedData={cachedData}
+					handleSubmit={handleSubmit}
 				/>
 			</div>
 		</div>

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import NapError from '../NapError';
 
 function SleepInput({ name, label, napData, sectionData, onChange }) {
 	const [display, setDisplay] = useState(false);
@@ -47,11 +46,6 @@ function SleepInput({ name, label, napData, sectionData, onChange }) {
 								: convertTo12HR(napData)}
 						</span>
 					</p>
-					<NapError
-						napData={napData}
-						selectedNap={name}
-						sectionData={sectionData}
-					/>
 				</>
 			)}
 		</div>

@@ -1,8 +1,10 @@
 const express = require('express');
 const User = require('../models/user');
+const DayTracker = require('../models/dayTracker');
 const bcrypt = require('bcryptjs');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
+const { createRecords } = require('../utils/demoAccount');
 
 router.post('/login', (req, res) => {
 	const { username, password } = req.body;
@@ -64,6 +66,48 @@ router.post('/createUser', async (req, res) => {
 					}
 				});
 			});
+		}
+	});
+});
+
+router.get('/createDemoUser', (req, res) => {
+	const tempName = 'demoUser' + Math.floor(Math.random() * 1000000000);
+	User.findOne({ username: tempName }, async function (err, document) {
+		if (err) {
+			console.log(err);
+		}
+		if (document) {
+			res.json({ message: 'user exists' });
+		} else if (!document) {
+			const pw = 'demoPassword' + Math.floor(Math.random() * 1000000);
+			const email = 'demoEmail@email.com';
+
+			try {
+				const user = await User.create({
+					username: tempName,
+					email: email,
+					password: pw,
+				});
+				// user = user.toJson();
+				const userId = user._id;
+				const documents = createRecords(userId);
+				DayTracker.insertMany(documents, function (err, docs) {
+					if (err) {
+						console.log('error creating documents. Error: ', err);
+					}
+					if (docs) {
+						const token = jwt.sign(
+							{ id: userId },
+							process.env.JWT_SECRET
+						);
+						res.json({ token: token });
+					}
+				});
+			} catch (err) {
+				if (err) {
+					console.log(err);
+				}
+			}
 		}
 	});
 });
