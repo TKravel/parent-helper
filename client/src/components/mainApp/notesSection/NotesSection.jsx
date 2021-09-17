@@ -30,7 +30,8 @@ function NotesSection({
 
 	function handleClick(e) {
 		const section = 'notes';
-		onNoteChange(section, notesInput.trim());
+		const data = notesInput[0].toUpperCase() + notesInput.slice(1);
+		onNoteChange(section, data.trim());
 		setNotesInput('');
 		e.preventDefault();
 	}

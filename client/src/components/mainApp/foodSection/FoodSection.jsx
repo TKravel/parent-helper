@@ -30,7 +30,8 @@ function FoodInput({
 
 	function handleClick(e) {
 		const section = 'food';
-		onFoodChange(section, foodInput.trim());
+		const data = foodInput[0].toUpperCase() + foodInput.slice(1);
+		onFoodChange(section, data.trim());
 		setFoodInput('');
 		e.preventDefault();
 	}

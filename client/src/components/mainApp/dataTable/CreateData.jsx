@@ -24,7 +24,7 @@ function CreateData({ item, edit, data, toggleModal }) {
 						data-date={item['date']}
 						data-amount={item[key][0]}
 					>
-						{item[key][0] === '1'
+						{item[key][0] < 2
 							? item[key][0] + ' item'
 							: item[key][0] + ' items'}
 

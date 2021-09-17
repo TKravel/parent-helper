@@ -33,7 +33,9 @@ function flatenData(fetchedData) {
 					result[key] = value;
 				} else {
 					const length = value.length;
-					const items = value.join(', ');
+					let items = value.join(', ');
+					items =
+						items[0].toUpperCase() + items.slice(1).toLowerCase();
 					const output = [[length], [items]];
 					result[key] = output;
 				}
@@ -102,6 +104,8 @@ function DataTable({ edit, fetchedData }) {
 		const data = e.currentTarget.parentNode.getAttribute('data-items');
 		const date = e.currentTarget.parentNode.getAttribute('data-date');
 		const amount = e.currentTarget.parentNode.getAttribute('data-amount');
+
+		console.log(data);
 
 		!isModelOpen
 			? setModalState({
