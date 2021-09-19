@@ -25,8 +25,15 @@ function verify(req, res, next) {
 
 // GET data for table
 
-router.get('/loadTable', verify, (req, res, next) => {
+router.post('/loadTable', verify, async (req, res, next) => {
 	const user = req.id;
+	const page = req.body.page - 1;
+	const limit = 3;
+
+	console.log(page);
+
+	const count = await DayTracker.countDocuments({ userId: user });
+	console.log(count);
 	DayTracker.find({ userId: user }, function (err, arr) {
 		if (err) {
 			console.log(err);
@@ -34,7 +41,10 @@ router.get('/loadTable', verify, (req, res, next) => {
 			console.log('Table Loaded');
 			res.json({ arr: arr });
 		}
-	}).sort({ date: 'desc' });
+	})
+		.skip(page * limit)
+		.limit(limit)
+		.sort({ date: 'desc' });
 });
 
 // Load todays data, create if none

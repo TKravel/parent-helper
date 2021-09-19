@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 
 function useCheckToken() {
 	const [user, setUser] = useState(null);
-	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
 		let token;
@@ -13,8 +12,6 @@ function useCheckToken() {
 				setUser({
 					auth: token,
 				});
-				setIsLoading(false);
-				// console.log(user.auth);
 			} else {
 				setUser(null);
 			}
@@ -29,7 +26,6 @@ function useCheckToken() {
 	return {
 		user,
 		setUser,
-		isLoading,
 		logOut,
 	};
 }

@@ -780,6 +780,20 @@ tr:nth-child(odd) {
 	font-size: 20px;
 }
 
+.openModal {
+	margin: auto;
+	display: inline-block;
+	height: 1em;
+	border: none;
+	color: #1d3557;
+	background-color: inherit;
+	font-size: 20px;
+}
+
+.openModalSVG {
+	height: 1em;
+}
+
 .editButton:hover {
 	font-size: 21px;
 }

@@ -50,18 +50,17 @@ function MainApp() {
 	const [dbData, setDbData] = useState([]);
 
 	const [loading, setLoading] = useState({
-		todayData: true,
-		pastData: true,
+		isLoading: true,
 	});
 
 	const [editingState, setEditingState] = useState({
 		status: false,
-		changes: false,
-		date: '',
 		id: '',
 		cacheDbDataIndex: 0,
 		reloadTable: 0,
 	});
+
+	const [page, setPage] = useState(1);
 
 	function refreshTableUpdates() {
 		setEditingState((prevValues) => {
@@ -69,14 +68,6 @@ function MainApp() {
 				...prevValues,
 				reloadTable: prevValues.reloadTable + 1,
 			};
-		});
-	}
-
-	function handleEditing(status, date, id) {
-		setEditingState({
-			status: status,
-			date: date,
-			id: id,
 		});
 	}
 
@@ -140,56 +131,82 @@ function MainApp() {
 		}
 	}
 
-	useEffect(() => {
-		fetch('/api/loadLog', {
-			method: 'GET',
-			headers: {
-				authorization: user.auth,
-			},
-		})
-			.then((res) => res.json())
-			.then((data) => {
-				setAppState({
-					date: data.date,
-					food: data.food,
-					sleep: data.sleep,
-					poop: data.poop,
-					notes: data.notes,
-				});
-				setLoading((prevValue) => {
-					return {
-						...prevValue,
-						todayData: false,
-					};
-				});
-			});
-	}, [user.auth]);
+	// useEffect(() => {
+	// 	fetch('/api/loadLog', {
+	// 		method: 'GET',
+	// 		headers: {
+	// 			authorization: user.auth,
+	// 		},
+	// 	})
+	// 		.then((res) => res.json())
+	// 		.then((data) => {
+	// 			setAppState({
+	// 				date: data.date,
+	// 				food: data.food,
+	// 				sleep: data.sleep,
+	// 				poop: data.poop,
+	// 				notes: data.notes,
+	// 			});
+	// 			setLoading((prevValue) => {
+	// 				return {
+	// 					...prevValue,
+	// 					todayData: false,
+	// 				};
+	// 			});
+	// 		});
+	// }, []);
 
 	useEffect(() => {
+		const data = {
+			page: page,
+		};
 		fetch('/api/loadTable', {
-			method: 'GET',
+			method: 'POST',
 			headers: {
 				authorization: user.auth,
+				'content-type': 'application/json',
 			},
+			body: JSON.stringify(data),
 		})
 			.then((res) => res.json())
 			.then((data) => {
 				setDbData(() => {
 					return data.arr;
 				});
-				setLoading((prevValue) => {
-					return {
-						...prevValue,
-						pastData: false,
-					};
+				setAppState(() => {
+					return data.arr[0];
 				});
+				setLoading({
+					isLoading: false,
+				});
+				page === 1
+					? setEditingState((prevValue) => {
+							console.log('page 1');
+							return {
+								...prevValue,
+								status: false,
+								id: data.arr[0]._id,
+								cacheDbDataIndex: 0,
+							};
+					  })
+					: setEditingState((prevValue) => {
+							console.log('page ', page);
+							return {
+								...prevValue,
+								status: true,
+								id: data.arr[0]._id,
+								cacheDbDataIndex: 0,
+							};
+					  });
 			});
-	}, [editingState.reloadTable, user.auth]);
+	}, [editingState.reloadTable, user.auth, page]);
 
 	function loadEdit(e) {
 		const currentDate = getCurrentDate().replace(/\//g, '');
-		if (e.target) {
+		console.log(currentDate, 'test');
+		if (e.target !== undefined) {
 			e.preventDefault();
+			console.log('target fired');
 			const index =
 				e.currentTarget.parentNode.parentNode.getAttribute('dataindex');
 			const clone = JSON.parse(JSON.stringify(dbData[index]));
@@ -204,8 +221,6 @@ function MainApp() {
 				? setEditingState((prevValue) => {
 						return {
 							status: false,
-							changes: false,
-							date: clone.date,
 							id: clone._id,
 							cacheDbDataIndex: index,
 							reloadTable: prevValue.reloadTable,
@@ -214,15 +229,15 @@ function MainApp() {
 				: setEditingState((prevValue) => {
 						return {
 							status: true,
-							changes: false,
-							date: clone.date,
 							id: clone._id,
 							cacheDbDataIndex: index,
 							reloadTable: prevValue.reloadTable,
 						};
 				  });
 		} else {
+			console.log('test');
 			const clone = JSON.parse(JSON.stringify(dbData[0]));
+			console.log(clone);
 			setAppState({
 				date: clone.date,
 				food: clone.food,
@@ -230,26 +245,33 @@ function MainApp() {
 				poop: clone.poop,
 				notes: clone.notes,
 			});
-			setEditingState((prevValue) => {
-				return {
-					status: false,
-					changes: false,
-					date: clone.date,
-					id: clone._id,
-					cacheDbDataIndex: 0,
-					reloadTable: prevValue.reloadTable,
-				};
-			});
+			currentDate === clone.date
+				? setEditingState((prevValue) => {
+						return {
+							status: false,
+							id: clone._id,
+							cacheDbDataIndex: 0,
+							reloadTable: prevValue.reloadTable,
+						};
+				  })
+				: setEditingState((prevValue) => {
+						return {
+							status: true,
+							id: clone._id,
+							cacheDbDataIndex: 0,
+							reloadTable: prevValue.reloadTable,
+						};
+				  });
 		}
 	}
 
 	function closeEditerButton() {
-		loadEdit(dbData[0]);
+		setPage(1);
 	}
 
 	return (
 		<>
-			{loading.pastData ? (
+			{loading.isLoading === true ? (
 				<div className='loaderContainer'>
 					<Loader
 						className='loader'
@@ -300,14 +322,19 @@ function MainApp() {
 							/>
 						) : null}
 						<UserInputNav
+							dateState={appState.date}
 							updateDisplay={setDisplay}
 							isEditing={editingState}
-							setEditingState={handleEditing}
 							closeEditer={closeEditerButton}
 						/>
 					</div>
 					<div id='tableContainer'>
-						<DataTable fetchedData={dbData} edit={loadEdit} />
+						<DataTable
+							fetchedData={dbData}
+							edit={loadEdit}
+							currentPage={page}
+							setPage={setPage}
+						/>
 					</div>
 					<Footer />)
 				</>

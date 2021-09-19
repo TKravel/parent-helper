@@ -69,7 +69,7 @@ function flatenData(fetchedData) {
 	return flatData;
 }
 
-function DataTable({ edit, fetchedData }) {
+function DataTable({ edit, fetchedData, currentPage, setPage }) {
 	const [dataRecords, setData] = useState([]);
 	const [isModelOpen, setIsModalOpen] = useState(false);
 	const [modalState, setModalState] = useState({});
@@ -122,30 +122,53 @@ function DataTable({ edit, fetchedData }) {
 		isModelOpen ? setIsModalOpen(false) : setIsModalOpen(true);
 	}
 
+	function handlePage(e) {
+		e.preventDefault();
+		const button = e.target.name;
+
+		if (currentPage === 1 && button === 'prev') {
+			return;
+		}
+
+		button === 'prev'
+			? setPage((prevValue) => {
+					return prevValue - 1;
+			  })
+			: setPage((preValue) => {
+					return preValue + 1;
+			  });
+	}
+
+	// console.log('test: ', currentPage);
+
 	return (
-		<>
-			{dataRecords.length === 0 ? (
-				<p>Loading data...</p>
-			) : (
-				<table className='dataTable'>
-					<tbody>
-						<tr>
-							<GetHeadings />
-						</tr>
-						<CreateRows
-							edit={edit}
-							data={dataRecords}
-							toggleModal={handleModal}
-						/>
-					</tbody>
-				</table>
-			)}
+		<div id='tableContainer'>
+			<button name='prev' onClick={handlePage}>
+				Prev
+			</button>
+			<p>Page {currentPage}</p>
+			<button name='next' onClick={handlePage}>
+				Next
+			</button>
+			<table className='dataTable'>
+				<tbody>
+					<tr>
+						<GetHeadings />
+					</tr>
+					<CreateRows
+						edit={edit}
+						data={dataRecords}
+						toggleModal={handleModal}
+					/>
+				</tbody>
+			</table>
+
 			<Modal
 				isOpen={isModelOpen}
 				toggleModal={handleModal}
 				data={modalState}
 			/>
-		</>
+		</div>
 	);
 }
 

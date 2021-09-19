@@ -29,11 +29,14 @@ function CreateData({ item, edit, data, toggleModal }) {
 							: item[key][0] + ' items'}
 
 						<button
-							className='editButton'
+							className='openModal'
 							onClick={toggleModal}
 							style={{ display: 'inline' }}
 						>
-							<FontAwesomeIcon icon='expand' />
+							<FontAwesomeIcon
+								className='openModalSVG'
+								icon='expand'
+							/>
 						</button>
 					</td>
 				);

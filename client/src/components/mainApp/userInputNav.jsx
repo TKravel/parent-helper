@@ -1,12 +1,7 @@
 import React from 'react';
 import { displayDate, getCurrentDate } from '../../dateTimeHelpers';
 
-function UserInputNav({
-	updateDisplay,
-	isEditing,
-	setEditingState,
-	closeEditer,
-}) {
+function UserInputNav({ dateState, updateDisplay, isEditing, closeEditer }) {
 	function handleClick(e) {
 		e.preventDefault();
 		const selection = e.target.name;
@@ -54,13 +49,11 @@ function UserInputNav({
 	}
 	return (
 		<div className='userInputNav'>
-			{!isEditing.status ? (
+			{isEditing.status === false ? (
 				<p id='currentDate'>{getCurrentDate()}</p>
 			) : (
 				<>
-					<p id='currentDate'>
-						Editing: {displayDate(isEditing.date)}
-					</p>
+					<p id='currentDate'>Editing: {displayDate(dateState)}</p>
 					<button id='closeEditerButton' onClick={handleClose}>
 						Return to today
 					</button>
