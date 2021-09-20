@@ -49,7 +49,7 @@ router.post('/loadTable', verify, async (req, res, next) => {
 		.sort({ date: 'desc' });
 });
 
-// Load todays data, create if none
+// Create if doesnt exsist
 
 router.get('/loadLog', verify, (req, res) => {
 	// Get/format date for search
@@ -78,8 +78,8 @@ router.get('/loadLog', verify, (req, res) => {
 		if (err) {
 			console.log(err);
 		} else {
-			res.json(result);
-			console.log('Log returned');
+			console.log('Day created');
+			return;
 		}
 	});
 });

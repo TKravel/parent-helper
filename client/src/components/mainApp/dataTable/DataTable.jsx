@@ -141,6 +141,7 @@ function DataTable({ edit, fetchedData, currentPage, setPage, pageCount }) {
 			? setPage((prevValue) => prevValue - 1)
 			: setPage((preValue) => preValue + 1);
 	}
+	const maxPage = Math.ceil(pageCount / 7);
 
 	return (
 		<div id='tableContainer'>
@@ -160,7 +161,7 @@ function DataTable({ edit, fetchedData, currentPage, setPage, pageCount }) {
 					name='next'
 					className='tableNavbtns'
 					onClick={handlePage}
-					disabled={currentPage === pageCount / 7 && true}
+					disabled={currentPage === maxPage && true}
 				>
 					<FontAwesomeIcon icon={faChevronCircleRight} />
 				</button>

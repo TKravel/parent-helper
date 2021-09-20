@@ -120,6 +120,19 @@ function MainApp() {
 	}
 
 	useEffect(() => {
+		fetch('/api/loadLog', {
+			method: 'GET',
+			headers: {
+				authorization: user.auth,
+			},
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				console.log(data);
+			});
+	}, []);
+
+	useEffect(() => {
 		const data = {
 			page: page,
 		};
