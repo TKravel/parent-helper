@@ -32,20 +32,7 @@ function MainApp() {
 		notesSection: false,
 	});
 
-	const [appState, setAppState] = useState({
-		date: '',
-		food: [],
-		sleep: {
-			wakeUp: '00:00',
-			nap1Start: '00:00',
-			nap1End: '00:00',
-			nap2Start: '00:00',
-			nap2End: '00:00',
-			bedTime: '00:00',
-		},
-		poop: 0,
-		notes: [],
-	});
+	const [appState, setAppState] = useState({});
 
 	const [dbData, setDbData] = useState([]);
 
@@ -61,6 +48,7 @@ function MainApp() {
 	});
 
 	const [page, setPage] = useState(1);
+	const [pageCount, setPageCount] = useState(null);
 
 	function refreshTableUpdates() {
 		setEditingState((prevValues) => {
@@ -131,31 +119,6 @@ function MainApp() {
 		}
 	}
 
-	// useEffect(() => {
-	// 	fetch('/api/loadLog', {
-	// 		method: 'GET',
-	// 		headers: {
-	// 			authorization: user.auth,
-	// 		},
-	// 	})
-	// 		.then((res) => res.json())
-	// 		.then((data) => {
-	// 			setAppState({
-	// 				date: data.date,
-	// 				food: data.food,
-	// 				sleep: data.sleep,
-	// 				poop: data.poop,
-	// 				notes: data.notes,
-	// 			});
-	// 			setLoading((prevValue) => {
-	// 				return {
-	// 					...prevValue,
-	// 					todayData: false,
-	// 				};
-	// 			});
-	// 		});
-	// }, []);
-
 	useEffect(() => {
 		const data = {
 			page: page,
@@ -170,18 +133,21 @@ function MainApp() {
 		})
 			.then((res) => res.json())
 			.then((data) => {
-				setDbData(() => {
-					return data.arr;
-				});
-				setAppState(() => {
-					return data.arr[0];
-				});
+				console.log(data.arr);
+				if (data.arr) {
+					setDbData(() => {
+						return data.arr;
+					});
+					setAppState(() => {
+						return data.arr[0];
+					});
+				}
+				setPageCount(data.count);
 				setLoading({
 					isLoading: false,
 				});
 				page === 1
 					? setEditingState((prevValue) => {
-							console.log('page 1');
 							return {
 								...prevValue,
 								status: false,
@@ -190,7 +156,6 @@ function MainApp() {
 							};
 					  })
 					: setEditingState((prevValue) => {
-							console.log('page ', page);
 							return {
 								...prevValue,
 								status: true,
@@ -203,10 +168,8 @@ function MainApp() {
 
 	function loadEdit(e) {
 		const currentDate = getCurrentDate().replace(/\//g, '');
-		console.log(currentDate, 'test');
 		if (e.target !== undefined) {
 			e.preventDefault();
-			console.log('target fired');
 			const index =
 				e.currentTarget.parentNode.parentNode.getAttribute('dataindex');
 			const clone = JSON.parse(JSON.stringify(dbData[index]));
@@ -234,34 +197,6 @@ function MainApp() {
 							reloadTable: prevValue.reloadTable,
 						};
 				  });
-		} else {
-			console.log('test');
-			const clone = JSON.parse(JSON.stringify(dbData[0]));
-			console.log(clone);
-			setAppState({
-				date: clone.date,
-				food: clone.food,
-				sleep: clone.sleep,
-				poop: clone.poop,
-				notes: clone.notes,
-			});
-			currentDate === clone.date
-				? setEditingState((prevValue) => {
-						return {
-							status: false,
-							id: clone._id,
-							cacheDbDataIndex: 0,
-							reloadTable: prevValue.reloadTable,
-						};
-				  })
-				: setEditingState((prevValue) => {
-						return {
-							status: true,
-							id: clone._id,
-							cacheDbDataIndex: 0,
-							reloadTable: prevValue.reloadTable,
-						};
-				  });
 		}
 	}
 
@@ -283,7 +218,7 @@ function MainApp() {
 					/>
 				</div>
 			) : (
-				<>
+				<div className='mainAppContainer'>
 					<div className='container'>
 						{display.foodSection && !loading.todayData ? (
 							<FoodSection
@@ -328,16 +263,15 @@ function MainApp() {
 							closeEditer={closeEditerButton}
 						/>
 					</div>
-					<div id='tableContainer'>
-						<DataTable
-							fetchedData={dbData}
-							edit={loadEdit}
-							currentPage={page}
-							setPage={setPage}
-						/>
-					</div>
-					<Footer />)
-				</>
+					<DataTable
+						fetchedData={dbData}
+						edit={loadEdit}
+						currentPage={page}
+						setPage={setPage}
+						pageCount={pageCount}
+					/>
+					<Footer />
+				</div>
 			)}
 		</>
 	);

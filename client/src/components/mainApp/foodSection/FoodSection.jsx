@@ -23,6 +23,10 @@ function FoodInput({
 	);
 	const [foodInput, setFoodInput] = useState('');
 
+	if (errors) {
+		console.log(errors);
+	}
+
 	function handleChange(e) {
 		const inputData = e.target.value;
 		setFoodInput(inputData);

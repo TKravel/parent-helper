@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import CreateRows from './CreateRows';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import {
+	faChevronCircleLeft,
+	faChevronCircleRight,
+} from '@fortawesome/free-solid-svg-icons';
 import {
 	convertTo12HR,
 	calcNapTime,
@@ -69,7 +75,7 @@ function flatenData(fetchedData) {
 	return flatData;
 }
 
-function DataTable({ edit, fetchedData, currentPage, setPage }) {
+function DataTable({ edit, fetchedData, currentPage, setPage, pageCount }) {
 	const [dataRecords, setData] = useState([]);
 	const [isModelOpen, setIsModalOpen] = useState(false);
 	const [modalState, setModalState] = useState({});
@@ -124,32 +130,41 @@ function DataTable({ edit, fetchedData, currentPage, setPage }) {
 
 	function handlePage(e) {
 		e.preventDefault();
-		const button = e.target.name;
+		let button = e.currentTarget.name;
+		console.log(button);
 
 		if (currentPage === 1 && button === 'prev') {
 			return;
 		}
 
 		button === 'prev'
-			? setPage((prevValue) => {
-					return prevValue - 1;
-			  })
-			: setPage((preValue) => {
-					return preValue + 1;
-			  });
+			? setPage((prevValue) => prevValue - 1)
+			: setPage((preValue) => preValue + 1);
 	}
-
-	// console.log('test: ', currentPage);
 
 	return (
 		<div id='tableContainer'>
-			<button name='prev' onClick={handlePage}>
-				Prev
-			</button>
-			<p>Page {currentPage}</p>
-			<button name='next' onClick={handlePage}>
-				Next
-			</button>
+			<div id='tableNav'>
+				<button
+					name='prev'
+					className='tableNavbtns'
+					onClick={handlePage}
+					disabled={currentPage === 1 && true}
+				>
+					<FontAwesomeIcon icon={faChevronCircleLeft} />
+				</button>
+				<p>
+					Page {currentPage} of {Math.ceil(pageCount / 7)}
+				</p>
+				<button
+					name='next'
+					className='tableNavbtns'
+					onClick={handlePage}
+					disabled={currentPage === pageCount / 7 && true}
+				>
+					<FontAwesomeIcon icon={faChevronCircleRight} />
+				</button>
+			</div>
 			<table className='dataTable'>
 				<tbody>
 					<tr>

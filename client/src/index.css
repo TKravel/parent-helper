@@ -29,6 +29,19 @@ html {
 }
 
 @media only screen and (max-width: 500px) {
+	.mainAppContainer,
+	.loaderContainer {
+		height: 100vh;
+		background-image: url(./img/pexels-johannes-plenio-small.jpg);
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-attachment: fixed;
+		overflow: auto;
+	}
+}
+
+@media only screen and (max-width: 500px) {
 	button:focus,
 	input:focus {
 		outline: none !important;
@@ -239,15 +252,15 @@ dark blue: 1D3557
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 	grid-template-rows: 1fr 1fr 1fr 1fr;
 	grid-template-areas:
-		'. . . . .'
-		'. hd hd . .'
+		'hd hd hd . .'
+		'hd hd hd . .'
 		'. . . . .'
 		'. . . btn btn';
 }
 
 @media only screen and (max-width: 500px) {
 	#heroContainer {
-		background-image: url(./img/background-img.jpg);
+		background-image: url(./img/pexels-johannes-plenio-small.jpg);
 		background-position: center;
 		background-repeat: no-repeat;
 		background-size: cover;
@@ -255,25 +268,43 @@ dark blue: 1D3557
 		grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 		grid-template-rows: 1fr 1fr 1fr 1fr;
 		grid-template-areas:
-			'. . . . .'
-			'. hd hd hd .'
+			'hd hd hd hd .'
+			'hd hd hd hd .'
 			'. . . . .'
 			'btn btn btn btn btn';
 	}
 }
 
 #heroHeaderContainer {
+	display: flex;
+	flex-direction: column;
+	align-self: center;
+	justify-self: center;
 	grid-area: hd;
 }
 
-#heroContainer h1 {
+#heroHeader {
+	line-height: 1.3em;
+	font-size: 3em;
 	color: #1d3557;
+	margin: 1em;
 	text-shadow: 0.2em 0.2em 0.2em rgba(29, 53, 87, 0.4);
 	grid-area: hd;
 }
 
+#headerBtn {
+	margin-left: 3em;
+}
+
+@media only screen and (max-width: 500px) {
+	#headerBtn {
+		margin-left: 1.5em;
+	}
+}
+
 @media only screen and (max-width: 500px) {
 	#heroHeader {
+		font-size: 2em;
 		line-height: 1em;
 		grid-area: hd;
 	}
@@ -288,7 +319,6 @@ dark blue: 1D3557
 	#btnContainer {
 		text-align: center;
 		height: 100%;
-		width: 90%;
 		grid-area: btn;
 	}
 }
@@ -736,10 +766,47 @@ dark blue: 1D3557
 /* Table CSS */
 
 #tableContainer {
+	/* height: auto; */
+	overflow: auto;
+	width: 725px;
+	background-color: #f1faee;
+	border: 1px solid #1d3557;
+	border-radius: 0.25em;
+	margin: auto;
+}
+
+@media screen and (max-width: 500px) {
+	#tableContainer {
+		width: 100vw;
+		margin-top: 0.3em;
+	}
+}
+
+#tableNav {
+	display: flex;
+	flex-direction: row;
+	justify-content: right;
+	margin-right: 0.7em;
+	margin-top: 0.2em;
+}
+
+.tableNavbtns {
+	color: #1d3557;
+	background-color: #f1faee;
+	border: none;
+	font-size: 1.5em;
+}
+
+#tableNav p {
+	align-self: center;
+	justify-content: center;
+	margin-left: 0.2em;
+	margin-right: 0.2em;
 }
 
 table {
-	margin: auto;
+	margin: 0.1em auto 1em auto;
+	padding-bottom: 0.5em;
 	border-collapse: collapse;
 	box-shadow: 4px 4px 2px 1px rgba(29, 53, 87, 0.2);
 	width: 700px;
@@ -802,7 +869,7 @@ tr:nth-child(odd) {
 	.dataTable {
 		display: block;
 		width: 100vw;
-		margin: 1em 0;
+		margin: 0.2em 0;
 		overflow-x: hidden;
 	}
 

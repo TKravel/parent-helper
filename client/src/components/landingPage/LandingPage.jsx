@@ -28,7 +28,9 @@ function LandingPage() {
 					</h1>
 
 					<HashLink smooth to='/#about'>
-						<button className='heroBtns'>Learn more</button>
+						<button id='headerBtn' className='heroBtns'>
+							Learn more
+						</button>
 					</HashLink>
 				</div>
 

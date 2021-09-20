@@ -28,7 +28,7 @@ function verify(req, res, next) {
 router.post('/loadTable', verify, async (req, res, next) => {
 	const user = req.id;
 	const page = req.body.page - 1;
-	const limit = 3;
+	const limit = 7;
 
 	console.log(page);
 
@@ -37,9 +37,11 @@ router.post('/loadTable', verify, async (req, res, next) => {
 	DayTracker.find({ userId: user }, function (err, arr) {
 		if (err) {
 			console.log(err);
+		} else if (arr.length === 0) {
+			res.send('no data');
 		} else {
 			console.log('Table Loaded');
-			res.json({ arr: arr });
+			res.json({ arr: arr, count: count });
 		}
 	})
 		.skip(page * limit)

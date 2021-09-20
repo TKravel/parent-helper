@@ -23,6 +23,10 @@ function NotesSection({
 	);
 	const [notesInput, setNotesInput] = useState('');
 
+	if (errors) {
+		console.log(errors);
+	}
+
 	function handleChange(e) {
 		const inputData = e.target.value;
 		setNotesInput(inputData);

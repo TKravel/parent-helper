@@ -15,6 +15,7 @@ function PottySection({
 	cachedData,
 }) {
 	const sectionName = 'poop';
+
 	const { errors, handleSubmit } = useSave(
 		sectionName,
 		sectionData,
@@ -22,6 +23,11 @@ function PottySection({
 		tableRefresh,
 		validate
 	);
+
+	if (errors) {
+		console.log(errors);
+	}
+
 	return (
 		<div id='pottySection'>
 			<Header headerText='Poop tracker' />

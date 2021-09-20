@@ -48,9 +48,6 @@ function App() {
 							<Register />
 						</Route>
 						<ProtectedRoute exact path='/app' component={MainApp} />
-						<Route exact path='/about'>
-							<About />
-						</Route>
 					</Switch>
 				</div>
 			</UserContext.Provider>
