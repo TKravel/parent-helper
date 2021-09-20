@@ -37,6 +37,7 @@ function useSave(name, sectionData, isEditing, tableRefresh, validate) {
 			name: [name],
 			data: sectionData,
 		};
+		console.log(sectionData);
 		fetch('api/userInputSave', {
 			method: 'POST',
 			headers: {
