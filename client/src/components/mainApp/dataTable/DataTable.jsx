@@ -83,15 +83,12 @@ function DataTable({ edit, fetchedData, currentPage, setPage, pageCount }) {
 	const modalData = {};
 
 	if (dataRecords.length === 0) {
-		console.log('fetchedData', fetchedData);
 		let readyData = flatenData(fetchedData);
 		setData(readyData);
 	}
 
 	useEffect(() => {
-		console.log('fetchedData: ', fetchedData);
 		if (fetchedData !== undefined) {
-			console.log('updated test');
 			let readyData = flatenData(fetchedData);
 			setData(readyData);
 		}
@@ -116,8 +113,6 @@ function DataTable({ edit, fetchedData, currentPage, setPage, pageCount }) {
 		const date = e.currentTarget.parentNode.getAttribute('data-date');
 		const amount = e.currentTarget.parentNode.getAttribute('data-amount');
 
-		console.log(data);
-
 		!isModelOpen
 			? setModalState({
 					selectedTd: td,
@@ -136,7 +131,6 @@ function DataTable({ edit, fetchedData, currentPage, setPage, pageCount }) {
 	function handlePage(e) {
 		e.preventDefault();
 		let button = e.currentTarget.name;
-		console.log(button);
 
 		if (currentPage === 1 && button === 'prev') {
 			return;

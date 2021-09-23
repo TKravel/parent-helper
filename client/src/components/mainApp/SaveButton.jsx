@@ -10,15 +10,10 @@ function SaveButton({ name, stateData, isEditing, cachedData, handleSubmit }) {
 				(item, index) => index === indexNum
 			);
 			let storedData = cachedState[0][name];
-			console.log('store', storedData);
-			console.log('state', stateData);
-			console.log(storedData === stateData);
 			if (storedData !== undefined) {
 				if (JSON.stringify(stateData) === JSON.stringify(storedData)) {
-					console.log('matched');
 					setIsDisabled(true);
 				} else {
-					console.log('doesnt match');
 					setIsDisabled(false);
 				}
 			}

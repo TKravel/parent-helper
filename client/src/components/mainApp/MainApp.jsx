@@ -119,7 +119,9 @@ function MainApp() {
 		})
 			.then((response) => response.json())
 			.then((data) => {
-				console.log(data);
+				if (data.err) {
+					console.log('error loading day: ', data.err);
+				}
 			});
 	}, []);
 
@@ -137,7 +139,6 @@ function MainApp() {
 		})
 			.then((res) => res.json())
 			.then((data) => {
-				console.log(data.arr);
 				if (data.arr) {
 					setDbData(() => {
 						return data.arr;
@@ -242,6 +243,7 @@ function MainApp() {
 						{display.foodSection && !loading.todayData ? (
 							<FoodSection
 								sectionData={appState.food}
+								setMainState={setAppState}
 								onFoodChange={handleStateChange}
 								isEditing={editingState}
 								cachedData={dbData}
@@ -251,6 +253,7 @@ function MainApp() {
 						{display.sleepSection ? (
 							<SleepSection
 								sectionData={appState.sleep}
+								setMainState={setAppState}
 								onNapChange={handleStateChange}
 								isEditing={editingState}
 								cachedData={dbData}
@@ -260,6 +263,7 @@ function MainApp() {
 						{display.pottySection ? (
 							<PottySection
 								sectionData={appState.poop}
+								setMainState={setAppState}
 								onPoopChange={handleStateChange}
 								isEditing={editingState}
 								cachedData={dbData}
@@ -269,6 +273,7 @@ function MainApp() {
 						{display.notesSection ? (
 							<NotesSection
 								sectionData={appState.notes}
+								setMainState={setAppState}
 								onNoteChange={handleStateChange}
 								isEditing={editingState}
 								cachedData={dbData}

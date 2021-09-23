@@ -9,6 +9,7 @@ import useSave from '../../../hooks/useSave';
 
 function SleepSection({
 	sectionData,
+	setMainState,
 	onNapChange,
 	isEditing,
 	cachedData,
@@ -18,6 +19,7 @@ function SleepSection({
 	const { errors, handleSubmit } = useSave(
 		sectionName,
 		sectionData,
+		setMainState,
 		cachedData,
 		setCachedData,
 		isEditing,

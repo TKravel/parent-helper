@@ -104,9 +104,6 @@ router.post('/userInputSave', verify, (req, res, next) => {
 
 	let dateQuery = month + day + year.substring(2, 4);
 
-	console.log(req.body);
-	console.log(req.id);
-
 	const key = req.body.name;
 	const data = req.body.data;
 	const id = req.id;
@@ -114,6 +111,7 @@ router.post('/userInputSave', verify, (req, res, next) => {
 	DayTracker.findOneAndUpdate(
 		{ date: dateQuery, userId: id },
 		{ [key]: data },
+		{ new: true },
 		function (err, update) {
 			if (err) {
 				console.log(err);
@@ -121,8 +119,8 @@ router.post('/userInputSave', verify, (req, res, next) => {
 				console.log('no document');
 				res.send('No document found');
 			} else {
-				res.send(update);
-				console.log('Item saved');
+				console.log('Item saved: ', update);
+				res.json({ document: update });
 			}
 		}
 	);
@@ -139,6 +137,7 @@ router.post('/userInputEdit', verify, (req, res, next) => {
 	DayTracker.findOneAndUpdate(
 		{ _id: dayID, userId: user },
 		{ [key]: data },
+		{ new: true },
 		function (err, update) {
 			if (err) {
 				console.log('error');
@@ -148,7 +147,7 @@ router.post('/userInputEdit', verify, (req, res, next) => {
 			} else {
 				console.log(update);
 				console.log('Document updated:');
-				res.json({ update: update });
+				res.json({ document: update });
 			}
 		}
 	);

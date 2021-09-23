@@ -4,6 +4,7 @@ import { UserContext } from './UserContext';
 function useSave(
 	name,
 	sectionData,
+	setMainState,
 	cachedData,
 	setCachedData,
 	isEditing,
@@ -33,32 +34,19 @@ function useSave(
 		setIsSubmitting(true);
 	}
 
-	function updateState() {
+	function updateState(doc) {
 		const selection = isEditing.cacheDbDataIndex;
 		setCachedData((prevValues) => {
-			const replacement = cachedData[selection];
-
-			//
-			// console.log('replacemnt', replacement);
-			// console.log(selection);
-			// console.log('test', replacement[name]);
-			// console.log('test1', sectionData);
-
 			const result = cachedData.map((item, index) => {
-				// console.log(item);
-				console.log(selection);
-				console.log(index, item);
 				if (index === parseInt(selection)) {
-					// console.log('worked');
 					return { ...prevValues[index], [name]: sectionData };
 				} else {
-					// console.log('didnt work');
 					return item;
 				}
 			});
-			console.log('output', result);
 			return result;
-		}, console.log('testData: ', cachedData));
+		});
+		setMainState(doc);
 	}
 
 	function handleSave() {
@@ -81,9 +69,10 @@ function useSave(
 		})
 			.then((response) => response.json())
 			.then((data) => {
-				console.log('Item saved');
-				updateState();
-				// tableRefresh();
+				if (data.document) {
+					console.log('Item saved');
+					updateState(data.document);
+				}
 			})
 			.catch((error) => {
 				console.error('Error:', error);
@@ -111,10 +100,9 @@ function useSave(
 		})
 			.then((response) => response.json())
 			.then((data) => {
-				if (data) {
-					updateState();
+				if (data.document) {
+					updateState(data.document);
 					console.log('updated state');
-					// tableRefresh();
 				} else {
 					console.log('no data');
 				}

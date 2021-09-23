@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function FoodInput({
 	sectionData,
+	setMainState,
 	onFoodChange,
 	isEditing,
 	cachedData,
@@ -17,6 +18,7 @@ function FoodInput({
 	const { errors, handleSubmit } = useSave(
 		sectionName,
 		sectionData,
+		setMainState,
 		cachedData,
 		setCachedData,
 		isEditing,

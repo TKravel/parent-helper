@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function NotesSection({
 	sectionData,
+	setMainState,
 	onNoteChange,
 	isEditing,
 	cachedData,
@@ -17,7 +18,7 @@ function NotesSection({
 	const { errors, handleSubmit } = useSave(
 		sectionName,
 		sectionData,
-
+		setMainState,
 		cachedData,
 		setCachedData,
 		isEditing,

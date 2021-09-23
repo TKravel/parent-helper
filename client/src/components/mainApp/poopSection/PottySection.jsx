@@ -9,6 +9,7 @@ import validate from '../poopSection/validatePoop';
 
 function PottySection({
 	sectionData,
+	setMainState,
 	onPoopChange,
 	isEditing,
 	cachedData,
@@ -19,6 +20,7 @@ function PottySection({
 	const { errors, handleSubmit } = useSave(
 		sectionName,
 		sectionData,
+		setMainState,
 		cachedData,
 		setCachedData,
 		isEditing,
