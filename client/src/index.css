@@ -260,7 +260,7 @@ dark blue: 1D3557
 
 @media only screen and (max-width: 500px) {
 	#heroContainer {
-		background-image: url(./img/pexels-johannes-plenio-small.jpg);
+		background-image: url(./img/background-img-small.jpg);
 		background-position: center;
 		background-repeat: no-repeat;
 		background-size: cover;
