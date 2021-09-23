@@ -10,15 +10,17 @@ function NotesSection({
 	sectionData,
 	onNoteChange,
 	isEditing,
-	tableRefresh,
 	cachedData,
+	setCachedData,
 }) {
 	const sectionName = 'notes';
 	const { errors, handleSubmit } = useSave(
 		sectionName,
 		sectionData,
+
+		cachedData,
+		setCachedData,
 		isEditing,
-		tableRefresh,
 		validate
 	);
 	const [notesInput, setNotesInput] = useState('');
@@ -87,7 +89,6 @@ function NotesSection({
 					name='notes'
 					stateData={sectionData}
 					isEditing={isEditing}
-					tableRefresh={tableRefresh}
 					cachedData={cachedData}
 					handleSubmit={handleSubmit}
 				/>

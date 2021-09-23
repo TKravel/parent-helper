@@ -83,13 +83,18 @@ function DataTable({ edit, fetchedData, currentPage, setPage, pageCount }) {
 	const modalData = {};
 
 	if (dataRecords.length === 0) {
+		console.log('fetchedData', fetchedData);
 		let readyData = flatenData(fetchedData);
 		setData(readyData);
 	}
 
 	useEffect(() => {
-		let readyData = flatenData(fetchedData);
-		setData(readyData);
+		console.log('fetchedData: ', fetchedData);
+		if (fetchedData !== undefined) {
+			console.log('updated test');
+			let readyData = flatenData(fetchedData);
+			setData(readyData);
+		}
 	}, [fetchedData]);
 
 	function GetHeadings() {

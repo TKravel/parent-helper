@@ -11,15 +11,16 @@ function SleepSection({
 	sectionData,
 	onNapChange,
 	isEditing,
-	tableRefresh,
 	cachedData,
+	setCachedData,
 }) {
 	const sectionName = 'sleep';
 	const { errors, handleSubmit } = useSave(
 		sectionName,
 		sectionData,
+		cachedData,
+		setCachedData,
 		isEditing,
-		tableRefresh,
 		validate
 	);
 	const [openNap1, setOpenNap1] = useState(false);
@@ -141,7 +142,6 @@ function SleepSection({
 					name='sleep'
 					stateData={sectionData}
 					isEditing={isEditing}
-					tableRefresh={tableRefresh}
 					cachedData={cachedData}
 					handleSubmit={handleSubmit}
 				/>

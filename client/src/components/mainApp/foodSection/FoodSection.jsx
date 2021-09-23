@@ -10,15 +10,16 @@ function FoodInput({
 	sectionData,
 	onFoodChange,
 	isEditing,
-	tableRefresh,
 	cachedData,
+	setCachedData,
 }) {
 	const sectionName = 'food';
 	const { errors, handleSubmit } = useSave(
 		sectionName,
 		sectionData,
+		cachedData,
+		setCachedData,
 		isEditing,
-		tableRefresh,
 		validate
 	);
 	const [foodInput, setFoodInput] = useState('');
@@ -89,7 +90,6 @@ function FoodInput({
 					name='food'
 					stateData={sectionData}
 					isEditing={isEditing}
-					tableRefresh={tableRefresh}
 					cachedData={cachedData}
 					handleSubmit={handleSubmit}
 				/>

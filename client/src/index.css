@@ -777,6 +777,7 @@ dark blue: 1D3557
 
 @media screen and (max-width: 500px) {
 	#tableContainer {
+		border-radius: 0px;
 		width: 100vw;
 		margin-top: 0.3em;
 	}

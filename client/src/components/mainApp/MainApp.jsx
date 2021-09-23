@@ -50,15 +50,6 @@ function MainApp() {
 	const [page, setPage] = useState(1);
 	const [pageCount, setPageCount] = useState(null);
 
-	function refreshTableUpdates() {
-		setEditingState((prevValues) => {
-			return {
-				...prevValues,
-				reloadTable: prevValues.reloadTable + 1,
-			};
-		});
-	}
-
 	function handleStateChange(sectionName, updatedState) {
 		switch (sectionName) {
 			case 'food':
@@ -152,7 +143,8 @@ function MainApp() {
 						return data.arr;
 					});
 					setAppState(() => {
-						return data.arr[0];
+						const clone = JSON.parse(JSON.stringify(data.arr[0]));
+						return clone;
 					});
 				}
 				setPageCount(data.count);
@@ -214,7 +206,21 @@ function MainApp() {
 	}
 
 	function closeEditerButton() {
-		setPage(1);
+		const clone = JSON.parse(JSON.stringify(dbData[0]));
+		setAppState(() => {
+			return clone;
+		});
+		setEditingState((prevValue) => {
+			return {
+				status: false,
+				id: clone._id,
+				cacheDbDataIndex: 0,
+				reloadTable: prevValue.reloadTable,
+			};
+		});
+		if (page !== 1) {
+			setPage(1);
+		}
 	}
 
 	return (
@@ -238,8 +244,8 @@ function MainApp() {
 								sectionData={appState.food}
 								onFoodChange={handleStateChange}
 								isEditing={editingState}
-								tableRefresh={refreshTableUpdates}
 								cachedData={dbData}
+								setCachedData={setDbData}
 							/>
 						) : null}
 						{display.sleepSection ? (
@@ -247,8 +253,8 @@ function MainApp() {
 								sectionData={appState.sleep}
 								onNapChange={handleStateChange}
 								isEditing={editingState}
-								tableRefresh={refreshTableUpdates}
 								cachedData={dbData}
+								setCachedData={setDbData}
 							/>
 						) : null}
 						{display.pottySection ? (
@@ -256,8 +262,8 @@ function MainApp() {
 								sectionData={appState.poop}
 								onPoopChange={handleStateChange}
 								isEditing={editingState}
-								tableRefresh={refreshTableUpdates}
 								cachedData={dbData}
+								setCachedData={setDbData}
 							/>
 						) : null}
 						{display.notesSection ? (
@@ -265,8 +271,8 @@ function MainApp() {
 								sectionData={appState.notes}
 								onNoteChange={handleStateChange}
 								isEditing={editingState}
-								tableRefresh={refreshTableUpdates}
 								cachedData={dbData}
+								setCachedData={setDbData}
 							/>
 						) : null}
 						<UserInputNav
