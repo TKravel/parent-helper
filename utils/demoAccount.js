@@ -19,7 +19,7 @@ function formatDate(date) {
 
 function last7Days() {
 	var result = [];
-	for (var i = 0; i < 7; i++) {
+	for (var i = 0; i < 21; i++) {
 		var date = new Date();
 		date.setDate(date.getDate() - i);
 		result.push(formatDate(date));
