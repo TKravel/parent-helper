@@ -116,23 +116,6 @@ function MainApp() {
 		}
 	}
 
-	// On load check if db has document for today / create if doesn't exist
-	// useEffect(() => {
-	// 	fetch('/api/loadLog', {
-	// 		method: 'GET',
-	// 		headers: {
-	// 			authorization: user.auth,
-	// 		},
-	// 	})
-	// 		.then((response) => response.json())
-	// 		.then((data) => {
-	// 			if (data.err) {
-	// 				console.log('error loading day: ', data.err);
-	// 			}
-	// 		});
-	// }, []);
-
-	// Fetch data from db, populated appState and dbData state
 	useEffect(() => {
 		const data = {
 			page: page,

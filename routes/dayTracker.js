@@ -147,31 +147,4 @@ router.post('/userInputEdit', verify, (req, res, next) => {
 	);
 });
 
-// // Delete list data
-
-// router.delete('/userInputDelete', verify, (req, res) => {
-// 	const DocId = req.body.id;
-// 	const arr = req.body.arr;
-// 	const index = req.body.itemIndex;
-// 	const Id = req.id;
-// 	DayTracker.findOneAndUpdate(
-// 		{ id: DocId, userId: id },
-// 		function (err, result) {
-// 			if (err) {
-// 				console.log(err);
-// 			} else if (result) {
-// 				const removedItem = result[arr].splice(index, 1);
-// 				result.save(function (err) {
-// 					if (err) {
-// 						console.log(err);
-// 					} else {
-// 						console.log('item removed');
-// 						res.send(result);
-// 					}
-// 				});
-// 			}
-// 		}
-// 	);
-// });
-
 module.exports = router;
