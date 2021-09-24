@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CreateRows from './CreateRows';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import {
 	faChevronCircleLeft,
 	faChevronCircleRight,
@@ -13,6 +12,7 @@ import {
 } from '../../../dateTimeHelpers';
 import Modal from './Modal';
 
+// Make db data displayable
 function flatenData(fetchedData) {
 	const flatData = [];
 	flatData.length = 0;
@@ -76,17 +76,21 @@ function flatenData(fetchedData) {
 }
 
 function DataTable({ edit, fetchedData, currentPage, setPage, pageCount }) {
+	// Displayable table data
 	const [dataRecords, setData] = useState([]);
+	// Modal state
 	const [isModelOpen, setIsModalOpen] = useState(false);
 	const [modalState, setModalState] = useState({});
 
 	const modalData = {};
 
+	// Check for table data, setState if empty
 	if (dataRecords.length === 0) {
 		let readyData = flatenData(fetchedData);
 		setData(readyData);
 	}
 
+	// Check for data updates, handle for display if needed
 	useEffect(() => {
 		if (fetchedData !== undefined) {
 			let readyData = flatenData(fetchedData);
@@ -128,6 +132,7 @@ function DataTable({ edit, fetchedData, currentPage, setPage, pageCount }) {
 		isModelOpen ? setIsModalOpen(false) : setIsModalOpen(true);
 	}
 
+	// Table page changes
 	function handlePage(e) {
 		e.preventDefault();
 		let button = e.currentTarget.name;
@@ -140,6 +145,8 @@ function DataTable({ edit, fetchedData, currentPage, setPage, pageCount }) {
 			? setPage((prevValue) => prevValue - 1)
 			: setPage((preValue) => preValue + 1);
 	}
+
+	// Find max page
 	const maxPage = Math.ceil(pageCount / 7);
 
 	return (

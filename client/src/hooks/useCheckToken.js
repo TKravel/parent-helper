@@ -8,7 +8,6 @@ function useCheckToken() {
 		function checkUser() {
 			if (localStorage.token) {
 				token = localStorage.token;
-				// console.log('User id is: ' + userId + ' token is:  ' + token);
 				setUser({
 					auth: token,
 				});

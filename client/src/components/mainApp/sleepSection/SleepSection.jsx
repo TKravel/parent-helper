@@ -72,7 +72,6 @@ function SleepSection({
 								name='nap1Start'
 								label='Start of nap:'
 								napData={sectionData.nap1Start}
-								sectionData={sectionData}
 								onChange={handleChange}
 							/>
 							{errors.nap1Start && (
@@ -84,7 +83,6 @@ function SleepSection({
 								name='nap1End'
 								label='End of nap:'
 								napData={sectionData.nap1End}
-								sectionData={sectionData}
 								onChange={handleChange}
 							/>
 							{errors.nap1End && (
@@ -109,7 +107,6 @@ function SleepSection({
 								name='nap2Start'
 								label='Start of nap:'
 								napData={sectionData.nap2Start}
-								sectionData={sectionData}
 								onChange={handleChange}
 							/>
 							{errors.nap2Start && (
@@ -121,7 +118,6 @@ function SleepSection({
 								name='nap2End'
 								label='End of nap:'
 								napData={sectionData.nap2End}
-								sectionData={sectionData}
 								onChange={handleChange}
 							/>
 							{errors.nap2End && (
@@ -133,7 +129,6 @@ function SleepSection({
 						name='bedTime'
 						label='Bed time:'
 						napData={sectionData.bedTime}
-						sectionData={sectionData}
 						onChange={handleChange}
 					/>
 					{errors.bedTime && (

@@ -3,7 +3,7 @@ import Footer from '../Footer';
 import { HashLink } from 'react-router-hash-link';
 import { useHistory, Redirect } from 'react-router-dom';
 import { UserContext } from '../../hooks/UserContext';
-import useDemo from './useDemo.js';
+import useDemo from '../../hooks/useDemo';
 
 function LandingPage() {
 	const history = useHistory();

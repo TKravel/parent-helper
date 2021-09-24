@@ -11,7 +11,7 @@ const app = express();
 // Connect to DB
 const mongoose = require('mongoose');
 mongoose.connect(
-	`mongodb+srv://appuser:${process.env.DBPASS}@cluster0.quq1t.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`,
+	`mongodb+srv://${process.env.DBUSER}:${process.env.DBPASS}@cluster0.quq1t.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`,
 	{ useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }
 );
 
@@ -22,19 +22,13 @@ db.once('open', function () {
 });
 
 app.use(express.urlencoded({ extended: true }));
-
 app.use(express.static(path.join(__dirname, 'client/build')));
-
 app.use(express.json());
 app.use('/api', dayTrackerRouter);
 app.use('/users', userRouter);
 
 app.get('/*', (req, res) => {
 	res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-});
-
-app.get('/api/data', (req, res) => {
-	res.json(appData);
 });
 
 app.listen(PORT, () => {

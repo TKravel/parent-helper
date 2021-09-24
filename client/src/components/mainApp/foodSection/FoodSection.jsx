@@ -61,7 +61,6 @@ function FoodInput({
 					<TextInput
 						label='Enter food'
 						name='foodInput'
-						buttonID='addFoodItem'
 						placeholder='Enter food here...'
 						updateChange={handleChange}
 						updateState={handleClick}

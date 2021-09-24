@@ -1,14 +1,21 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-function TextInput(props) {
+function TextInput({
+	label,
+	name,
+	placeholder,
+	updateChange,
+	updateState,
+	stateData,
+}) {
 	const [error, setError] = useState({
 		error: false,
 		message: 'Input required',
 	});
 
 	function validateInput(e) {
-		if (props.stateData === '') {
+		if (stateData === '') {
 			setError((prevValue) => {
 				return {
 					error: true,
@@ -23,22 +30,22 @@ function TextInput(props) {
 					message: prevValue.message,
 				};
 			});
-			props.updateState(e);
+			updateState(e);
 			e.preventDefault();
 		}
 	}
 
 	return (
 		<form className='textInputForm'>
-			<label htmlFor={props.name}>{props.label}</label>
+			<label htmlFor={name}>{label}</label>
 			<br />
 			<input
 				className='textInput'
 				type='text'
-				name={props.name}
-				onChange={props.updateChange}
-				value={props.stateData}
-				placeholder={props.placeholder}
+				name={name}
+				onChange={updateChange}
+				value={stateData}
+				placeholder={placeholder}
 			/>
 			<button className='addSubtractButtons' onClick={validateInput}>
 				<FontAwesomeIcon icon='plus' />

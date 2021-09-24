@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 function SaveButton({ name, stateData, isEditing, cachedData, handleSubmit }) {
 	const [isDisabled, setIsDisabled] = useState(true);
 
+	// Set disabled button state by comparing appState to db data for changes
 	useEffect(() => {
 		if (cachedData.length !== 0) {
 			const indexNum = parseInt(isEditing.cacheDbDataIndex);

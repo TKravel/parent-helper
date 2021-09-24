@@ -1,10 +1,12 @@
 import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { UserContext } from '../../hooks/UserContext';
+import { UserContext } from './UserContext';
 
 function useDemo() {
 	const { setUser } = useContext(UserContext);
 	const history = useHistory();
+
+	// Fetched created Demo user from server
 	function createDemoUser() {
 		fetch('/users/createDemoUser')
 			.then((response) => response.json())

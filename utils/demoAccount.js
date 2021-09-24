@@ -1,5 +1,6 @@
 const arr = require('./demoDocuments');
 
+// Format date for db
 function formatDate(date) {
 	let d = date;
 
@@ -17,7 +18,8 @@ function formatDate(date) {
 	return month + day + year;
 }
 
-function last7Days() {
+// Get last 21 days dates
+function pastDays() {
 	var result = [];
 	for (var i = 0; i < 21; i++) {
 		var date = new Date();
@@ -27,11 +29,13 @@ function last7Days() {
 
 	return result;
 }
+
+// Create demp documents
 exports.createRecords = function (id) {
 	const documents = [];
-	const dates = last7Days();
+	const dates = pastDays();
 	console.log(arr[0]);
-	for (let i = 0; i < 7; i++) {
+	for (let i = 0; i < 21; i++) {
 		arr[i].date = dates[i];
 		arr[i].userId = id;
 		documents.push(arr[i]);

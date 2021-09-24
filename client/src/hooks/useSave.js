@@ -15,6 +15,7 @@ function useSave(
 	const [type, setType] = useState('');
 	const { user } = useContext(UserContext);
 
+	// Check for errors/ edit or save if none
 	useEffect(() => {
 		setErrors(validate({ sectionData }));
 		if (Object.keys(errors).length === 0 && isSubmitting) {
@@ -34,6 +35,7 @@ function useSave(
 		setIsSubmitting(true);
 	}
 
+	// Update appState and fetched db data on save or edit
 	function updateState(doc) {
 		const selection = isEditing.cacheDbDataIndex;
 		setCachedData((prevValues) => {

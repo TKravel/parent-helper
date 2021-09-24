@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import { UserContext } from './hooks/UserContext';
 import useCheckToken from './hooks/useCheckToken';
 import MainApp from './components/mainApp/MainApp';
-import About from './components/about/About';
 import ProtectedRoute from './components/ProtectedRoute';
 import './index.css';
 import LandingPage from './components/landingPage/LandingPage';

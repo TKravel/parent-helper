@@ -1,3 +1,4 @@
+// Date helpers
 function displayDate(input) {
 	const month = input.slice(0, 2);
 	const day = input.slice(2, 4);

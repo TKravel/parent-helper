@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { convertTo12HR } from '../../../dateTimeHelpers';
 
-function SleepInput({ name, label, napData, sectionData, onChange }) {
+function SleepInput({ name, label, napData, onChange }) {
 	const [display, setDisplay] = useState(false);
 
 	function handleBlur(e) {
@@ -13,13 +14,6 @@ function SleepInput({ name, label, napData, sectionData, onChange }) {
 
 	function editTime() {
 		setDisplay(true);
-	}
-
-	function convertTo12HR(time) {
-		let [hours, minutes] = time.split(':');
-		const AmOrPm = hours >= 12 ? 'pm' : 'am';
-		hours = hours % 12 || 12;
-		return hours + ':' + minutes + ' ' + AmOrPm;
 	}
 
 	return (

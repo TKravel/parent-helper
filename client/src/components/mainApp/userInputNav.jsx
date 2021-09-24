@@ -2,6 +2,7 @@ import React from 'react';
 import { displayDate, getCurrentDate } from '../../dateTimeHelpers';
 
 function UserInputNav({ dateState, updateDisplay, isEditing, closeEditer }) {
+	// Input section display
 	function handleClick(e) {
 		e.preventDefault();
 		const selection = e.target.name;
@@ -43,7 +44,7 @@ function UserInputNav({ dateState, updateDisplay, isEditing, closeEditer }) {
 				console.error();
 		}
 	}
-
+	// Return to editing todays data
 	function handleClose() {
 		closeEditer();
 	}

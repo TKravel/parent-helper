@@ -23,8 +23,8 @@ library.add(faPlus, faMinus, faEdit, faTimes, faExpand);
 
 function MainApp() {
 	const { user } = useContext(UserContext);
-	// Section display state
 
+	// Section display state
 	const [display, setDisplay] = useState({
 		foodSection: true,
 		sleepSection: false,
@@ -32,14 +32,18 @@ function MainApp() {
 		notesSection: false,
 	});
 
+	// Todays data
 	const [appState, setAppState] = useState({});
 
+	// Fetched data
 	const [dbData, setDbData] = useState([]);
 
+	// Page loading state
 	const [loading, setLoading] = useState({
 		isLoading: true,
 	});
 
+	// Editing details
 	const [editingState, setEditingState] = useState({
 		status: false,
 		id: '',
@@ -47,9 +51,11 @@ function MainApp() {
 		reloadTable: 0,
 	});
 
+	// Page state
 	const [page, setPage] = useState(1);
 	const [pageCount, setPageCount] = useState(null);
 
+	// AppState handler
 	function handleStateChange(sectionName, updatedState) {
 		switch (sectionName) {
 			case 'food':
@@ -110,26 +116,28 @@ function MainApp() {
 		}
 	}
 
-	useEffect(() => {
-		fetch('/api/loadLog', {
-			method: 'GET',
-			headers: {
-				authorization: user.auth,
-			},
-		})
-			.then((response) => response.json())
-			.then((data) => {
-				if (data.err) {
-					console.log('error loading day: ', data.err);
-				}
-			});
-	}, []);
+	// On load check if db has document for today / create if doesn't exist
+	// useEffect(() => {
+	// 	fetch('/api/loadLog', {
+	// 		method: 'GET',
+	// 		headers: {
+	// 			authorization: user.auth,
+	// 		},
+	// 	})
+	// 		.then((response) => response.json())
+	// 		.then((data) => {
+	// 			if (data.err) {
+	// 				console.log('error loading day: ', data.err);
+	// 			}
+	// 		});
+	// }, []);
 
+	// Fetch data from db, populated appState and dbData state
 	useEffect(() => {
 		const data = {
 			page: page,
 		};
-		fetch('/api/loadTable', {
+		fetch('/api/userData', {
 			method: 'POST',
 			headers: {
 				authorization: user.auth,
@@ -172,6 +180,7 @@ function MainApp() {
 			});
 	}, [editingState.reloadTable, user.auth, page]);
 
+	// Load input section with edit selection
 	function loadEdit(e) {
 		const currentDate = getCurrentDate().replace(/\//g, '');
 		if (e.target !== undefined) {
@@ -206,6 +215,7 @@ function MainApp() {
 		}
 	}
 
+	// Return to editing today
 	function closeEditerButton() {
 		const clone = JSON.parse(JSON.stringify(dbData[0]));
 		setAppState(() => {
@@ -234,7 +244,6 @@ function MainApp() {
 						color='#00BFFF'
 						height={100}
 						width={100}
-						// timeout={3000} //3 secs
 					/>
 				</div>
 			) : (

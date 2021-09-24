@@ -3,11 +3,11 @@ import { useHistory } from 'react-router-dom';
 import { UserContext } from './UserContext';
 
 function useAuth() {
-	// const { setUser } = useCheckToken();
 	const history = useHistory();
 	const { setUser } = useContext(UserContext);
 	const [error, setError] = useState({});
 
+	// Create user
 	function createUser(values) {
 		const data = {
 			username: values.username,
@@ -41,6 +41,7 @@ function useAuth() {
 			});
 	}
 
+	// Login
 	function loginUser(values) {
 		const data = {
 			username: values.username,

@@ -23,38 +23,10 @@ function verify(req, res, next) {
 	return next();
 }
 
-// GET data for table
-
-router.post('/loadTable', verify, async (req, res, next) => {
-	const user = req.id;
-	const page = req.body.page - 1;
-	const limit = 7;
-
-	console.log(page);
-
-	const count = await DayTracker.countDocuments({ userId: user });
-	console.log(count);
-	DayTracker.find({ userId: user }, function (err, arr) {
-		if (err) {
-			console.log(err);
-		} else if (arr.length === 0) {
-			res.send('no data');
-		} else {
-			console.log('Table Loaded');
-			res.json({ arr: arr, count: count });
-		}
-	})
-		.skip(page * limit)
-		.limit(limit)
-		.sort({ date: 'desc' });
-});
-
-// Create if doesnt exsist
-
-router.get('/loadLog', verify, (req, res) => {
+// Get user data
+router.post('/userData', verify, async (req, res) => {
 	// Get/format date for search
 	const currentDate = new Date();
-
 	let month = (currentDate.getMonth() + 1).toString();
 	let day = currentDate.getDate().toString();
 	let year = currentDate.getFullYear().toString();
@@ -70,23 +42,45 @@ router.get('/loadLog', verify, (req, res) => {
 
 	const Id = req.id;
 
+	// Search for todays document, create if needed
 	const query = { date: dateQuery, userId: Id },
 		update = { date: dateQuery, userId: Id },
 		options = { upsert: true, new: true, setDefaultsOnInsert: true };
 
-	DayTracker.findOneAndUpdate(query, update, options, function (err, result) {
-		if (err) {
-			console.log(err);
-		} else {
-			console.log('Day created');
-			return;
+	await DayTracker.findOneAndUpdate(
+		query,
+		update,
+		options,
+		async function (err, result) {
+			if (err) {
+				console.log(err);
+			} else {
+				// Find current user documents, return a page
+				const user = req.id;
+				const page = req.body.page - 1;
+				const limit = 7;
+
+				const count = await DayTracker.countDocuments({ userId: user });
+				console.log(count);
+				DayTracker.find({ userId: user }, function (err, arr) {
+					if (err) {
+						console.log(err);
+					} else if (arr.length === 0) {
+						res.send('no data');
+					} else {
+						console.log('Table Loaded');
+						res.json({ arr: arr, count: count });
+					}
+				})
+					.skip(page * limit)
+					.limit(limit)
+					.sort({ date: 'desc' });
+			}
 		}
-	});
+	);
 });
 
-// POST data
-
-// Save current days data
+// Save current days data return update
 
 router.post('/userInputSave', verify, (req, res, next) => {
 	const currentDate = new Date();
@@ -126,7 +120,7 @@ router.post('/userInputSave', verify, (req, res, next) => {
 	);
 });
 
-// EDIT past days
+// Edit past days return update
 
 router.post('/userInputEdit', verify, (req, res, next) => {
 	const key = req.body.name;
@@ -153,31 +147,31 @@ router.post('/userInputEdit', verify, (req, res, next) => {
 	);
 });
 
-// DELETE list data
+// // Delete list data
 
-router.delete('/userInputDelete', verify, (req, res) => {
-	const DocId = req.body.id;
-	const arr = req.body.arr;
-	const index = req.body.itemIndex;
-	const Id = req.id;
-	DayTracker.findOneAndUpdate(
-		{ id: DocId, userId: id },
-		function (err, result) {
-			if (err) {
-				console.log(err);
-			} else if (result) {
-				const removedItem = result[arr].splice(index, 1);
-				result.save(function (err) {
-					if (err) {
-						console.log(err);
-					} else {
-						console.log('item removed');
-						res.send(result);
-					}
-				});
-			}
-		}
-	);
-});
+// router.delete('/userInputDelete', verify, (req, res) => {
+// 	const DocId = req.body.id;
+// 	const arr = req.body.arr;
+// 	const index = req.body.itemIndex;
+// 	const Id = req.id;
+// 	DayTracker.findOneAndUpdate(
+// 		{ id: DocId, userId: id },
+// 		function (err, result) {
+// 			if (err) {
+// 				console.log(err);
+// 			} else if (result) {
+// 				const removedItem = result[arr].splice(index, 1);
+// 				result.save(function (err) {
+// 					if (err) {
+// 						console.log(err);
+// 					} else {
+// 						console.log('item removed');
+// 						res.send(result);
+// 					}
+// 				});
+// 			}
+// 		}
+// 	);
+// });
 
 module.exports = router;

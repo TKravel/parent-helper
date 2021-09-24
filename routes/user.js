@@ -6,6 +6,7 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const { createRecords } = require('../utils/demoAccount');
 
+// Login
 router.post('/login', (req, res) => {
 	const { username, password } = req.body;
 	console.log(username, password);
@@ -33,11 +34,10 @@ router.post('/login', (req, res) => {
 				}
 			});
 		}
-
-		// console.log(token);
 	});
 });
 
+// Register
 router.post('/createUser', async (req, res) => {
 	const { username, email, email2, password, password2 } = req.body;
 
@@ -70,6 +70,7 @@ router.post('/createUser', async (req, res) => {
 	});
 });
 
+// Create a demo user
 router.get('/createDemoUser', (req, res) => {
 	const tempName = 'demoUser' + Math.floor(Math.random() * 1000000000);
 	User.findOne({ username: tempName }, async function (err, document) {
@@ -88,7 +89,6 @@ router.get('/createDemoUser', (req, res) => {
 					email: email,
 					password: pw,
 				});
-				// user = user.toJson();
 				const userId = user._id;
 				const documents = createRecords(userId);
 				DayTracker.insertMany(documents, function (err, docs) {
