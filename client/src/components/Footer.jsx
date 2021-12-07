@@ -6,8 +6,8 @@ function Footer() {
 
 	return (
 		<p id='footer'>
-			Created by Tim Kravel{' '}
-			<span dangerouslySetInnerHTML={{ __html: '&copy' }}></span> {year}
+			<span dangerouslySetInnerHTML={{ __html: '&copy' }}></span>{' '}
+			TKDevDesign.com {year}
 		</p>
 	);
 }
