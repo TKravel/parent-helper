@@ -67,8 +67,8 @@ function LandingPage() {
 					<h2 id='about-header'>Get connected</h2>
 					<p>
 						Forget about that old paper journal. Have comfort in
-						knowing your child care journal is always within reach
-						no matter where you go.
+						knowing your journal is always at your finger tips no
+						matter where you go.
 					</p>
 				</div>
 				<div id='about-img-container'>
@@ -178,7 +178,7 @@ function LandingPage() {
 					<h2>Register today!</h2>
 					<p>Save a tree, digitize your journal!</p>
 					<button className='btn' onClick={handleSignUp}>
-						Sign up
+						SIGN UP
 					</button>
 				</div>
 			</div>
