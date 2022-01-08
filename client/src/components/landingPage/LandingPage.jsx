@@ -4,6 +4,22 @@ import { HashLink } from 'react-router-hash-link';
 import { useHistory, Redirect } from 'react-router-dom';
 import { UserContext } from '../../hooks/UserContext';
 import useDemo from '../../hooks/useDemo';
+import heroImg from '../../img/hero-img.png';
+import signUpImg from '../../img/sign-up.png';
+import aboutImg from '../../img/about-img.jpg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+	faClock,
+	faWifi,
+	faLaptopHouse,
+	faSearch,
+	faListOl,
+	faCheck,
+	faUtensils,
+	faBed,
+	faPoo,
+	faClipboard,
+} from '@fortawesome/free-solid-svg-icons';
 
 function LandingPage() {
 	const history = useHistory();
@@ -20,71 +36,153 @@ function LandingPage() {
 
 	return (
 		<div className='landingContainer'>
-			<div id='heroContainer'>
-				<div id='heroHeaderContainer'>
-					<h1 id='heroHeader'>
-						A digital log
-						<br /> you can't forget at home.
-					</h1>
-
-					<HashLink smooth to='/#about'>
-						<button id='headerBtn' className='heroBtns'>
-							Learn more
-						</button>
+			<div id='hero-container'>
+				<div id='hero-info'>
+					<h1 id='hero-header'>A digital child care journal</h1>
+					<HashLink id='learn-more-link' smooth to='/#about'>
+						LEARN MORE
 					</HashLink>
+					<div id='hero-btn-container'>
+						<button
+							className='btn hero-btn'
+							onClick={createDemoUser}
+						>
+							DEMO
+						</button>
+						<button className='btn hero-btn' onClick={handleSignUp}>
+							SIGN UP
+						</button>
+					</div>
 				</div>
-
-				<div id='btnContainer'>
-					<button className='heroBtns' onClick={createDemoUser}>
-						Demo
-					</button>
-					<button className='heroBtns' onClick={handleSignUp}>
+				<div id='hero-img-container'>
+					<img
+						id='hero-img'
+						src={heroImg}
+						alt='Woman typing with child on lap'
+					/>
+				</div>
+			</div>
+			<div id='about' className='landingAbout'>
+				<div id='about-text'>
+					<h2 id='about-header'>Get connected</h2>
+					<p>
+						Forget about that old paper journal. Have comfort in
+						knowing your child care journal is always within reach
+						no matter where you go.
+					</p>
+				</div>
+				<div id='about-img-container'>
+					<img
+						id='about-img'
+						src={aboutImg}
+						alt='Woman looking at phone screen'
+					/>
+				</div>
+			</div>
+			<div id='landing-list-container'>
+				<h2 id='list-header'>Why go digital?</h2>
+				<ul id='landing-list'>
+					<li>
+						<FontAwesomeIcon className='list-icon' icon={faClock} />
+						<span>Access your journal 24/7</span>
+					</li>
+					<li>
+						<FontAwesomeIcon className='list-icon' icon={faWifi} />
+						<span>Never forget your journal again</span>
+					</li>
+					<li>
+						<FontAwesomeIcon
+							className='list-icon'
+							icon={faLaptopHouse}
+						/>
+						<span>Stay informed while away</span>
+					</li>
+					<li>
+						<FontAwesomeIcon
+							className='list-icon'
+							icon={faSearch}
+						/>
+						<span>Get insights into your child's habits</span>
+					</li>
+					<li>
+						<FontAwesomeIcon
+							className='list-icon'
+							icon={faListOl}
+						/>
+						<span>Build and maintain healthy schedules</span>
+					</li>
+					<li>
+						<FontAwesomeIcon className='list-icon' icon={faCheck} />
+						<span>Remove the doubt with digital data</span>
+					</li>
+				</ul>
+			</div>
+			<div id='features-container'>
+				<h2 id='feature-header'>Features</h2>
+				<ul id='feature-list'>
+					<li className='feature-card'>
+						<div className='icon-wrapper'>
+							<FontAwesomeIcon
+								className='card-icon'
+								icon={faUtensils}
+							/>
+						</div>
+						<span>
+							<strong>Food</strong>
+						</span>
+					</li>
+					<li className='feature-card'>
+						<div className='icon-wrapper'>
+							<FontAwesomeIcon
+								className='card-icon'
+								icon={faBed}
+							/>
+						</div>
+						<span>
+							<strong>Sleep</strong>
+						</span>
+					</li>
+					<li className='feature-card'>
+						<div className='icon-wrapper'>
+							<FontAwesomeIcon
+								className='card-icon'
+								icon={faPoo}
+							/>
+						</div>
+						<span>
+							<strong>Poop</strong>
+						</span>
+					</li>
+					<li className='feature-card'>
+						<div className='icon-wrapper'>
+							<FontAwesomeIcon
+								className='card-icon'
+								icon={faClipboard}
+							/>
+						</div>
+						<span>
+							<strong>Notes</strong>
+						</span>
+					</li>
+				</ul>
+			</div>
+			<div id='landing-sign-up-container'>
+				<div id='landing-sign-up-img-container'>
+					<img
+						id='landing-sign-up-img'
+						src={signUpImg}
+						alt='Male signing up'
+					/>
+				</div>
+				<div id='landing-sign-up-text'>
+					<h2>Register today!</h2>
+					<p>Save a tree, digitize your journal!</p>
+					<button className='btn' onClick={handleSignUp}>
 						Sign up
 					</button>
 				</div>
 			</div>
-			<hr id='about' />
-			<div className='landingAbout'>
-				<h2>A child care journal that's connected </h2>
-				<p>
-					Easily keep track of your child's needs throughout the day.
-					Whether with a sitter or on the go you'll always have access
-					to your log. Keep track of meals, sleep, notes, and even
-					poop! Use your child's log to learn habits, build schedules,
-					and keep your child on track.
-				</p>
-			</div>
-			<hr />
-			<div className='landingList'>
-				<h2>Why use a digital log?</h2>
-				<ul>
-					<li>Have access to your log any place any time.</li>
-					<li>Never forget your journal again.</li>
-					<li>Keep track of your child while you're at work.</li>
-					<li>
-						Use your log to get insights into changes in your
-						child's eating, sleeping, and bathroom habits.
-					</li>
-					<li>
-						Build and maintain healthy schedules everyone in your
-						child's life can access.
-					</li>
-					<li>
-						Never wonder when or how much again. Remove the doubt
-						with the ease of a digital journal right at your
-						fingertips.
-					</li>
-				</ul>
-			</div>
-			<hr />
-			<div className='landingSignUp'>
-				<h2>Register today!</h2>
-				<p>Save a tree, digitize your journal!</p>
-				<p>Sign up and start tracking instantly!</p>
-				<button className='heroBtns' onClick={handleSignUp}>
-					Sign up
-				</button>
-			</div>
+
 			<Footer />
 		</div>
 	);
