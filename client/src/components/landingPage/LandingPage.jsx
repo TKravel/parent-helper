@@ -63,20 +63,22 @@ function LandingPage() {
 				</div>
 			</div>
 			<div id='about' className='landingAbout'>
-				<div id='about-text'>
-					<h2 id='about-header'>Get connected</h2>
-					<p>
-						Forget about that old paper journal. Have comfort in
-						knowing your journal is always at your finger tips no
-						matter where you go.
-					</p>
-				</div>
-				<div id='about-img-container'>
-					<img
-						id='about-img'
-						src={aboutImg}
-						alt='Woman looking at phone screen'
-					/>
+				<div id='about-wrapper'>
+					<div id='about-text'>
+						<h2 id='about-header'>Get connected</h2>
+						<p>
+							Forget about that old paper journal. Have comfort in
+							knowing your journal is always at your finger tips
+							no matter where you go.
+						</p>
+					</div>
+					<div id='about-img-container'>
+						<img
+							id='about-img'
+							src={aboutImg}
+							alt='Woman looking at phone screen'
+						/>
+					</div>
 				</div>
 			</div>
 			<div id='landing-list-container'>
