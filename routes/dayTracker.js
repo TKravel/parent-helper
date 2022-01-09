@@ -38,7 +38,7 @@ router.post('/userData', verify, async (req, res) => {
 		day = '0' + day;
 	}
 
-	const dateQuery = month + day + year.substring(2, 4);
+	const dateQuery = year.substring(2, 4) + month + day;
 
 	const Id = req.id;
 
@@ -96,7 +96,7 @@ router.post('/userInputSave', verify, (req, res, next) => {
 		day = '0' + day;
 	}
 
-	let dateQuery = month + day + year.substring(2, 4);
+	let dateQuery = year.substring(2, 4) + month + day;
 
 	const key = req.body.name;
 	const data = req.body.data;

@@ -14,8 +14,8 @@ function formatDate(date) {
 	if (month.length === 1) {
 		month = '0' + month;
 	}
-
-	return month + day + year;
+	console.log(year + month + day);
+	return year + month + day;
 }
 
 // Get last 21 days dates
