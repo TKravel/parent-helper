@@ -663,6 +663,7 @@ input:-webkit-autofill {
 @media only screen and (max-width: 500px) {
 	.mainCardInput {
 		border-bottom-right-radius: 10px;
+		border-right: 2px solid #2d366c;
 		width: 100vw;
 		grid-area: input;
 	}
@@ -922,6 +923,7 @@ input:-webkit-autofill {
 		border-radius: 10px 10px 0px 0px !important;
 		grid-area: buttons;
 		border-bottom: 2px solid #2d366c;
+		border-right: 2px solid #2d366c;
 	}
 }
 
