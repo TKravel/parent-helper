@@ -628,7 +628,7 @@ input:-webkit-autofill {
 	width: 600px;
 	height: 300px;
 	text-align: center;
-	border: 1px solid black;
+	border: 1px solid #2d366c;
 	border-radius: 10px;
 	box-shadow: 4px 4px 2px 1px rgba(29, 53, 87, 0.2);
 	display: grid;
@@ -680,6 +680,7 @@ input:-webkit-autofill {
 @media only screen and (max-width: 500px) {
 	.sectionHeader {
 		border-top-left-radius: 0px;
+		border-right: 2px solid #2d366c;
 	}
 }
 
