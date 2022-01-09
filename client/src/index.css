@@ -714,7 +714,7 @@ input:-webkit-autofill {
 
 .linkBtn {
 	border: none;
-	background-color: #f1faee;
+	background-color: inherit;
 	color: #4250a3;
 	font-size: 1em;
 	font-weight: 700;
