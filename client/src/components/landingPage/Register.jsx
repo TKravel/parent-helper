@@ -4,6 +4,7 @@ import validate from './registerValidation';
 import useAuth from '../../hooks/useAuth';
 import { UserContext } from '../../hooks/UserContext';
 import { Redirect, useHistory } from 'react-router-dom';
+import registerImg from '../../img/register-img.png';
 
 function Register() {
 	const { values, errors, handleChange, handleSubmit } = useForm(
@@ -30,8 +31,15 @@ function Register() {
 	}
 
 	return (
-		<div className='loginWrapper'>
-			<div className='loginContainer'>
+		<div id='loginWrapper'>
+			<div id='login-img-container'>
+				<img
+					id='login-img'
+					src={registerImg}
+					alt='Male registering to a website'
+				/>
+			</div>
+			<div id='login-container'>
 				<div className='registerForm'>
 					<p className='loginMessage'>
 						Register
@@ -81,7 +89,7 @@ function Register() {
 							{errors.password2}
 							{error.message}
 						</p>
-						<button type='submit' className='submitBtn'>
+						<button type='submit' className='btn'>
 							Register
 						</button>
 						<p>Already have an account?</p>

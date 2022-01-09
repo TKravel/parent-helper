@@ -267,7 +267,7 @@ dark blue: 1D3557
 
 #hero-container {
 	display: flex;
-	height: 100vh;
+	min-height: 100vh;
 	max-width: 100vw;
 	padding: 3em;
 }
@@ -313,7 +313,7 @@ dark blue: 1D3557
 		flex-direction: column;
 		padding: 2em;
 		justify-content: center;
-		margin-bottom: 10em;
+		margin-bottom: 5em;
 	}
 	#hero-info {
 		order: 2;
@@ -330,6 +330,9 @@ dark blue: 1D3557
 }
 
 @media screen and (max-width: 500px) {
+	#hero-container {
+		margin-bottom: 0;
+	}
 	#hero-img {
 		width: 100%;
 	}
@@ -370,7 +373,7 @@ dark blue: 1D3557
 	line-height: 1.7;
 	position: absolute;
 	top: 0;
-	right: 8em;
+	right: 3em;
 	padding: 2.5em;
 	width: 25em;
 	-webkit-box-shadow: 5px 6px 20px 0px rgba(0, 0, 0, 0.64);
@@ -459,6 +462,8 @@ dark blue: 1D3557
 #landing-list {
 	display: flex;
 	flex-wrap: wrap;
+	max-width: 875px;
+	margin: auto;
 }
 
 #landing-list li {
@@ -538,6 +543,14 @@ dark blue: 1D3557
 
 .card-icon {
 	font-size: 2em;
+}
+
+@media screen and (max-width: 850px) {
+	#feature-list {
+		flex-wrap: wrap;
+		justify-content: center;
+		width: 90%;
+	}
 }
 
 @media screen and (max-width: 550px) {
@@ -627,46 +640,35 @@ dark blue: 1D3557
 	}
 }
 
+/* ----------------------------------------------------------- */
 /* Login form */
+/* ---------------------------------------------------------------- */
 
-/* color scheme
-red: E63946
-white: F1FAEE    
-light blue: A8DADC
-med blue: 457B9D
-dark blue: 1D3557
-*/
-.loginWrapper {
-	height: 90vh;
+#loginWrapper {
+	min-height: 100vh;
+	max-width: 100vw;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 }
-.loginContainer {
-	color: #1d3557;
-	/* margin: 16px auto; */
-	width: 325px;
-	min-height: 500px;
-	font-size: 18px;
-	text-align: center;
-	border: 1px solid black;
-	border-radius: 10px;
-	box-shadow: 4px 4px 2px 1px rgba(29, 53, 87, 0.2);
-	background-color: #f1faee;
+
+#login-img-container {
+	width: 45vw;
 }
 
-@media only screen and (max-width: 500px) {
-	.loginContainer {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-	}
+#login-img {
+	height: auto;
+	width: 50vw;
+}
+#login-container {
+	width: 45vw;
+	font-size: 18px;
+	text-align: center;
 }
 
 .loginMessage {
 	font-size: 20px;
-	font-weight: 700;
+	margin-bottom: 2em;
 }
 
 .registerForm .loginMessage {
@@ -676,18 +678,18 @@ dark blue: 1D3557
 .loginForm {
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 	margin: auto;
 	margin-top: 10px;
-	width: 250px;
 }
 
 .loginForm input {
-	background-color: #f1faee;
-	border: 2px solid #1d3557;
+	background-color: inherit;
+	border: 2px solid #131732;
 	border-top: 0px;
 	border-right: 0px;
 	border-left: 0px;
-	color: #1d3557;
 	height: 25px;
 	font-size: 17px;
 	text-align: center;
@@ -703,26 +705,17 @@ p.formError {
 }
 
 input:-webkit-autofill {
+	box-shadow: 0 0 0px 1000px #f1faee inset;
 	-webkit-box-shadow: 0 0 0px 1000px #f1faee inset;
 }
-
-.submitBtn {
-	font-size: large;
-	font-weight: 700;
-	color: #f1faee;
-	background-color: #1d3557;
-	border-radius: 17px;
-	height: 35px;
-	margin: auto;
-	margin-top: 37px;
-	margin-bottom: 37px;
-	width: 250px;
+.loginForm button {
+	margin: 0.3em auto 1.5em auto;
 }
 
 .linkBtn {
 	border: none;
 	background-color: #f1faee;
-	color: #457b9d;
+	color: #4250a3;
 	font-size: 1em;
 	font-weight: 700;
 }
@@ -734,10 +727,31 @@ input:-webkit-autofill {
 	margin-bottom: 4px;
 }
 
-#signInIcon {
-	font-size: 150px;
-	margin: 15px;
+@media screen and (max-width: 700px) {
+	#loginWrapper {
+		flex-direction: column;
+	}
+	#login-img-container {
+		width: 100vw;
+	}
+	#login-img {
+		height: auto;
+		width: 60vw;
+		margin: auto;
+	}
+	#login-container {
+		width: 100%;
+	}
 }
+
+@media screen and (max-width: 500px) {
+	#login-img {
+		width: 80vw;
+	}
+}
+
+/* --------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------ */
 
 /* Loader */
 

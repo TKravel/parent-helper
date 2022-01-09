@@ -4,9 +4,7 @@ import validate from './loginValidation';
 import useAuth from '../../hooks/useAuth';
 import { UserContext } from '../../hooks/UserContext';
 import { Redirect, useHistory } from 'react-router-dom';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChartLine } from '@fortawesome/free-solid-svg-icons';
+import loginImg from '../../img/login-img.png';
 
 function Login() {
 	const { values, errors, handleChange, handleSubmit } = useForm(
@@ -33,9 +31,15 @@ function Login() {
 	}
 
 	return (
-		<div className='loginWrapper'>
-			<div className='loginContainer'>
-				<FontAwesomeIcon icon={faChartLine} id='signInIcon' />
+		<div id='loginWrapper'>
+			<div id='login-img-container'>
+				<img
+					id='login-img'
+					src={loginImg}
+					alt='Woman loging into website'
+				/>
+			</div>
+			<div id='login-container'>
 				<p className='loginMessage'>
 					Sign in
 					<br /> to keep on tracking!
@@ -67,7 +71,7 @@ function Login() {
 							: null}
 					</p>
 
-					<button type='submit' className='submitBtn'>
+					<button type='submit' className='btn'>
 						Sign in
 					</button>
 					<p>Dont have a account?</p>
