@@ -27,12 +27,6 @@ html {
 	.mainAppContainer,
 	.loaderContainer {
 		height: 100vh;
-		background-image: url(./img/pexels-johannes-plenio-small.jpg);
-		background-position: center;
-		background-repeat: no-repeat;
-		background-size: cover;
-		background-attachment: fixed;
-		overflow: auto;
 	}
 }
 
@@ -58,142 +52,6 @@ light blue: A8DADC
 med blue: 457B9D
 dark blue: 1D3557
 */
-
-/* Reusable CSS */
-
-.container {
-	margin: 16px auto;
-	width: 600px;
-	height: 300px;
-	text-align: center;
-	border: 1px solid black;
-	border-radius: 10px;
-	box-shadow: 4px 4px 2px 1px rgba(29, 53, 87, 0.2);
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	grid-template-rows: auto auto;
-	grid-template-areas:
-		'input input buttons'
-		'input input buttons';
-}
-
-@media only screen and (max-width: 500px) {
-	.container {
-		width: 90vw;
-		height: auto;
-		margin: auto;
-		margin-top: 1em;
-		display: grid;
-		grid-template-columns: 1fr;
-		grid-template-rows: auto auto;
-		grid-template-areas:
-			'buttons'
-			'input';
-	}
-}
-
-@media only screen and (max-width: 500px) {
-	#foodSection {
-		width: 90vw;
-	}
-}
-
-@media only screen and (max-width: 500px) {
-	.mainCardInput {
-		border-bottom-right-radius: 10px;
-		width: 100vw;
-		grid-area: input;
-	}
-}
-
-.sectionHeader {
-	height: 37px;
-	line-height: 37px;
-	color: #f1faee;
-	background-color: #457b9d;
-	border-top-left-radius: 10px;
-}
-
-@media only screen and (max-width: 500px) {
-	.sectionHeader {
-		border-top-left-radius: 0px;
-	}
-}
-
-.errorMessage {
-	font-weight: 700;
-	color: #e63946;
-}
-
-.deleteListItem {
-	color: #e63946;
-	background-color: #f1faee;
-	font-size: 18px;
-	margin-left: 16px;
-	border: none;
-}
-
-.deleteListItem:hover {
-	color: #e41526;
-}
-
-.saveButton {
-	align-content: center;
-	margin: auto;
-	font-size: 18px;
-	font-weight: 700;
-	color: #f1faee;
-	background-color: #1d3557;
-	border-radius: 15px;
-	height: 30px;
-	width: 35%;
-	grid-row-start: 2;
-	grid-row-end: 3;
-	transition-property: background-color #1d3557;
-	transition-duration: 0.25s;
-}
-
-.saveButton:hover {
-	font-size: 19px;
-}
-
-.saveButton:disabled {
-	background-color: #457b9d;
-	cursor: not-allowed;
-}
-
-.mainCardInput {
-	background-color: #f1faee;
-	border-bottom-left-radius: 10px;
-	height: 261px;
-	display: grid;
-	grid-template-rows: 226px 35px;
-}
-
-@media only screen and (max-width: 500px) {
-	.mainCardInput {
-		width: 90vw;
-		border-bottom-right-radius: 10px;
-	}
-}
-
-.textInputContainer,
-#poopInputContainer,
-#sleepInputContainer {
-	width: 400px;
-	grid-row-start: 1;
-	grid-row-end: 2;
-}
-
-@media only screen and (max-width: 500px) {
-	.textInputContainer,
-	#poopInputContainer,
-	#sleepInputContainer {
-		width: 90vw;
-		grid-row-start: 1;
-		grid-row-end: 2;
-	}
-}
 
 /* Nav Bar */
 
@@ -750,7 +608,8 @@ input:-webkit-autofill {
 	}
 }
 
-/* --------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------ */
+/* main app */
 /* ------------------------------------------------------------------------ */
 
 /* Loader */
@@ -762,9 +621,151 @@ input:-webkit-autofill {
 	justify-content: center;
 }
 
+/* main app container */
+
+.container {
+	margin: 16px auto;
+	width: 600px;
+	height: 300px;
+	text-align: center;
+	border: 1px solid black;
+	border-radius: 10px;
+	box-shadow: 4px 4px 2px 1px rgba(29, 53, 87, 0.2);
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-rows: auto auto;
+	grid-template-areas:
+		'input input buttons'
+		'input input buttons';
+}
+
+@media only screen and (max-width: 500px) {
+	.container {
+		width: 90vw;
+		height: auto;
+		margin: auto;
+		margin-top: 1em;
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: auto auto;
+		grid-template-areas:
+			'buttons'
+			'input';
+	}
+}
+
+@media only screen and (max-width: 500px) {
+	#foodSection {
+		width: 90vw;
+	}
+}
+
+@media only screen and (max-width: 500px) {
+	.mainCardInput {
+		border-bottom-right-radius: 10px;
+		width: 100vw;
+		grid-area: input;
+	}
+}
+
+.sectionHeader {
+	height: 37px;
+	line-height: 37px;
+	color: #f1faee;
+	background-color: #2d366c;
+	border-top-left-radius: 10px;
+}
+
+@media only screen and (max-width: 500px) {
+	.sectionHeader {
+		border-top-left-radius: 0px;
+	}
+}
+
+.errorMessage {
+	font-weight: 700;
+	color: #e63946;
+}
+
+.deleteListItem {
+	color: #e63946;
+	background-color: #f1faee;
+	font-size: 18px;
+	margin-left: 16px;
+	border: none;
+}
+
+.deleteListItem:hover {
+	color: #e41526;
+}
+
+.saveButton {
+	align-content: center;
+	margin: auto;
+	font-size: 18px;
+	font-weight: 700;
+	color: #f1faee;
+	background-color: #1d3557;
+	border-radius: 15px;
+	height: 30px;
+	width: 35%;
+	grid-row-start: 2;
+	grid-row-end: 3;
+	transition-property: background-color #1d3557;
+	transition-duration: 0.25s;
+}
+
+.saveButton:hover {
+	font-size: 19px;
+}
+
+.saveButton:disabled {
+	background-color: #457b9d;
+	cursor: not-allowed;
+}
+
+.mainCardInput {
+	background-color: #f1faee;
+	border-bottom-left-radius: 10px;
+	height: 261px;
+	display: grid;
+	grid-template-rows: 226px 35px;
+}
+
+@media only screen and (max-width: 500px) {
+	.mainCardInput {
+		width: 90vw;
+		border-bottom-right-radius: 10px;
+	}
+}
+
+.textInputContainer,
+#poopInputContainer,
+#sleepInputContainer {
+	width: 400px;
+	grid-row-start: 1;
+	grid-row-end: 2;
+}
+
+@media only screen and (max-width: 500px) {
+	.textInputContainer,
+	#poopInputContainer,
+	#sleepInputContainer {
+		width: 90vw;
+		grid-row-start: 1;
+		grid-row-end: 2;
+	}
+}
+
+/* ------------------------------------------------------------------ */
 /* Food and Notes inputs */
+/* ------------------------------------------------------------------ */
 
 #foodSection {
+	grid-area: input;
+}
+
+#notesSection {
 	grid-area: input;
 }
 
@@ -816,7 +817,9 @@ input:-webkit-autofill {
 	width: 25px;
 }
 
-/* Poop counter CSS */
+/* ---------------------------------------------------------------- */
+/* Poop counter */
+/* ---------------------------------------------------------------- */
 
 #pottySection {
 	grid-area: input;
@@ -833,7 +836,6 @@ input:-webkit-autofill {
 }
 
 #poopDisplay P {
-	/* display: block; */
 	margin: 10px;
 }
 
@@ -859,7 +861,9 @@ input:-webkit-autofill {
 	margin: 15px;
 }
 
+/* ------------------------------------------------------------------- */
 /* Sleep input section */
+/* ------------------------------------------------------------------- */
 
 #sleepSection {
 	grid-area: input;
@@ -874,7 +878,6 @@ input:-webkit-autofill {
 }
 
 .addNapBtn {
-	/* align-content: center; */
 	font-size: large;
 	font-weight: 700;
 	color: #f1faee;
@@ -896,36 +899,29 @@ input:-webkit-autofill {
 	width: 30%;
 }
 
-/* Notes section */
-
-#notesSection {
-	grid-area: input;
-}
-
+/* --------------------------------------------------------------- */
 /* User input grid Section */
+/* --------------------------------------------------------------- */
 
 .userInputNav {
-	background-color: #457b9d;
+	background-color: #2d366c;
 	border-radius: 0px 10px 10px 0px;
 	width: 200px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
 	grid-area: buttons;
-	/* grid-column-start: 2;
-	grid-column-end: 3; */
 }
 
 @media only screen and (max-width: 500px) {
 	.userInputNav {
-		/* float: left; */
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
 		width: 90vw;
 		border-radius: 10px 10px 0px 0px !important;
 		grid-area: buttons;
-		border-bottom: 2px solid #457b9d;
+		border-bottom: 2px solid #2d366c;
 	}
 }
 
@@ -945,7 +941,7 @@ input:-webkit-autofill {
 	font-size: 18px;
 	font-weight: 700;
 	color: #f1faee;
-	background-color: #1d3557;
+	background-color: #4250a3;
 	border-radius: 27px;
 	display: block;
 	height: 50px;
@@ -988,12 +984,13 @@ med blue: 457B9D
 dark blue: 1D3557
 */
 
+/* ----------------------------------------------------------- */
 /* Table CSS */
+/* ------------------------------------------------------------ */
 
 #tableContainer {
-	/* height: auto; */
 	overflow: auto;
-	width: 725px;
+	width: 750px;
 	background-color: #f1faee;
 	border: 1px solid #1d3557;
 	border-radius: 0.25em;
@@ -1039,19 +1036,19 @@ table {
 	padding-bottom: 0.5em;
 	border-collapse: collapse;
 	box-shadow: 4px 4px 2px 1px rgba(29, 53, 87, 0.2);
-	width: 700px;
+	width: 725px;
 }
 
 th {
 	color: #f1faee;
-	background-color: #1d3557;
+	background-color: #2d366c;
 }
 th,
 td {
 	height: 35px;
 	text-align: left;
 	padding: 4px;
-	border: 1px solid #1d3557;
+	border: 1px solid #2d366c;
 }
 
 th {
@@ -1072,7 +1069,7 @@ tr:nth-child(odd) {
 
 .editButton {
 	border: none;
-	color: #1d3557;
+	color: #2d366c;
 	background-color: inherit;
 	font-size: 20px;
 }
@@ -1082,7 +1079,7 @@ tr:nth-child(odd) {
 	display: inline-block;
 	height: 1em;
 	border: none;
-	color: #1d3557;
+	color: #2d366c;
 	background-color: inherit;
 	font-size: 20px;
 }
@@ -1137,7 +1134,7 @@ tr:nth-child(odd) {
 
 	.dataTable th {
 		text-align: left;
-		background: #1d3557;
+		background: #2d366c;
 		border-bottom: 1px solid #aaa;
 	}
 
@@ -1158,7 +1155,6 @@ tr:nth-child(odd) {
 	}
 
 	.dataTable tr:first-of-type {
-		/* position: absolute; */
 		position: sticky;
 		top: 0;
 		left: 0;
@@ -1167,7 +1163,10 @@ tr:nth-child(odd) {
 		margin-left: 7em;
 	}
 }
+
+/* --------------------------------------------------------------- */
 /* Modal */
+/* --------------------------------------------------------------- */
 
 #modal {
 	position: fixed;
@@ -1178,7 +1177,7 @@ tr:nth-child(odd) {
 	width: 400px;
 	text-align: center;
 	background-color: #f1faee;
-	border: 2px solid #1d3557;
+	border: 2px solid #2d366c;
 	border-radius: 10px;
 	box-shadow: 4px 4px 2px 1px rgba(0, 0, 0, 0.3);
 }
@@ -1190,7 +1189,7 @@ tr:nth-child(odd) {
 }
 
 #modalHeader {
-	background-color: #1d3557;
+	background-color: #2d366c;
 	color: #f1faee;
 	font-size: 20px;
 	padding-top: 10px;
@@ -1254,6 +1253,10 @@ tr:nth-child(odd) {
 	z-index: 2;
 	overflow: auto;
 }
+
+/* --------------------------------------------------------------- */
+/* footer */
+/* --------------------------------------------------------------- */
 
 #footer {
 	color: rgba(12, 22, 36, 0.6);
