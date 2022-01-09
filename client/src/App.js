@@ -8,6 +8,7 @@ import './index.css';
 import LandingPage from './components/landingPage/LandingPage';
 import Login from './components/landingPage/Login';
 import Register from './components/landingPage/Register';
+import Footer from './components/Footer';
 
 function App() {
 	const { user, setUser, isLoading, logOut } = useCheckToken();
@@ -48,6 +49,7 @@ function App() {
 						</Route>
 						<ProtectedRoute exact path='/app' component={MainApp} />
 					</Switch>
+					<Footer />
 				</div>
 			</UserContext.Provider>
 		</Router>

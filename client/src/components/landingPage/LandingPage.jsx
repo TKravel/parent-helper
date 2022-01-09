@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import Footer from '../Footer';
 import { HashLink } from 'react-router-hash-link';
 import { useHistory, Redirect } from 'react-router-dom';
 import { UserContext } from '../../hooks/UserContext';
@@ -184,8 +183,6 @@ function LandingPage() {
 					</button>
 				</div>
 			</div>
-
-			<Footer />
 		</div>
 	);
 }

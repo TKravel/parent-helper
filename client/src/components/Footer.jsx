@@ -6,8 +6,8 @@ function Footer() {
 
 	return (
 		<p id='footer'>
-			<span dangerouslySetInnerHTML={{ __html: '&copy' }}></span>{' '}
-			TKDevDesign.com {year}
+			<span dangerouslySetInnerHTML={{ __html: '&copy' }}></span> {year}{' '}
+			TKDevDesign.com
 		</p>
 	);
 }
