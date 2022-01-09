@@ -18,7 +18,7 @@ img {
 }
 
 html {
-	height: 100vh;
+	min-height: 100vh;
 	width: 100vw;
 	line-height: 1.5em;
 }
@@ -42,6 +42,7 @@ body {
 	border-bottom: 0.5em solid #4250a3;
 	font-family: 'inter', Helvetica, Candara;
 	font-weight: 600;
+	min-height: 100vh;
 	max-width: 100vw;
 }
 
