@@ -5,52 +5,45 @@ import SaveButton from '../SaveButton';
 import useSave from '../../../hooks/useSave';
 import validate from '../foodSection/validateFood';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useSelector, useDispatch } from 'react-redux';
+import { addFood, removeFood } from '../../../features/daysSlice';
 
-function FoodInput({
-	sectionData,
-	setMainState,
-	onFoodChange,
-	isEditing,
-	cachedData,
-	setCachedData,
-}) {
+function FoodInput({ isEditing }) {
 	const sectionName = 'food';
-	const { errors, handleSubmit } = useSave(
-		sectionName,
-		sectionData,
-		setMainState,
-		cachedData,
-		setCachedData,
-		isEditing,
-		validate
-	);
+	const foodList = useSelector((state) => state.days.data.arr[0].food);
+	console.log(foodList);
+	const dispatch = useDispatch();
+	// const { errors, handleSubmit } = useSave(
+	// 	sectionName,
+	// 	sectionData,
+	// 	setMainState,
+	// 	cachedData,
+	// 	setCachedData,
+	// 	isEditing,
+	// 	validate
+	// );
 	const [foodInput, setFoodInput] = useState('');
+	const [hasBeenEdited, setHasBeenEdited] = useState(0);
 
-	if (errors) {
-		console.log(errors);
-	}
+	// if (errors) {
+	// 	console.log(errors);
+	// }
 
 	function handleChange(e) {
 		const inputData = e.target.value;
 		setFoodInput(inputData);
 	}
 
-	function handleClick(e) {
-		const section = 'food';
-		const data = foodInput[0].toUpperCase() + foodInput.slice(1);
-		onFoodChange(section, data.trim());
+	function handleClick() {
+		const newItem = foodInput[0].toUpperCase() + foodInput.slice(1);
+		dispatch(addFood(newItem));
+		hasBeenEdited < 1 && setHasBeenEdited(1);
 		setFoodInput('');
-		e.preventDefault();
 	}
 
 	function handleDelete(e) {
-		e.preventDefault();
-		const index = e.currentTarget.getAttribute('index');
-		const section = 'foodItemDelete';
-		const state = sectionData;
-		const delItem = state.splice(index, 1);
-		console.log('Item deleted: ', delItem);
-		onFoodChange(section, state);
+		const itemToDelete = e.currentTarget.getAttribute('index');
+		dispatch(removeFood(itemToDelete));
 	}
 
 	return (
@@ -67,10 +60,10 @@ function FoodInput({
 						stateData={foodInput}
 					/>
 					<ul className='listTextField'>
-						{sectionData.length === 0 ? (
+						{foodList === 0 ? (
 							<li>No data to show</li>
 						) : (
-							sectionData.map((food, index) => {
+							foodList.map((food, index) => {
 								return (
 									<li key={index} index={index}>
 										{food}
@@ -89,10 +82,10 @@ function FoodInput({
 				</div>
 				<SaveButton
 					name='food'
-					stateData={sectionData}
 					isEditing={isEditing}
-					cachedData={cachedData}
-					handleSubmit={handleSubmit}
+					disabledStatus={hasBeenEdited}
+					setDisabledStatus={setHasBeenEdited}
+					// handleSubmit={handleSubmit}
 				/>
 			</div>
 		</div>

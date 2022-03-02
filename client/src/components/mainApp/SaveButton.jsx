@@ -1,25 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
-function SaveButton({ name, stateData, isEditing, cachedData, handleSubmit }) {
+function SaveButton({ isEditing, disabledStatus, handleSubmit }) {
 	const [isDisabled, setIsDisabled] = useState(true);
 
 	// Set disabled button state by comparing appState to db data for changes
 	useEffect(() => {
-		if (cachedData.length !== 0) {
-			const indexNum = parseInt(isEditing.cacheDbDataIndex);
-			let cachedState = cachedData.filter(
-				(item, index) => index === indexNum
-			);
-			let storedData = cachedState[0][name];
-			if (storedData !== undefined) {
-				if (JSON.stringify(stateData) === JSON.stringify(storedData)) {
-					setIsDisabled(true);
-				} else {
-					setIsDisabled(false);
-				}
-			}
-		}
-	}, [[stateData]]);
+		disabledStatus === 0 ? setIsDisabled(true) : setIsDisabled(false);
+	}, [disabledStatus]);
 
 	return (
 		<>

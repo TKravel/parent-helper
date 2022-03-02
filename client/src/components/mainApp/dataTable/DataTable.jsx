@@ -11,6 +11,7 @@ import {
 	displayDate,
 } from '../../../dateTimeHelpers';
 import Modal from './Modal';
+import { useSelector } from 'react-redux';
 
 // Make db data displayable
 function flatenData(fetchedData) {
@@ -76,6 +77,7 @@ function flatenData(fetchedData) {
 }
 
 function DataTable({ edit, fetchedData, currentPage, setPage, pageCount }) {
+	const daysData = useSelector((state) => state.days.data.arr);
 	// Displayable table data
 	const [dataRecords, setData] = useState([]);
 	// Modal state
@@ -86,7 +88,7 @@ function DataTable({ edit, fetchedData, currentPage, setPage, pageCount }) {
 
 	// Check for table data, setState if empty
 	if (dataRecords.length === 0) {
-		let readyData = flatenData(fetchedData);
+		let readyData = flatenData(daysData);
 		setData(readyData);
 	}
 

@@ -17,11 +17,17 @@ import {
 import { getCurrentDate } from '../../dateTimeHelpers';
 import Loader from 'react-loader-spinner';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { populateStore, fetchDays } from '../../features/daysSlice';
 
 library.add(faPlus, faMinus, faEdit, faTimes, faExpand);
 
 function MainApp() {
 	const { user } = useContext(UserContext);
+	const dispatch = useDispatch();
+	const loadingStatus = useSelector((state) => state.days.status);
+	console.log(loadingStatus);
+	const data = useSelector((state) => state.days.data);
 
 	// Section display state
 	const [display, setDisplay] = useState({
@@ -118,49 +124,59 @@ function MainApp() {
 	useEffect(() => {
 		const data = {
 			page: page,
+			auth: user.auth,
 		};
-		fetch('/api/userData', {
-			method: 'POST',
-			headers: {
-				authorization: user.auth,
-				'content-type': 'application/json',
-			},
-			body: JSON.stringify(data),
-		})
-			.then((res) => res.json())
-			.then((data) => {
-				if (data.arr) {
-					setDbData(() => {
-						return data.arr;
-					});
-					setAppState(() => {
-						const clone = JSON.parse(JSON.stringify(data.arr[0]));
-						return clone;
-					});
-				}
-				setPageCount(data.count);
-				setLoading({
-					isLoading: false,
-				});
-				page === 1
-					? setEditingState((prevValue) => {
-							return {
-								...prevValue,
-								status: false,
-								id: data.arr[0]._id,
-								cacheDbDataIndex: 0,
-							};
-					  })
-					: setEditingState((prevValue) => {
-							return {
-								...prevValue,
-								status: true,
-								id: data.arr[0]._id,
-								cacheDbDataIndex: 0,
-							};
-					  });
-			});
-	}, [editingState.reloadTable, user.auth, page]);
+		if (loadingStatus === 'idle') {
+			dispatch(fetchDays(data));
+		} else if (loadingStatus === 'loading') {
+			setLoading(true);
+		} else if (loadingStatus === 'succeeded') {
+			setLoading(false);
+		}
+
+		// fetch('/api/userData', {
+		// 	method: 'POST',
+		// 	headers: {
+		// 		authorization: user.auth,
+		// 		'content-type': 'application/json',
+		// 	},
+		// 	body: JSON.stringify(data),
+		// })
+		// 	.then((res) => res.json())
+		// 	.then((data) => {
+		// 		if (data.arr) {
+		// 			dispatch(populateStore(data.arr));
+		// 			setDbData(() => {
+		// 				return data.arr;
+		// 			});
+		// 			setAppState(() => {
+		// 				const clone = JSON.parse(JSON.stringify(data.arr[0]));
+		// 				return clone;
+		// 			});
+		// 		}
+		// 		setPageCount(data.count);
+		// 		setLoading({
+		// 			isLoading: false,
+		// 		});
+		// 		page === 1
+		// 			? setEditingState((prevValue) => {
+		// 					return {
+		// 						...prevValue,
+		// 						status: false,
+		// 						id: data.arr[0]._id,
+		// 						cacheDbDataIndex: 0,
+		// 					};
+		// 			  })
+		// 			: setEditingState((prevValue) => {
+		// 					return {
+		// 						...prevValue,
+		// 						status: true,
+		// 						id: data.arr[0]._id,
+		// 						cacheDbDataIndex: 0,
+		// 					};
+		// 			  });
+		// 	});
+	}, [loadingStatus]);
 
 	// Load input section with edit selection
 	function loadEdit(e) {
@@ -218,7 +234,7 @@ function MainApp() {
 
 	return (
 		<>
-			{loading.isLoading === true ? (
+			{loading ? (
 				<div className='loaderContainer'>
 					<Loader
 						className='loader'
