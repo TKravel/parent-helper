@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import TextInput from '../TextInput';
-import Header from '../../Header';
+import { TextInput } from '../TextInput';
+import { SectionHeader } from '../../SectionHeader';
 import SaveButton from '../SaveButton';
 import useSave from '../../../hooks/useSave';
 import validate from './validateNotes';
@@ -8,10 +8,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
 import { addNote, removeNote } from '../../../features/daysSlice';
 
-function NotesSection({ isEditing }) {
+export const NotesSection = ({ isEditing }) => {
 	const sectionName = 'notes';
 	const dispatch = useDispatch();
-	const noteData = useSelector((state) => state.days.data.arr[0].notes);
+	const day = isEditing.dataIndex;
+	const noteData = useSelector((state) => state.days.data.arr[day].notes);
 	const { errors, handleSubmit } = useSave(
 		sectionName,
 		noteData,
@@ -24,27 +25,27 @@ function NotesSection({ isEditing }) {
 		console.log(errors);
 	}
 
-	function handleChange(e) {
+	const handleChange = (e) => {
 		const inputData = e.target.value;
 		setNotesInput(inputData);
-	}
+	};
 
-	function handleClick(e) {
+	const handleClick = (e) => {
 		const section = 'notes';
 		const data = notesInput[0].toUpperCase() + notesInput.slice(1);
 		dispatch(addNote(data.trim()));
 		setNotesInput('');
 		e.preventDefault();
-	}
+	};
 
-	function handleDelete(e) {
+	const handleDelete = (e) => {
 		const idxToDelete = e.currentTarget.getAttribute('index');
 		dispatch(removeNote(idxToDelete));
-	}
+	};
 
 	return (
 		<div id='notesSection'>
-			<Header headerText='Note tracker' />
+			<SectionHeader headerText='Note tracker' />
 			<div className='mainCardInput'>
 				<div className='textInputContainer'>
 					<TextInput
@@ -84,6 +85,6 @@ function NotesSection({ isEditing }) {
 			</div>
 		</div>
 	);
-}
+};
 
 export default NotesSection;

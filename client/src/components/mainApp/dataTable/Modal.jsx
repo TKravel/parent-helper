@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import reactDOM from 'react-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-function Modal({ toggleModal, isOpen, data }) {
+export const Modal = ({ toggleModal, isOpen, data }) => {
 	useEffect(() => {
 		if (isOpen) {
 			document.body.style.overflow = 'hidden';
@@ -37,6 +37,4 @@ function Modal({ toggleModal, isOpen, data }) {
 		</div>,
 		document.getElementById('table-modal')
 	);
-}
-
-export default Modal;
+};

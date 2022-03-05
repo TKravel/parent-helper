@@ -1,6 +1,6 @@
 import React from 'react';
-import Counter from './Counter';
-import Header from '../../Header';
+import { Counter } from './Counter';
+import { SectionHeader } from '../../SectionHeader';
 import SaveButton from '../SaveButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPoo } from '@fortawesome/free-solid-svg-icons';
@@ -8,9 +8,10 @@ import useSave from '../../../hooks/useSave';
 import validate from '../poopSection/validatePoop';
 import { useSelector } from 'react-redux';
 
-function PottySection({ isEditing }) {
+export const PottySection = ({ isEditing }) => {
 	const sectionName = 'poop';
-	const poopData = useSelector((state) => state.days.data.arr[0].poop);
+	const day = isEditing.dataIndex;
+	const poopData = useSelector((state) => state.days.data.arr[day].poop);
 	const { errors, handleSubmit } = useSave(
 		sectionName,
 		poopData,
@@ -24,7 +25,7 @@ function PottySection({ isEditing }) {
 
 	return (
 		<div id='pottySection'>
-			<Header headerText='Poop tracker' />
+			<SectionHeader headerText='Poop tracker' />
 			<div className='mainCardInput'>
 				<div id='poopInputContainer'>
 					<div id='poopDisplay'>
@@ -38,7 +39,10 @@ function PottySection({ isEditing }) {
 						)}
 					</div>
 					<div id='poopCounterControls'>
-						<Counter currentCount={poopData} />
+						<Counter
+							currentCount={poopData}
+							isEditing={isEditing}
+						/>
 					</div>
 				</div>
 				<SaveButton
@@ -50,6 +54,4 @@ function PottySection({ isEditing }) {
 			</div>
 		</div>
 	);
-}
-
-export default PottySection;
+};

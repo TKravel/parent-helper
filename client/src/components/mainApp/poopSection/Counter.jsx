@@ -3,20 +3,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch } from 'react-redux';
 import { incrementPoop, decrementPoop } from '../../../features/daysSlice';
 
-function Counter({ currentCount }) {
+export const Counter = ({ currentCount, isEditing }) => {
 	const dispatch = useDispatch();
-	function increaseCount() {
-		console.log('clicked');
-		dispatch(incrementPoop());
-	}
+	const dayIndex = isEditing.dataIndex;
+	const increaseCount = () => {
+		dispatch(incrementPoop({ day: dayIndex }));
+	};
 
-	function decreaseCount() {
+	const decreaseCount = () => {
 		if (currentCount === 0) {
 			return;
 		} else {
-			dispatch(decrementPoop());
+			dispatch(decrementPoop({ day: dayIndex }));
 		}
-	}
+	};
 
 	return (
 		<>
@@ -29,6 +29,4 @@ function Counter({ currentCount }) {
 			</button>
 		</>
 	);
-}
-
-export default Counter;
+};

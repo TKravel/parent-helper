@@ -2,10 +2,11 @@ import React from 'react';
 import { displayDate, getCurrentDate } from '../../dateTimeHelpers';
 import { useSelector } from 'react-redux';
 
-function UserInputNav({ updateDisplay, isEditing, closeEditer }) {
-	const dateOfDay = useSelector((state) => state.days.data.arr[0].date);
+export const UserInputNav = ({ updateDisplay, isEditing, closeEditer }) => {
+	const day = isEditing.dataIndex;
+	const dateOfDay = useSelector((state) => state.days.data.arr[day].date);
 	// Input section display
-	function handleClick(e) {
+	const handleClick = (e) => {
 		e.preventDefault();
 		const selection = e.target.name;
 
@@ -45,11 +46,11 @@ function UserInputNav({ updateDisplay, isEditing, closeEditer }) {
 			default:
 				console.error();
 		}
-	}
+	};
 	// Return to editing todays data
-	function handleClose() {
+	const handleClose = () => {
 		closeEditer();
-	}
+	};
 	return (
 		<div className='userInputNav'>
 			{isEditing.status === false ? (
@@ -76,6 +77,6 @@ function UserInputNav({ updateDisplay, isEditing, closeEditer }) {
 			</button>
 		</div>
 	);
-}
+};
 
 export default UserInputNav;

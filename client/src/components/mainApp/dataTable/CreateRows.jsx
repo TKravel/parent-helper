@@ -1,7 +1,7 @@
 import React from 'react';
-import CreateData from './CreateData';
+import { CreateData } from './CreateData';
 
-function CreateRows({ edit, data, toggleModal }) {
+export const CreateRows = ({ edit, data, toggleModal }) => {
 	return data.map((item, index) => {
 		return (
 			<tr key={index} dataindex={index}>
@@ -15,6 +15,4 @@ function CreateRows({ edit, data, toggleModal }) {
 			</tr>
 		);
 	});
-}
-
-export default CreateRows;
+};

@@ -27,34 +27,31 @@ export const daysSlice = createSlice({
 	initialState,
 	reducers: {
 		addFood: (state, action) => {
-			// Redux Toolkit allows us to write "mutating" logic in reducers. It
-			// doesn't actually mutate the state because it uses the Immer library,
-			// which detects changes to a "draft state" and produces a brand new
-			// immutable state based off those changes
-			state.data.arr[0].food.push(action.payload);
+			state.data.arr[action.payload.day].food.push(action.payload.item);
 		},
 		removeFood: (state, action) => {
 			let removedItem;
-			removedItem = state.data.arr[0].food.splice(action.payload, 1);
-			state.data.arr[0].food = [...state.data.arr[0].food];
+			removedItem = state.data.arr[action.payload.day].food.splice(
+				action.payload.item,
+				1
+			);
+			state.data.arr[action.payload.day].food = [
+				...state.data.arr[action.payload.day].food,
+			];
 		},
 		editSleep: (state, action) => {
-			state.data.arr[0].sleep = {
-				...state.data.arr[0].sleep,
-				...action.payload,
+			state.data.arr[action.payload.day].sleep = {
+				...state.data.arr[action.payload.day].sleep,
+				...action.payload.item,
 			};
 		},
-		incrementPoop: (state) => {
-			state.data.arr[0].poop += 1;
+		incrementPoop: (state, action) => {
+			state.data.arr[action.payload.day].poop += 1;
 		},
-		decrementPoop: (state) => {
-			state.data.arr[0].poop -= 1;
+		decrementPoop: (state, action) => {
+			state.data.arr[action.payload.day].poop -= 1;
 		},
 		addNote: (state, action) => {
-			// Redux Toolkit allows us to write "mutating" logic in reducers. It
-			// doesn't actually mutate the state because it uses the Immer library,
-			// which detects changes to a "draft state" and produces a brand new
-			// immutable state based off those changes
 			state.data.arr[0].notes.push(action.payload);
 		},
 		removeNote: (state, action) => {

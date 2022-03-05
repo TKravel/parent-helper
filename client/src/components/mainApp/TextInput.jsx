@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-function TextInput({
+export const TextInput = ({
 	label,
 	name,
 	placeholder,
 	updateChange,
 	updateState,
 	stateData,
-}) {
+}) => {
 	const [error, setError] = useState({
 		error: false,
 		message: 'Input required',
@@ -55,6 +55,6 @@ function TextInput({
 			) : null}
 		</form>
 	);
-}
+};
 
 export default TextInput;

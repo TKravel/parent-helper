@@ -1,7 +1,5 @@
 import React from 'react';
 
-function Header({ headerText }) {
+export const SectionHeader = ({ headerText }) => {
 	return <h1 className='sectionHeader'>{headerText}</h1>;
-}
-
-export default Header;
+};

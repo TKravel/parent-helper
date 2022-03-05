@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import CreateRows from './CreateRows';
+import { CreateRows } from './CreateRows';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 	faChevronCircleLeft,
@@ -10,15 +10,16 @@ import {
 	calcNapTime,
 	displayDate,
 } from '../../../dateTimeHelpers';
-import Modal from './Modal';
+import { Modal } from './Modal';
 import { useSelector } from 'react-redux';
+import { CreateHeadings } from './CreateHeadings';
 
 // Make db data displayable
-function flatenData(fetchedData) {
+const flatenData = (appData) => {
 	const flatData = [];
 	flatData.length = 0;
 
-	fetchedData.map((item) => {
+	appData.map((item) => {
 		let result = {
 			date: '',
 			food: [],
@@ -74,10 +75,11 @@ function flatenData(fetchedData) {
 	});
 
 	return flatData;
-}
+};
 
-function DataTable({ edit, fetchedData, currentPage, setPage, pageCount }) {
-	const daysData = useSelector((state) => state.days.data.arr);
+export const DataTable = ({ edit, currentPage, setPage }) => {
+	const appData = useSelector((state) => state.days.data.arr);
+	const count = useSelector((state) => state.days.data.count);
 	// Displayable table data
 	const [dataRecords, setData] = useState([]);
 	// Modal state
@@ -88,31 +90,19 @@ function DataTable({ edit, fetchedData, currentPage, setPage, pageCount }) {
 
 	// Check for table data, setState if empty
 	if (dataRecords.length === 0) {
-		let readyData = flatenData(daysData);
+		let readyData = flatenData(appData);
 		setData(readyData);
 	}
 
 	// Check for data updates, handle for display if needed
 	useEffect(() => {
-		if (fetchedData !== undefined) {
-			let readyData = flatenData(fetchedData);
+		if (appData !== undefined) {
+			let readyData = flatenData(appData);
 			setData(readyData);
 		}
-	}, [fetchedData]);
+	}, [appData]);
 
-	function GetHeadings() {
-		const headings = Object.keys(dataRecords[0]);
-
-		return headings.map((item, index) => {
-			if (item === '_id' || item === '__v') {
-				return null;
-			} else {
-				return <th key={index}>{item}</th>;
-			}
-		});
-	}
-
-	function handleModal(e) {
+	const handleModal = (e) => {
 		e.preventDefault();
 		const td = e.currentTarget.parentNode.getAttribute('id');
 		const data = e.currentTarget.parentNode.getAttribute('data-items');
@@ -132,10 +122,10 @@ function DataTable({ edit, fetchedData, currentPage, setPage, pageCount }) {
 		modalData.data = [data];
 
 		isModelOpen ? setIsModalOpen(false) : setIsModalOpen(true);
-	}
+	};
 
 	// Table page changes
-	function handlePage(e) {
+	const handlePage = (e) => {
 		e.preventDefault();
 		let button = e.currentTarget.name;
 
@@ -146,10 +136,10 @@ function DataTable({ edit, fetchedData, currentPage, setPage, pageCount }) {
 		button === 'prev'
 			? setPage((prevValue) => prevValue - 1)
 			: setPage((preValue) => preValue + 1);
-	}
+	};
 
 	// Find max page
-	const maxPage = Math.ceil(pageCount / 7);
+	const maxPage = Math.ceil(count / 7);
 
 	return (
 		<div id='tableContainer'>
@@ -163,13 +153,13 @@ function DataTable({ edit, fetchedData, currentPage, setPage, pageCount }) {
 					<FontAwesomeIcon icon={faChevronCircleLeft} />
 				</button>
 				<p>
-					Page {currentPage} of {Math.ceil(pageCount / 7)}
+					Page {currentPage} of {maxPage < 1 ? 1 : maxPage}
 				</p>
 				<button
 					name='next'
 					className='tableNavbtns'
 					onClick={handlePage}
-					disabled={currentPage === maxPage && true}
+					disabled={currentPage === maxPage || (maxPage < 1 && true)}
 				>
 					<FontAwesomeIcon icon={faChevronCircleRight} />
 				</button>
@@ -177,7 +167,7 @@ function DataTable({ edit, fetchedData, currentPage, setPage, pageCount }) {
 			<table className='dataTable'>
 				<tbody>
 					<tr>
-						<GetHeadings />
+						<CreateHeadings data={dataRecords} />
 					</tr>
 					<CreateRows
 						edit={edit}
@@ -194,6 +184,4 @@ function DataTable({ edit, fetchedData, currentPage, setPage, pageCount }) {
 			/>
 		</div>
 	);
-}
-
-export default DataTable;
+};

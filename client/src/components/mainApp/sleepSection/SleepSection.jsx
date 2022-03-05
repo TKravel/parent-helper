@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Header from '../../Header';
+import { SectionHeader } from '../../SectionHeader';
 import SaveButton from '../SaveButton';
-import SleepInput from './SleepInput';
+import { SleepInput } from './SleepInput';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import validate from './validateSleep';
@@ -9,10 +9,13 @@ import useSave from '../../../hooks/useSave';
 import { useSelector, useDispatch } from 'react-redux';
 import { editSleep } from '../../../features/daysSlice';
 
-function SleepSection({ isEditing }) {
+export const SleepSection = ({ isEditing }) => {
 	const sectionName = 'sleep';
 	const dispatch = useDispatch();
-	const sleepData = useSelector((state) => state.days.data.arr[0].sleep);
+	const dayIndex = isEditing.dataIndex;
+	const sleepData = useSelector(
+		(state) => state.days.data.arr[dayIndex].sleep
+	);
 	const { errors, handleSubmit } = useSave(
 		sectionName,
 		sleepData,
@@ -22,24 +25,24 @@ function SleepSection({ isEditing }) {
 	const [openNap1, setOpenNap1] = useState(false);
 	const [openNap2, setOpenNap2] = useState(false);
 
-	function handleChange(e) {
+	const handleChange = (e) => {
 		const selectedNap = e.target.name;
 		const value = e.target.value;
-		dispatch(editSleep({ [selectedNap]: value }));
+		dispatch(editSleep({ day: dayIndex, item: { [selectedNap]: value } }));
 		e.preventDefault();
-	}
+	};
 
-	function toggleNap1() {
+	const toggleNap1 = () => {
 		setOpenNap1(!openNap1);
-	}
+	};
 
-	function toggleNap2() {
+	const toggleNap2 = () => {
 		setOpenNap2(!openNap2);
-	}
+	};
 
 	return (
 		<div id='sleepSection' className='userInputSection'>
-			<Header headerText='Sleep tracker' />
+			<SectionHeader headerText='Sleep tracker' />
 			<div className='mainCardInput'>
 				<div id='sleepInputContainer'>
 					<SleepInput
@@ -137,6 +140,4 @@ function SleepSection({ isEditing }) {
 			</div>
 		</div>
 	);
-}
-
-export default SleepSection;
+};

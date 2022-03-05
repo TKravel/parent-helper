@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 import { convertTo12HR } from '../../../dateTimeHelpers';
 
-function SleepInput({ name, label, napData, onChange }) {
+export const SleepInput = ({ name, label, napData, onChange }) => {
 	const [display, setDisplay] = useState(false);
 
-	function handleBlur(e) {
+	const handleBlur = (e) => {
 		if (napData !== '--:--') {
 			setDisplay(false);
 			e.preventDefault();
 			console.log(napData);
 		}
-	}
+	};
 
-	function editTime() {
+	const editTime = () => {
 		setDisplay(true);
-	}
+	};
 
 	return (
 		<div>
@@ -44,6 +44,4 @@ function SleepInput({ name, label, napData, onChange }) {
 			)}
 		</div>
 	);
-}
-
-export default SleepInput;
+};

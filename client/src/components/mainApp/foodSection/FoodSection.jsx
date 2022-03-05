@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import TextInput from '../TextInput';
-import Header from '../../Header';
+import { TextInput } from '../TextInput';
+import { SectionHeader } from '../../SectionHeader';
 import SaveButton from '../SaveButton';
 import useSave from '../../../hooks/useSave';
 import validate from '../foodSection/validateFood';
@@ -8,20 +8,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector, useDispatch } from 'react-redux';
 import { addFood, removeFood } from '../../../features/daysSlice';
 
-function FoodInput({ isEditing }) {
+export const FoodSection = ({ isEditing }) => {
 	const sectionName = 'food';
-	const foodList = useSelector((state) => state.days.data.arr[0].food);
-	console.log(foodList);
+	const day = isEditing.dataIndex;
+	const foodList = useSelector((state) => state.days.data.arr[day].food);
 	const dispatch = useDispatch();
-	// const { errors, handleSubmit } = useSave(
-	// 	sectionName,
-	// 	sectionData,
-	// 	setMainState,
-	// 	cachedData,
-	// 	setCachedData,
-	// 	isEditing,
-	// 	validate
-	// );
+	const { errors, handleSubmit } = useSave(
+		sectionName,
+		foodList,
+		isEditing,
+		validate
+	);
 	const [foodInput, setFoodInput] = useState('');
 	const [hasBeenEdited, setHasBeenEdited] = useState(0);
 
@@ -29,26 +26,26 @@ function FoodInput({ isEditing }) {
 	// 	console.log(errors);
 	// }
 
-	function handleChange(e) {
+	const handleChange = (e) => {
 		const inputData = e.target.value;
 		setFoodInput(inputData);
-	}
+	};
 
-	function handleClick() {
+	const handleClick = () => {
 		const newItem = foodInput[0].toUpperCase() + foodInput.slice(1);
-		dispatch(addFood(newItem));
+		dispatch(addFood({ day: day, item: newItem }));
 		hasBeenEdited < 1 && setHasBeenEdited(1);
 		setFoodInput('');
-	}
+	};
 
-	function handleDelete(e) {
+	const handleDelete = (e) => {
 		const itemToDelete = e.currentTarget.getAttribute('index');
-		dispatch(removeFood(itemToDelete));
-	}
+		dispatch(removeFood({ day: day, item: itemToDelete }));
+	};
 
 	return (
 		<div id='foodSection'>
-			<Header headerText='Food tracker' />
+			<SectionHeader headerText='Food tracker' />
 			<div className='mainCardInput'>
 				<div className='fSection'>
 					<TextInput
@@ -60,7 +57,7 @@ function FoodInput({ isEditing }) {
 						stateData={foodInput}
 					/>
 					<ul className='listTextField'>
-						{foodList === 0 ? (
+						{foodList.length === 0 ? (
 							<li>No data to show</li>
 						) : (
 							foodList.map((food, index) => {
@@ -85,11 +82,9 @@ function FoodInput({ isEditing }) {
 					isEditing={isEditing}
 					disabledStatus={hasBeenEdited}
 					setDisabledStatus={setHasBeenEdited}
-					// handleSubmit={handleSubmit}
+					handleSubmit={handleSubmit}
 				/>
 			</div>
 		</div>
 	);
-}
-
-export default FoodInput;
+};

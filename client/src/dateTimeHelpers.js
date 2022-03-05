@@ -22,6 +22,13 @@ function getCurrentDate() {
 	return month + '/' + day + '/' + year;
 }
 
+const convertToDbDateFormat = (date) => {
+	const year = date.slice(4, 6);
+	const month = date.slice(0, 2);
+	const day = date.slice(2, 4);
+	return year + '' + month + '' + day;
+};
+
 // Time helpers
 
 function convertTo12HR(time) {
@@ -54,4 +61,10 @@ function calcNapTime(t1, t2) {
 	}
 }
 
-export { displayDate, getCurrentDate, convertTo12HR, calcNapTime };
+export {
+	displayDate,
+	getCurrentDate,
+	convertToDbDateFormat,
+	convertTo12HR,
+	calcNapTime,
+};
