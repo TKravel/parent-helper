@@ -1,7 +1,9 @@
 import React from 'react';
 import { displayDate, getCurrentDate } from '../../dateTimeHelpers';
+import { useSelector } from 'react-redux';
 
-function UserInputNav({ dateState, updateDisplay, isEditing, closeEditer }) {
+function UserInputNav({ updateDisplay, isEditing, closeEditer }) {
+	const dateOfDay = useSelector((state) => state.days.data.arr[0].date);
 	// Input section display
 	function handleClick(e) {
 		e.preventDefault();
@@ -54,7 +56,7 @@ function UserInputNav({ dateState, updateDisplay, isEditing, closeEditer }) {
 				<p id='currentDate'>{getCurrentDate()}</p>
 			) : (
 				<>
-					<p id='currentDate'>Editing: {displayDate(dateState)}</p>
+					<p id='currentDate'>Editing: {displayDate(dateOfDay)}</p>
 					<button id='closeEditerButton' onClick={handleClose}>
 						Return to today
 					</button>

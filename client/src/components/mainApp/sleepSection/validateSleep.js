@@ -1,4 +1,4 @@
-export default function validate({ sectionData }) {
+const validate = (sectionData) => {
 	let errors = {};
 
 	console.log('validating');
@@ -42,4 +42,6 @@ export default function validate({ sectionData }) {
 	console.log('test', errors);
 
 	return errors;
-}
+};
+
+export default validate;

@@ -1,15 +1,7 @@
 import { useEffect, useState, useContext } from 'react';
 import { UserContext } from './UserContext';
 
-function useSave(
-	name,
-	sectionData,
-	setMainState,
-	cachedData,
-	setCachedData,
-	isEditing,
-	validate
-) {
+function useSave(name, sectionData, isEditing, validate) {
 	const [errors, setErrors] = useState({});
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [type, setType] = useState('');
@@ -17,7 +9,7 @@ function useSave(
 
 	// Check for errors/ edit or save if none
 	useEffect(() => {
-		setErrors(validate({ sectionData }));
+		setErrors(validate(sectionData));
 		if (Object.keys(errors).length === 0 && isSubmitting) {
 			setIsSubmitting(false);
 			type === 'save' ? handleSave() : handleEdit();
@@ -36,20 +28,20 @@ function useSave(
 	}
 
 	// Update appState and fetched db data on save or edit
-	function updateState(doc) {
-		const selection = isEditing.cacheDbDataIndex;
-		setCachedData((prevValues) => {
-			const result = cachedData.map((item, index) => {
-				if (index === parseInt(selection)) {
-					return { ...prevValues[index], [name]: sectionData };
-				} else {
-					return item;
-				}
-			});
-			return result;
-		});
-		setMainState(doc);
-	}
+	// function updateState(doc) {
+	// 	const selection = isEditing.cacheDbDataIndex;
+	// 	setCachedData((prevValues) => {
+	// 		const result = cachedData.map((item, index) => {
+	// 			if (index === parseInt(selection)) {
+	// 				return { ...prevValues[index], [name]: sectionData };
+	// 			} else {
+	// 				return item;
+	// 			}
+	// 		});
+	// 		return result;
+	// 	});
+	// 	setMainState(doc);
+	// }
 
 	function handleSave() {
 		let userToken;
@@ -73,7 +65,6 @@ function useSave(
 			.then((data) => {
 				if (data.document) {
 					console.log('Item saved');
-					updateState(data.document);
 				}
 			})
 			.catch((error) => {
@@ -103,7 +94,6 @@ function useSave(
 			.then((response) => response.json())
 			.then((data) => {
 				if (data.document) {
-					updateState(data.document);
 					console.log('updated state');
 				} else {
 					console.log('no data');

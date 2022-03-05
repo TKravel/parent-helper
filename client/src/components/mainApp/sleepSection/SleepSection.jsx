@@ -6,22 +6,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import validate from './validateSleep';
 import useSave from '../../../hooks/useSave';
+import { useSelector, useDispatch } from 'react-redux';
+import { editSleep } from '../../../features/daysSlice';
 
-function SleepSection({
-	sectionData,
-	setMainState,
-	onNapChange,
-	isEditing,
-	cachedData,
-	setCachedData,
-}) {
+function SleepSection({ isEditing }) {
 	const sectionName = 'sleep';
+	const dispatch = useDispatch();
+	const sleepData = useSelector((state) => state.days.data.arr[0].sleep);
 	const { errors, handleSubmit } = useSave(
 		sectionName,
-		sectionData,
-		setMainState,
-		cachedData,
-		setCachedData,
+		sleepData,
 		isEditing,
 		validate
 	);
@@ -29,9 +23,9 @@ function SleepSection({
 	const [openNap2, setOpenNap2] = useState(false);
 
 	function handleChange(e) {
-		const section = 'sleep';
-		const target = e.target;
-		onNapChange(section, target);
+		const selectedNap = e.target.name;
+		const value = e.target.value;
+		dispatch(editSleep({ [selectedNap]: value }));
 		e.preventDefault();
 	}
 
@@ -51,8 +45,7 @@ function SleepSection({
 					<SleepInput
 						name='wakeUp'
 						label='Wake up:'
-						napData={sectionData.wakeUp}
-						sectionData={sectionData}
+						napData={sleepData.wakeUp}
 						onChange={handleChange}
 					/>
 					{openNap1 === false ? (
@@ -71,7 +64,7 @@ function SleepSection({
 							<SleepInput
 								name='nap1Start'
 								label='Start of nap:'
-								napData={sectionData.nap1Start}
+								napData={sleepData.nap1Start}
 								onChange={handleChange}
 							/>
 							{errors.nap1Start && (
@@ -82,7 +75,7 @@ function SleepSection({
 							<SleepInput
 								name='nap1End'
 								label='End of nap:'
-								napData={sectionData.nap1End}
+								napData={sleepData.nap1End}
 								onChange={handleChange}
 							/>
 							{errors.nap1End && (
@@ -106,7 +99,7 @@ function SleepSection({
 							<SleepInput
 								name='nap2Start'
 								label='Start of nap:'
-								napData={sectionData.nap2Start}
+								napData={sleepData.nap2Start}
 								onChange={handleChange}
 							/>
 							{errors.nap2Start && (
@@ -117,7 +110,7 @@ function SleepSection({
 							<SleepInput
 								name='nap2End'
 								label='End of nap:'
-								napData={sectionData.nap2End}
+								napData={sleepData.nap2End}
 								onChange={handleChange}
 							/>
 							{errors.nap2End && (
@@ -128,7 +121,7 @@ function SleepSection({
 					<SleepInput
 						name='bedTime'
 						label='Bed time:'
-						napData={sectionData.bedTime}
+						napData={sleepData.bedTime}
 						onChange={handleChange}
 					/>
 					{errors.bedTime && (
@@ -137,9 +130,8 @@ function SleepSection({
 				</div>
 				<SaveButton
 					name='sleep'
-					stateData={sectionData}
+					sectionData={sleepData}
 					isEditing={isEditing}
-					cachedData={cachedData}
 					handleSubmit={handleSubmit}
 				/>
 			</div>

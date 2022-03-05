@@ -1,20 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 const initialState = {
-	data: [],
+	data: {},
 	status: 'idle',
 	error: null,
-	// food: [],
-	// sleep: {
-	// 	wakeUp: '00:00',
-	// 	nap1Start: '00:00',
-	// 	nap1End: '00:00',
-	// 	nap2Start: '00:00',
-	// 	nap2End: '00:00',
-	// 	bedTime: '00:00',
-	// },
-	// poop: 0,
-	// notes: [],
 };
 
 export const fetchDays = createAsyncThunk('days/fetchDays', async (data) => {
@@ -37,20 +26,23 @@ export const daysSlice = createSlice({
 	name: 'days',
 	initialState,
 	reducers: {
-		populateStore: (state, action) => {
-			state = action.payload;
-		},
 		addFood: (state, action) => {
 			// Redux Toolkit allows us to write "mutating" logic in reducers. It
 			// doesn't actually mutate the state because it uses the Immer library,
 			// which detects changes to a "draft state" and produces a brand new
 			// immutable state based off those changes
-			state.food = [...state.food, action.payload];
+			state.data.arr[0].food.push(action.payload);
 		},
 		removeFood: (state, action) => {
 			let removedItem;
-			removedItem = state.food.splice(action.payload, 1);
-			state.food = [...state.food];
+			removedItem = state.data.arr[0].food.splice(action.payload, 1);
+			state.data.arr[0].food = [...state.data.arr[0].food];
+		},
+		editSleep: (state, action) => {
+			state.data.arr[0].sleep = {
+				...state.data.arr[0].sleep,
+				...action.payload,
+			};
 		},
 		decrement: (state) => {
 			state.value -= 1;
@@ -81,6 +73,7 @@ export const {
 	populateStore,
 	addFood,
 	removeFood,
+	editSleep,
 	decrement,
 	incrementByAmount,
 } = daysSlice.actions;
