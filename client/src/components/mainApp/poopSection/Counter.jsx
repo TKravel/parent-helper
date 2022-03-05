@@ -1,20 +1,20 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useDispatch } from 'react-redux';
+import { incrementPoop, decrementPoop } from '../../../features/daysSlice';
 
-function Counter({ currentCount, onPoopChange }) {
-	const section = 'poop';
-
+function Counter({ currentCount }) {
+	const dispatch = useDispatch();
 	function increaseCount() {
-		const newCount = currentCount + 1;
-		onPoopChange(section, newCount);
+		console.log('clicked');
+		dispatch(incrementPoop());
 	}
 
 	function decreaseCount() {
 		if (currentCount === 0) {
 			return;
 		} else {
-			const newCount = currentCount - 1;
-			onPoopChange(section, newCount);
+			dispatch(decrementPoop());
 		}
 	}
 

@@ -44,6 +44,12 @@ export const daysSlice = createSlice({
 				...action.payload,
 			};
 		},
+		incrementPoop: (state) => {
+			state.data.arr[0].poop += 1;
+		},
+		decrementPoop: (state) => {
+			state.data.arr[0].poop -= 1;
+		},
 		decrement: (state) => {
 			state.value -= 1;
 		},
@@ -74,6 +80,8 @@ export const {
 	addFood,
 	removeFood,
 	editSleep,
+	incrementPoop,
+	decrementPoop,
 	decrement,
 	incrementByAmount,
 } = daysSlice.actions;
