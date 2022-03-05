@@ -50,11 +50,17 @@ export const daysSlice = createSlice({
 		decrementPoop: (state) => {
 			state.data.arr[0].poop -= 1;
 		},
-		decrement: (state) => {
-			state.value -= 1;
+		addNote: (state, action) => {
+			// Redux Toolkit allows us to write "mutating" logic in reducers. It
+			// doesn't actually mutate the state because it uses the Immer library,
+			// which detects changes to a "draft state" and produces a brand new
+			// immutable state based off those changes
+			state.data.arr[0].notes.push(action.payload);
 		},
-		incrementByAmount: (state, action) => {
-			state.value += action.payload;
+		removeNote: (state, action) => {
+			let removedItem;
+			removedItem = state.data.arr[0].notes.splice(action.payload, 1);
+			state.data.arr[0].notes = [...state.data.arr[0].notes];
 		},
 	},
 	extraReducers(builder) {
@@ -82,8 +88,8 @@ export const {
 	editSleep,
 	incrementPoop,
 	decrementPoop,
-	decrement,
-	incrementByAmount,
+	addNote,
+	removeNote,
 } = daysSlice.actions;
 
 export default daysSlice.reducer;

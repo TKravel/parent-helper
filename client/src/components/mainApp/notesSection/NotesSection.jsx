@@ -5,22 +5,16 @@ import SaveButton from '../SaveButton';
 import useSave from '../../../hooks/useSave';
 import validate from './validateNotes';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useDispatch, useSelector } from 'react-redux';
+import { addNote, removeNote } from '../../../features/daysSlice';
 
-function NotesSection({
-	sectionData,
-	setMainState,
-	onNoteChange,
-	isEditing,
-	cachedData,
-	setCachedData,
-}) {
+function NotesSection({ isEditing }) {
 	const sectionName = 'notes';
+	const dispatch = useDispatch();
+	const noteData = useSelector((state) => state.days.data.arr[0].notes);
 	const { errors, handleSubmit } = useSave(
 		sectionName,
-		sectionData,
-		setMainState,
-		cachedData,
-		setCachedData,
+		noteData,
 		isEditing,
 		validate
 	);
@@ -38,18 +32,14 @@ function NotesSection({
 	function handleClick(e) {
 		const section = 'notes';
 		const data = notesInput[0].toUpperCase() + notesInput.slice(1);
-		onNoteChange(section, data.trim());
+		dispatch(addNote(data.trim()));
 		setNotesInput('');
 		e.preventDefault();
 	}
 
 	function handleDelete(e) {
-		const index = e.currentTarget.getAttribute('index');
-		const section = 'noteItemDelete';
-		const state = sectionData;
-		const delItem = state.splice(index, 1);
-		console.log('Item deleted: ', delItem);
-		onNoteChange(section, state);
+		const idxToDelete = e.currentTarget.getAttribute('index');
+		dispatch(removeNote(idxToDelete));
 	}
 
 	return (
@@ -66,10 +56,10 @@ function NotesSection({
 						stateData={notesInput}
 					/>
 					<ul className='listTextField'>
-						{sectionData.length === 0 ? (
+						{noteData.length === 0 ? (
 							<li>No data to show</li>
 						) : (
-							sectionData.map((note, index) => {
+							noteData.map((note, index) => {
 								return (
 									<li key={index}>
 										{note}
@@ -88,9 +78,7 @@ function NotesSection({
 				</div>
 				<SaveButton
 					name='notes'
-					stateData={sectionData}
 					isEditing={isEditing}
-					cachedData={cachedData}
 					handleSubmit={handleSubmit}
 				/>
 			</div>
