@@ -25,9 +25,9 @@ export const LandingPage = () => {
 	const { user } = useContext(UserContext);
 	const { createDemoUser } = useDemo();
 
-	function handleSignUp() {
+	const handleSignUp = () => {
 		history.push('/register');
-	}
+	};
 
 	if (user) {
 		return <Redirect to='/app' />;
