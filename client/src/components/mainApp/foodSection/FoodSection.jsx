@@ -12,17 +12,13 @@ export const FoodSection = ({ isEditing }) => {
 	const day = isEditing.dataIndex;
 	const foodList = useSelector((state) => state.days.data.arr[day].food);
 	const dispatch = useDispatch();
-	const { errors, handleSubmit } = useSave(
+	const { handleSubmit } = useSave(
 		sectionName,
 		foodList,
 		isEditing,
 		validate
 	);
 	const [foodInput, setFoodInput] = useState('');
-
-	if (errors) {
-		console.log(errors);
-	}
 
 	const handleChange = (e) => {
 		const inputData = e.target.value;

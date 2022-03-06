@@ -27,7 +27,7 @@ export const useSave = (name, sectionData, isEditing, validate) => {
 			handleSave();
 			setIsSubmitting(false);
 		} else {
-			setErrors(validate(sectionData));
+			setErrors(validate({ sectionData }));
 			setIsSubmitting(false);
 		}
 	}, [validate, handleSave, isSubmitting, sectionData]);
