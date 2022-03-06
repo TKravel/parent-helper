@@ -1,4 +1,4 @@
-const validate = (sectionData) => {
+const validate = ({ sectionData }) => {
 	let errors = {};
 
 	// Nap 1 start

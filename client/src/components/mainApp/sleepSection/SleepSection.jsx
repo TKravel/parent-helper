@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { SectionHeader } from '../../SectionHeader';
-import SaveButton from '../SaveButton';
 import { SleepInput } from './SleepInput';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -136,12 +135,6 @@ export const SleepSection = ({ isEditing }) => {
 						<p className='errorMessage'>{errors.bedTime}</p>
 					)}
 				</div>
-				<SaveButton
-					name='sleep'
-					sectionData={sleepData}
-					isEditing={isEditing}
-					handleSubmit={handleSubmit}
-				/>
 			</div>
 		</div>
 	);
