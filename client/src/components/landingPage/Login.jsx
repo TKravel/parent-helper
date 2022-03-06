@@ -11,20 +11,17 @@ export const Login = () => {
 		login,
 		validate
 	);
-
 	const { loginUser, error } = useAuth(values);
-
 	const { user } = useContext(UserContext);
-
 	const history = useHistory();
 
-	function login() {
+	const login = () => {
 		loginUser(values);
-	}
+	};
 
-	function toggleForm() {
+	const toggleForm = () => {
 		history.push('/register');
-	}
+	};
 
 	if (user) {
 		return <Redirect to='/app' />;
