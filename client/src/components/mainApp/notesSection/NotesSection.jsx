@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { TextInput } from '../TextInput';
 import { SectionHeader } from '../../SectionHeader';
-import SaveButton from '../SaveButton';
 import { useSave } from '../../../hooks/useSave';
 import validate from './validateNotes';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,17 +12,13 @@ export const NotesSection = ({ isEditing }) => {
 	const dispatch = useDispatch();
 	const day = isEditing.dataIndex;
 	const noteData = useSelector((state) => state.days.data.arr[day].notes);
-	const { errors, handleSubmit } = useSave(
+	const { handleSubmit } = useSave(
 		sectionName,
 		noteData,
 		isEditing,
 		validate
 	);
 	const [notesInput, setNotesInput] = useState('');
-
-	if (errors) {
-		console.log(errors);
-	}
 
 	const handleChange = (e) => {
 		const inputData = e.target.value;
@@ -78,14 +73,7 @@ export const NotesSection = ({ isEditing }) => {
 						)}
 					</ul>
 				</div>
-				<SaveButton
-					name='notes'
-					isEditing={isEditing}
-					handleSubmit={handleSubmit}
-				/>
 			</div>
 		</div>
 	);
 };
-
-export default NotesSection;
