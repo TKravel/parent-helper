@@ -80,9 +80,12 @@ export const daysSlice = createSlice({
 			state.data.arr[action.payload.day].poop -= 1;
 		},
 		addNote: (state, action) => {
-			state.data.arr[action.payload.day].notes.push(action.payload);
+			state.data.arr[action.payload.dayIndex].notes.push(
+				action.payload.item
+			);
 		},
 		removeNote: (state, action) => {
+			console.log(action.payload);
 			let removedItem;
 			removedItem = state.data.arr[action.payload.dayIndex].notes.splice(
 				action.payload.itemIndex,

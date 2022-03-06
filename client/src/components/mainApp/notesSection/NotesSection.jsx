@@ -25,18 +25,17 @@ export const NotesSection = ({ isEditing }) => {
 		setNotesInput(inputData);
 	};
 
-	const handleClick = (e) => {
-		const data = notesInput[0].toUpperCase() + notesInput.slice(1);
+	const handleClick = () => {
+		const newItem = notesInput[0].toUpperCase() + notesInput.slice(1);
 		handleSubmit();
-		dispatch(addNote({ dayIndex: day, item: data.trim() }));
+		dispatch(addNote({ dayIndex: day, item: newItem }));
 		setNotesInput('');
-		e.preventDefault();
 	};
 
 	const handleDelete = (e) => {
-		const idxToDelete = e.currentTarget.getAttribute('index');
+		const itemToDelete = e.currentTarget.getAttribute('index');
 		handleSubmit();
-		dispatch(removeNote({ dayIndex: day, itemIndex: idxToDelete }));
+		dispatch(removeNote({ dayIndex: day, item: itemToDelete }));
 	};
 
 	return (
