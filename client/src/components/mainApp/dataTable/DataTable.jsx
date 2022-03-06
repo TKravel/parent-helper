@@ -16,12 +16,13 @@ import { fetchPage } from '../../../features/daysSlice';
 import { UserContext } from '../../../hooks/UserContext';
 import { CreateHeadings } from './CreateHeadings';
 
-// Make db data displayable
-const flatenData = (appData) => {
-	const flatData = [];
-	flatData.length = 0;
+// Turn nested object into array containing a single obj to iterate over easier
+const parseData = (appData) => {
+	const displayableData = [];
+	// Clear prev results
+	displayableData.length = 0;
 
-	appData.map((item) => {
+	appData.forEach((item) => {
 		let result = {
 			date: '',
 			food: [],
@@ -73,10 +74,10 @@ const flatenData = (appData) => {
 				result[key] = value;
 			}
 		});
-		flatData.push(result);
+		displayableData.push(result);
 	});
 
-	return flatData;
+	return displayableData;
 };
 
 export const DataTable = ({ edit, setEdit, currentPage, setPage }) => {
@@ -85,30 +86,25 @@ export const DataTable = ({ edit, setEdit, currentPage, setPage }) => {
 	const appData = useSelector((state) => state.days.data.arr);
 	const count = useSelector((state) => state.days.data.count);
 	const pageChange = useSelector((state) => state.days.pageStatus);
-	// Displayable table data
 	const [dataRecords, setData] = useState([]);
-	// Modal state
 	const [isModelOpen, setIsModalOpen] = useState(false);
 	const [modalState, setModalState] = useState({});
-
 	const modalData = {};
 
-	// Check for table data, setState if empty
+	// Check for parsed table data, parse if empty
 	if (dataRecords.length === 0) {
-		let readyData = flatenData(appData);
-		setData(readyData);
+		setData(parseData(appData));
 	}
 
-	// Check for data updates, handle for display if needed
+	// Update table on state updates
 	useEffect(() => {
 		if (appData !== undefined) {
-			let readyData = flatenData(appData);
-			setData(readyData);
+			setData(parseData(appData));
 		}
 	}, [appData]);
 
+	// Handle modal and modal data
 	const handleModal = (e) => {
-		e.preventDefault();
 		const td = e.currentTarget.parentNode.getAttribute('id');
 		const data = e.currentTarget.parentNode.getAttribute('data-items');
 		const date = e.currentTarget.parentNode.getAttribute('data-date');
@@ -129,7 +125,7 @@ export const DataTable = ({ edit, setEdit, currentPage, setPage }) => {
 		isModelOpen ? setIsModalOpen(false) : setIsModalOpen(true);
 	};
 
-	// Table page changes
+	// Table pagination
 	const prevPage = () => {
 		const data = {
 			page: currentPage - 1,
@@ -156,6 +152,7 @@ export const DataTable = ({ edit, setEdit, currentPage, setPage }) => {
 		button === 'prev' ? prevPage() : nextPage();
 	};
 
+	// On successful page change update editing information
 	useEffect(() => {
 		if (pageChange === 'succeeded') {
 			if (currentPage === 1) {
@@ -172,9 +169,9 @@ export const DataTable = ({ edit, setEdit, currentPage, setPage }) => {
 				});
 			}
 		}
-	}, [pageChange]);
+	}, [pageChange, setEdit, currentPage, appData]);
 
-	// Find max page
+	// Find max page number based on document count
 	const maxPage = Math.ceil(count / 7);
 
 	return (

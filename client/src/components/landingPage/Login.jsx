@@ -15,9 +15,9 @@ export const Login = () => {
 	const { user } = useContext(UserContext);
 	const history = useHistory();
 
-	const login = () => {
+	function login() {
 		loginUser(values);
-	};
+	}
 
 	const toggleForm = () => {
 		history.push('/register');
