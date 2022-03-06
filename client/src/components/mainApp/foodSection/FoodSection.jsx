@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { TextInput } from '../TextInput';
 import { SectionHeader } from '../../SectionHeader';
-import SaveButton from '../SaveButton';
 import { useSave } from '../../../hooks/useSave';
 import validate from '../foodSection/validateFood';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -20,11 +19,10 @@ export const FoodSection = ({ isEditing }) => {
 		validate
 	);
 	const [foodInput, setFoodInput] = useState('');
-	const [saving, setSaving] = useState(false);
 
-	// if (errors) {
-	// 	console.log(errors);
-	// }
+	if (errors) {
+		console.log(errors);
+	}
 
 	const handleChange = (e) => {
 		const inputData = e.target.value;
@@ -78,13 +76,6 @@ export const FoodSection = ({ isEditing }) => {
 						)}
 					</ul>
 				</div>
-				{/* <SaveButton
-					name='food'
-					isEditing={isEditing}
-					disabledStatus={hasBeenEdited}
-					setDisabledStatus={setHasBeenEdited}
-					handleSubmit={handleSubmit}
-				/> */}
 			</div>
 		</div>
 	);
