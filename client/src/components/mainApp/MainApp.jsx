@@ -18,7 +18,7 @@ import { convertToDbDateFormat, getCurrentDate } from '../../dateTimeHelpers';
 import Loader from 'react-loader-spinner';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchDays, fetchPage } from '../../features/daysSlice';
+import { fetchDays } from '../../features/daysSlice';
 
 library.add(faPlus, faMinus, faEdit, faTimes, faExpand);
 
@@ -49,22 +49,7 @@ function MainApp() {
 	// Page state
 	const [page, setPage] = useState(1);
 
-	// useEffect(() => {
-	// 	if (page === 1) {
-	// 		setEditingState((prevValues) => {
-	// 			return {
-	// 				status: false,
-	// 				id: appData[0]._id,
-	// 				dataIndex: 0,
-	// 			};
-	// 		});
-	// 	} else {
-	// 		setEditingState(() => {
-	// 			return { status: true, id: appData[0]._id, dataIndex: 0 };
-	// 		});
-	// 	}
-	// }, [page]);
-
+	// Fetch data on load
 	useEffect(() => {
 		const data = {
 			page: page,
@@ -111,17 +96,24 @@ function MainApp() {
 				});
 			}
 		}
-		console.log(editingState);
 	}
 
 	// Return to editing today
 	function closeEditerButton() {
 		if (page !== 1) {
 			const data = {
-				page: page,
+				page: 1,
 				auth: user.auth,
 			};
 			dispatch(fetchDays(data));
+			setEditingState((prevValues) => {
+				return {
+					status: false,
+					id: appData[0]._id,
+					dataIndex: 0,
+				};
+			});
+			setPage(1);
 		} else {
 			setEditingState((prevValues) => {
 				return {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { CreateRows } from './CreateRows';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -153,7 +153,7 @@ export const DataTable = ({ edit, setEdit, currentPage, setPage }) => {
 	};
 
 	// On successful page change update editing information
-	useEffect(() => {
+	const handlePageChangeStatus = useCallback(() => {
 		if (pageChange === 'succeeded') {
 			if (currentPage === 1) {
 				setEdit({
@@ -169,7 +169,11 @@ export const DataTable = ({ edit, setEdit, currentPage, setPage }) => {
 				});
 			}
 		}
-	}, [pageChange, setEdit, currentPage, appData]);
+	}, [pageChange, currentPage, setEdit]);
+
+	useEffect(() => {
+		handlePageChangeStatus();
+	}, [pageChange, handlePageChangeStatus]);
 
 	// Find max page number based on document count
 	const maxPage = Math.ceil(count / 7);
