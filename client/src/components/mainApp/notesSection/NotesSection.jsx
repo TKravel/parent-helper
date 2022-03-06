@@ -28,7 +28,7 @@ export const NotesSection = ({ isEditing }) => {
 	const handleClick = (e) => {
 		const data = notesInput[0].toUpperCase() + notesInput.slice(1);
 		handleSubmit();
-		dispatch(addNote(data.trim()));
+		dispatch(addNote({ dayIndex: day, item: data.trim() }));
 		setNotesInput('');
 		e.preventDefault();
 	};
@@ -36,7 +36,7 @@ export const NotesSection = ({ isEditing }) => {
 	const handleDelete = (e) => {
 		const idxToDelete = e.currentTarget.getAttribute('index');
 		handleSubmit();
-		dispatch(removeNote(idxToDelete));
+		dispatch(removeNote({ dayIndex: day, itemIndex: idxToDelete }));
 	};
 
 	return (

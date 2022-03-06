@@ -80,12 +80,17 @@ export const daysSlice = createSlice({
 			state.data.arr[action.payload.day].poop -= 1;
 		},
 		addNote: (state, action) => {
-			state.data.arr[0].notes.push(action.payload);
+			state.data.arr[action.payload.day].notes.push(action.payload);
 		},
 		removeNote: (state, action) => {
 			let removedItem;
-			removedItem = state.data.arr[0].notes.splice(action.payload, 1);
-			state.data.arr[0].notes = [...state.data.arr[0].notes];
+			removedItem = state.data.arr[action.payload.dayIndex].notes.splice(
+				action.payload.itemIndex,
+				1
+			);
+			state.data.arr[action.payload.dayIndex].notes = [
+				...state.data.arr[action.payload.dayIndex].notes,
+			];
 		},
 	},
 	extraReducers(builder) {
