@@ -6,6 +6,7 @@ import { incrementPoop, decrementPoop } from '../../../features/daysSlice';
 export const Counter = ({ currentCount, isEditing, handleSubmit }) => {
 	const dispatch = useDispatch();
 	const dayIndex = isEditing.dataIndex;
+
 	const increaseCount = () => {
 		handleSubmit();
 		dispatch(incrementPoop({ day: dayIndex }));

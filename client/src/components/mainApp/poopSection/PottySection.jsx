@@ -1,7 +1,6 @@
 import React from 'react';
 import { Counter } from './Counter';
 import { SectionHeader } from '../../SectionHeader';
-import SaveButton from '../SaveButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPoo } from '@fortawesome/free-solid-svg-icons';
 import { useSave } from '../../../hooks/useSave';
@@ -12,16 +11,12 @@ export const PottySection = ({ isEditing }) => {
 	const sectionName = 'poop';
 	const day = isEditing.dataIndex;
 	const poopData = useSelector((state) => state.days.data.arr[day].poop);
-	const { errors, handleSubmit } = useSave(
+	const { handleSubmit } = useSave(
 		sectionName,
 		poopData,
 		isEditing,
 		validate
 	);
-
-	if (errors) {
-		console.log(errors);
-	}
 
 	return (
 		<div id='pottySection'>
@@ -46,12 +41,6 @@ export const PottySection = ({ isEditing }) => {
 						/>
 					</div>
 				</div>
-				{/* <SaveButton
-					name='poop'
-					sectionData={poopData}
-					isEditing={isEditing}
-					handleSubmit={handleSubmit}
-				/> */}
 			</div>
 		</div>
 	);
