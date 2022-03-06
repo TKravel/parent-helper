@@ -17,7 +17,7 @@ export const SleepInput = ({
 		}
 	};
 
-	const editTime = () => {
+	const openTimeEditer = () => {
 		setDisplay(true);
 	};
 
@@ -39,7 +39,7 @@ export const SleepInput = ({
 				<>
 					<p>
 						{label}
-						<span onClick={editTime}>
+						<span onClick={openTimeEditer}>
 							{napData === '00:00'
 								? napData
 								: convertTo12HR(napData)}
