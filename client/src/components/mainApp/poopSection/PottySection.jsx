@@ -4,7 +4,7 @@ import { SectionHeader } from '../../SectionHeader';
 import SaveButton from '../SaveButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPoo } from '@fortawesome/free-solid-svg-icons';
-import useSave from '../../../hooks/useSave';
+import { useSave } from '../../../hooks/useSave';
 import validate from '../poopSection/validatePoop';
 import { useSelector } from 'react-redux';
 
@@ -42,15 +42,16 @@ export const PottySection = ({ isEditing }) => {
 						<Counter
 							currentCount={poopData}
 							isEditing={isEditing}
+							handleSubmit={handleSubmit}
 						/>
 					</div>
 				</div>
-				<SaveButton
+				{/* <SaveButton
 					name='poop'
 					sectionData={poopData}
 					isEditing={isEditing}
 					handleSubmit={handleSubmit}
-				/>
+				/> */}
 			</div>
 		</div>
 	);

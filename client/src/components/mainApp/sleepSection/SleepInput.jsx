@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
 import { convertTo12HR } from '../../../dateTimeHelpers';
 
-export const SleepInput = ({ name, label, napData, onChange }) => {
+export const SleepInput = ({
+	name,
+	label,
+	napData,
+	onChange,
+	handleSubmit,
+}) => {
 	const [display, setDisplay] = useState(false);
 
-	const handleBlur = (e) => {
+	const handleBlur = () => {
 		if (napData !== '--:--') {
 			setDisplay(false);
-			e.preventDefault();
-			console.log(napData);
+			handleSubmit();
 		}
 	};
 

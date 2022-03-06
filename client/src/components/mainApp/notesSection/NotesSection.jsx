@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { TextInput } from '../TextInput';
 import { SectionHeader } from '../../SectionHeader';
 import SaveButton from '../SaveButton';
-import useSave from '../../../hooks/useSave';
+import { useSave } from '../../../hooks/useSave';
 import validate from './validateNotes';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
@@ -31,8 +31,8 @@ export const NotesSection = ({ isEditing }) => {
 	};
 
 	const handleClick = (e) => {
-		const section = 'notes';
 		const data = notesInput[0].toUpperCase() + notesInput.slice(1);
+		handleSubmit();
 		dispatch(addNote(data.trim()));
 		setNotesInput('');
 		e.preventDefault();
@@ -40,6 +40,7 @@ export const NotesSection = ({ isEditing }) => {
 
 	const handleDelete = (e) => {
 		const idxToDelete = e.currentTarget.getAttribute('index');
+		handleSubmit();
 		dispatch(removeNote(idxToDelete));
 	};
 

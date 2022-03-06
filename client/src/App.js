@@ -5,9 +5,9 @@ import useCheckToken from './hooks/useCheckToken';
 import MainApp from './components/mainApp/MainApp';
 import ProtectedRoute from './components/ProtectedRoute';
 import './index.css';
-import LandingPage from './components/landingPage/LandingPage';
-import Login from './components/landingPage/Login';
-import Register from './components/landingPage/Register';
+import { LandingPage } from './components/landingPage/LandingPage';
+import { Login } from './components/landingPage/Login';
+import { Register } from './components/landingPage/Register';
 import Footer from './components/Footer';
 
 function App() {

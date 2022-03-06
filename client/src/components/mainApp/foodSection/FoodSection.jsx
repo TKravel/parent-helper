@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { TextInput } from '../TextInput';
 import { SectionHeader } from '../../SectionHeader';
 import SaveButton from '../SaveButton';
-import useSave from '../../../hooks/useSave';
+import { useSave } from '../../../hooks/useSave';
 import validate from '../foodSection/validateFood';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector, useDispatch } from 'react-redux';
@@ -20,7 +20,7 @@ export const FoodSection = ({ isEditing }) => {
 		validate
 	);
 	const [foodInput, setFoodInput] = useState('');
-	const [hasBeenEdited, setHasBeenEdited] = useState(0);
+	const [saving, setSaving] = useState(false);
 
 	// if (errors) {
 	// 	console.log(errors);
@@ -33,13 +33,14 @@ export const FoodSection = ({ isEditing }) => {
 
 	const handleClick = () => {
 		const newItem = foodInput[0].toUpperCase() + foodInput.slice(1);
+		handleSubmit();
 		dispatch(addFood({ day: day, item: newItem }));
-		hasBeenEdited < 1 && setHasBeenEdited(1);
 		setFoodInput('');
 	};
 
 	const handleDelete = (e) => {
 		const itemToDelete = e.currentTarget.getAttribute('index');
+		handleSubmit();
 		dispatch(removeFood({ day: day, item: itemToDelete }));
 	};
 
@@ -77,13 +78,13 @@ export const FoodSection = ({ isEditing }) => {
 						)}
 					</ul>
 				</div>
-				<SaveButton
+				{/* <SaveButton
 					name='food'
 					isEditing={isEditing}
 					disabledStatus={hasBeenEdited}
 					setDisabledStatus={setHasBeenEdited}
 					handleSubmit={handleSubmit}
-				/>
+				/> */}
 			</div>
 		</div>
 	);

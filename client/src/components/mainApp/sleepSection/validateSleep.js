@@ -1,8 +1,6 @@
 const validate = (sectionData) => {
 	let errors = {};
 
-	console.log('validating');
-
 	// Nap 1 start
 	if (
 		sectionData.nap1Start !== '00:00' &&
@@ -38,8 +36,6 @@ const validate = (sectionData) => {
 	) {
 		errors.bedTime = 'Must be after last nap';
 	}
-
-	console.log('test', errors);
 
 	return errors;
 };

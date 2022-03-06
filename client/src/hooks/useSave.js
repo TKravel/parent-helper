@@ -1,110 +1,47 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext, useCallback } from 'react';
 import { UserContext } from './UserContext';
+import { saveData } from '../features/daysSlice';
+import { useDispatch } from 'react-redux';
 
-function useSave(name, sectionData, isEditing, validate) {
+export const useSave = (name, sectionData, isEditing, validate) => {
+	const dispatch = useDispatch();
 	const [errors, setErrors] = useState({});
 	const [isSubmitting, setIsSubmitting] = useState(false);
-	const [type, setType] = useState('');
 	const { user } = useContext(UserContext);
 
-	// Check for errors/ edit or save if none
-	useEffect(() => {
-		setErrors(validate(sectionData));
-		if (Object.keys(errors).length === 0 && isSubmitting) {
-			setIsSubmitting(false);
-			type === 'save' ? handleSave() : handleEdit();
-		} else {
-			setIsSubmitting(false);
-		}
-	}, [isSubmitting, type, sectionData]);
-
-	function handleSubmit(e) {
-		e.preventDefault();
-		setType(e.target.name);
-		setErrors({});
-		setErrors(validate({ sectionData }));
-		console.log(errors);
-		setIsSubmitting(true);
-	}
-
-	// Update appState and fetched db data on save or edit
-	// function updateState(doc) {
-	// 	const selection = isEditing.cacheDbDataIndex;
-	// 	setCachedData((prevValues) => {
-	// 		const result = cachedData.map((item, index) => {
-	// 			if (index === parseInt(selection)) {
-	// 				return { ...prevValues[index], [name]: sectionData };
-	// 			} else {
-	// 				return item;
-	// 			}
-	// 		});
-	// 		return result;
-	// 	});
-	// 	setMainState(doc);
-	// }
-
-	function handleSave() {
-		let userToken;
-		if (user) {
-			userToken = user.auth;
-		}
+	// Dispatches call to save data to server
+	const handleSave = useCallback(() => {
 		const data = {
+			auth: user.auth,
 			name: [name],
-			data: sectionData,
-		};
-		console.log(sectionData);
-		fetch('api/userInputSave', {
-			method: 'POST',
-			headers: {
-				authorization: userToken,
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(data),
-		})
-			.then((response) => response.json())
-			.then((data) => {
-				if (data.document) {
-					console.log('Item saved');
-				}
-			})
-			.catch((error) => {
-				console.error('Error:', error);
-			});
-	}
-
-	function handleEdit() {
-		let userToken;
-		if (user) {
-			userToken = user.auth;
-		}
-		const data = {
-			name: [name],
-			data: sectionData,
 			id: isEditing.id,
+			data: sectionData,
 		};
+		dispatch(saveData(data));
+	}, [dispatch, user.auth, isEditing.id, sectionData, name]);
 
-		fetch('api/userInputEdit', {
-			method: 'POST',
-			headers: {
-				authorization: userToken,
-				'Content-Type': 'application/json; charset=utf-8',
-			},
-			body: JSON.stringify(data),
-		})
-			.then((response) => response.json())
-			.then((data) => {
-				if (data.document) {
-					console.log('updated state');
-				} else {
-					console.log('no data');
-				}
-			})
-			.catch((error) => {
-				console.error('Error:', error);
-			});
-	}
+	// Save to database or return obj of errors
+	const saveIfPassesValidation = useCallback(() => {
+		const test = validate({ sectionData });
+		if (Object.keys(test).length === 0 && isSubmitting) {
+			handleSave();
+			setIsSubmitting(false);
+		} else {
+			setErrors(validate(sectionData));
+			setIsSubmitting(false);
+		}
+	}, [validate, handleSave, isSubmitting, sectionData]);
+
+	// Watch for submitting data, pass to validation function
+	useEffect(() => {
+		saveIfPassesValidation();
+	}, [isSubmitting, saveIfPassesValidation]);
+
+	// Clear errors, set submitting state to start validation / db call
+	const handleSubmit = () => {
+		setErrors({});
+		setIsSubmitting(true);
+	};
 
 	return { errors, handleSubmit };
-}
-
-export default useSave;
+};

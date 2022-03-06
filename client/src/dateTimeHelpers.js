@@ -52,6 +52,8 @@ function calcNapTime(t1, t2) {
 
 	if (hours === 0 && minutes === 0) {
 		return '-';
+	} else if (hours < 0 || minutes < 0) {
+		return 'Error';
 	} else if (hours === 0) {
 		return (minutes % 60) + ' mins';
 	} else if (hours === 1) {

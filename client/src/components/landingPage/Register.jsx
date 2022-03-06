@@ -6,7 +6,7 @@ import { UserContext } from '../../hooks/UserContext';
 import { Redirect, useHistory } from 'react-router-dom';
 import registerImg from '../../img/register-img.png';
 
-function Register() {
+export const Register = () => {
 	const { values, errors, handleChange, handleSubmit } = useForm(
 		registerUser,
 		validate
@@ -101,6 +101,4 @@ function Register() {
 			</div>
 		</div>
 	);
-}
-
-export default Register;
+};

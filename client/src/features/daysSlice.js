@@ -3,7 +3,9 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 const initialState = {
 	data: {},
 	status: 'idle',
+	pageStatus: 'idle',
 	error: null,
+	pageError: null,
 };
 
 export const fetchDays = createAsyncThunk('days/fetchDays', async (data) => {
@@ -18,7 +20,33 @@ export const fetchDays = createAsyncThunk('days/fetchDays', async (data) => {
 		},
 		body: JSON.stringify(page),
 	}).then((Response) => Response.json());
-	console.log(res);
+	return res;
+});
+
+export const fetchPage = createAsyncThunk('days/fetchPage', async (data) => {
+	const page = {
+		page: data.page,
+	};
+	const res = await fetch('/api/userData', {
+		method: 'POST',
+		headers: {
+			authorization: data.auth,
+			'content-type': 'application/json',
+		},
+		body: JSON.stringify(page),
+	}).then((Response) => Response.json());
+	return res;
+});
+
+export const saveData = createAsyncThunk('days/userInputEdit', async (data) => {
+	const res = await fetch('/api/userInputEdit', {
+		method: 'POST',
+		headers: {
+			authorization: data.auth,
+			'content-type': 'application/json',
+		},
+		body: JSON.stringify(data),
+	}).then((Response) => Response.json());
 	return res;
 });
 
@@ -73,13 +101,24 @@ export const daysSlice = createSlice({
 			.addCase(fetchDays.rejected, (state, action) => {
 				state.status = 'failed';
 				state.error = action.error.message;
+			})
+			.addCase(fetchPage.pending, (state, action) => {
+				state.pageStatus = 'loading';
+			})
+			.addCase(fetchPage.fulfilled, (state, action) => {
+				state.pageStatus = 'succeeded';
+				// Add any fetched posts to the array
+				state.data = action.payload;
+			})
+			.addCase(fetchPage.rejected, (state, action) => {
+				state.pageStatus = 'failed';
+				state.pageError = action.error.message;
 			});
 	},
 });
 
 // Action creators are generated for each case reducer function
 export const {
-	populateStore,
 	addFood,
 	removeFood,
 	editSleep,

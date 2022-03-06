@@ -18,7 +18,7 @@ import { convertToDbDateFormat, getCurrentDate } from '../../dateTimeHelpers';
 import Loader from 'react-loader-spinner';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchDays } from '../../features/daysSlice';
+import { fetchDays, fetchPage } from '../../features/daysSlice';
 
 library.add(faPlus, faMinus, faEdit, faTimes, faExpand);
 
@@ -42,12 +42,28 @@ function MainApp() {
 	// Editing details
 	const [editingState, setEditingState] = useState({
 		status: false,
-		id: '',
+		id: 0,
 		dataIndex: 0,
 	});
 
 	// Page state
 	const [page, setPage] = useState(1);
+
+	// useEffect(() => {
+	// 	if (page === 1) {
+	// 		setEditingState((prevValues) => {
+	// 			return {
+	// 				status: false,
+	// 				id: appData[0]._id,
+	// 				dataIndex: 0,
+	// 			};
+	// 		});
+	// 	} else {
+	// 		setEditingState(() => {
+	// 			return { status: true, id: appData[0]._id, dataIndex: 0 };
+	// 		});
+	// 	}
+	// }, [page]);
 
 	useEffect(() => {
 		const data = {
@@ -59,6 +75,12 @@ function MainApp() {
 		} else if (status === 'succeeded') {
 			if (loading) {
 				setLoading(false);
+				setEditingState((prevValues) => {
+					return {
+						...prevValues,
+						id: appData[0]._id,
+					};
+				});
 			}
 		}
 	}, [status, dispatch]);
@@ -74,6 +96,7 @@ function MainApp() {
 					return {
 						...prevValues,
 						status: false,
+						id: appData[index]._id,
 						dataIndex: index,
 					};
 				});
@@ -82,11 +105,13 @@ function MainApp() {
 					return {
 						...prevValues,
 						status: true,
+						id: appData[index]._id,
 						dataIndex: index,
 					};
 				});
 			}
 		}
+		console.log(editingState);
 	}
 
 	// Return to editing today
@@ -143,6 +168,7 @@ function MainApp() {
 					</div>
 					<DataTable
 						edit={loadEdit}
+						setEdit={setEditingState}
 						currentPage={page}
 						setPage={setPage}
 					/>

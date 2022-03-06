@@ -6,7 +6,7 @@ import { UserContext } from '../../hooks/UserContext';
 import { Redirect, useHistory } from 'react-router-dom';
 import loginImg from '../../img/login-img.png';
 
-function Login() {
+export const Login = () => {
 	const { values, errors, handleChange, handleSubmit } = useForm(
 		login,
 		validate
@@ -82,6 +82,4 @@ function Login() {
 			</div>
 		</div>
 	);
-}
-
-export default Login;
+};

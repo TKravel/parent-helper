@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { CreateRows } from './CreateRows';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -11,7 +11,9 @@ import {
 	displayDate,
 } from '../../../dateTimeHelpers';
 import { Modal } from './Modal';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchPage } from '../../../features/daysSlice';
+import { UserContext } from '../../../hooks/UserContext';
 import { CreateHeadings } from './CreateHeadings';
 
 // Make db data displayable
@@ -77,9 +79,12 @@ const flatenData = (appData) => {
 	return flatData;
 };
 
-export const DataTable = ({ edit, currentPage, setPage }) => {
+export const DataTable = ({ edit, setEdit, currentPage, setPage }) => {
+	const dispatch = useDispatch();
+	const { user } = useContext(UserContext);
 	const appData = useSelector((state) => state.days.data.arr);
 	const count = useSelector((state) => state.days.data.count);
+	const pageChange = useSelector((state) => state.days.pageStatus);
 	// Displayable table data
 	const [dataRecords, setData] = useState([]);
 	// Modal state
@@ -125,18 +130,49 @@ export const DataTable = ({ edit, currentPage, setPage }) => {
 	};
 
 	// Table page changes
+	const prevPage = () => {
+		const data = {
+			page: currentPage - 1,
+			auth: user.auth,
+		};
+		dispatch(fetchPage(data));
+		setPage((prevValue) => prevValue - 1);
+	};
+	const nextPage = () => {
+		const data = {
+			page: currentPage + 1,
+			auth: user.auth,
+		};
+		dispatch(fetchPage(data));
+		setPage((preValue) => preValue + 1);
+	};
 	const handlePage = (e) => {
-		e.preventDefault();
 		let button = e.currentTarget.name;
 
 		if (currentPage === 1 && button === 'prev') {
 			return;
 		}
 
-		button === 'prev'
-			? setPage((prevValue) => prevValue - 1)
-			: setPage((preValue) => preValue + 1);
+		button === 'prev' ? prevPage() : nextPage();
 	};
+
+	useEffect(() => {
+		if (pageChange === 'succeeded') {
+			if (currentPage === 1) {
+				setEdit({
+					status: false,
+					id: appData[0]._id,
+					dataIndex: 0,
+				});
+			} else {
+				setEdit({
+					status: true,
+					id: appData[0]._id,
+					dataIndex: 0,
+				});
+			}
+		}
+	}, [pageChange]);
 
 	// Find max page
 	const maxPage = Math.ceil(count / 7);

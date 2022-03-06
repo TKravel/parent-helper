@@ -5,7 +5,7 @@ import { SleepInput } from './SleepInput';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import validate from './validateSleep';
-import useSave from '../../../hooks/useSave';
+import { useSave } from '../../../hooks/useSave';
 import { useSelector, useDispatch } from 'react-redux';
 import { editSleep } from '../../../features/daysSlice';
 
@@ -29,7 +29,6 @@ export const SleepSection = ({ isEditing }) => {
 		const selectedNap = e.target.name;
 		const value = e.target.value;
 		dispatch(editSleep({ day: dayIndex, item: { [selectedNap]: value } }));
-		e.preventDefault();
 	};
 
 	const toggleNap1 = () => {
@@ -50,6 +49,7 @@ export const SleepSection = ({ isEditing }) => {
 						label='Wake up:'
 						napData={sleepData.wakeUp}
 						onChange={handleChange}
+						handleSubmit={handleSubmit}
 					/>
 					{openNap1 === false ? (
 						<button onClick={toggleNap1} className='addNapBtn'>
@@ -69,6 +69,7 @@ export const SleepSection = ({ isEditing }) => {
 								label='Start of nap:'
 								napData={sleepData.nap1Start}
 								onChange={handleChange}
+								handleSubmit={handleSubmit}
 							/>
 							{errors.nap1Start && (
 								<p className='errorMessage'>
@@ -80,6 +81,7 @@ export const SleepSection = ({ isEditing }) => {
 								label='End of nap:'
 								napData={sleepData.nap1End}
 								onChange={handleChange}
+								handleSubmit={handleSubmit}
 							/>
 							{errors.nap1End && (
 								<p className='errorMessage'>{errors.nap1End}</p>
@@ -104,6 +106,7 @@ export const SleepSection = ({ isEditing }) => {
 								label='Start of nap:'
 								napData={sleepData.nap2Start}
 								onChange={handleChange}
+								handleSubmit={handleSubmit}
 							/>
 							{errors.nap2Start && (
 								<p className='errorMessage'>
@@ -115,6 +118,7 @@ export const SleepSection = ({ isEditing }) => {
 								label='End of nap:'
 								napData={sleepData.nap2End}
 								onChange={handleChange}
+								handleSubmit={handleSubmit}
 							/>
 							{errors.nap2End && (
 								<p className='errorMessage'>{errors.nap2End}</p>
@@ -126,6 +130,7 @@ export const SleepSection = ({ isEditing }) => {
 						label='Bed time:'
 						napData={sleepData.bedTime}
 						onChange={handleChange}
+						handleSubmit={handleSubmit}
 					/>
 					{errors.bedTime && (
 						<p className='errorMessage'>{errors.bedTime}</p>

@@ -20,7 +20,7 @@ import {
 	faClipboard,
 } from '@fortawesome/free-solid-svg-icons';
 
-function LandingPage() {
+export const LandingPage = () => {
 	const history = useHistory();
 	const { user } = useContext(UserContext);
 	const { createDemoUser } = useDemo();
@@ -185,6 +185,4 @@ function LandingPage() {
 			</div>
 		</div>
 	);
-}
-
-export default LandingPage;
+};
