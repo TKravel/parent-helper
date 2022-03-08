@@ -127,6 +127,7 @@ router.post('/userInputEdit', verify, (req, res, next) => {
 	const data = req.body.data;
 	const dayID = req.body.id;
 	const user = req.id;
+	console.log(req.body);
 
 	DayTracker.findOneAndUpdate(
 		{ _id: dayID, userId: user },

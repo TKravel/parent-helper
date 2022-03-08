@@ -1183,6 +1183,8 @@ tr:nth-child(odd) {
 	border: 2px solid #2d366c;
 	border-radius: 10px;
 	box-shadow: 4px 4px 2px 1px rgba(0, 0, 0, 0.3);
+	background-clip: border-box;
+	overflow: hidden;
 }
 
 @media only screen and (max-width: 500px) {
@@ -1197,8 +1199,7 @@ tr:nth-child(odd) {
 	font-size: 20px;
 	padding-top: 10px;
 	padding-left: 10px;
-	border-top-left-radius: 6px;
-	border-top-right-radius: 6px;
+	margin: -5px;
 	text-transform: capitalize;
 }
 
